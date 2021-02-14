@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "327800809133",
+    "project_id": "laera-b3670",
+    "storage_bucket": "laera-b3670.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327800809133:android:ce743146592193ecf60824",
+        "android_client_info": {
+          "package_name": "com.yuzgulen.laera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "327800809133-tln6vveanc4lc9ho8cnnipclcci83tq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yuzgulen.laera",
+            "certificate_hash": "cb49575e8bd3b9ce6669932b23c1e2d494355202"
+          }
+        },
+        {
+          "client_id": "327800809133-odoqavjdqv9p46005otmum938e80dha2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmhe_p79LGkrtj02xIxWVd2Y3dnXKUAuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "327800809133-odoqavjdqv9p46005otmum938e80dha2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
