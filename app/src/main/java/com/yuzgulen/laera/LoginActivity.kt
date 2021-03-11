@@ -15,8 +15,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -28,15 +27,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        /*
-        next.setOnClickListener { v ->
-            startActivity(Intent(this@LoginActivity,MainActivity::class.java))
-        }
-         */
-
         signInButton.setOnClickListener{signIn()}
-        signOutButton.setOnClickListener{signOut()}
-        disconnectButton.setOnClickListener {revokeAccess()}
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -46,14 +37,12 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
 
-
     }
 
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        updateUI(currentUser)
         if(currentUser != null)
             startActivity(Intent(this@LoginActivity,MainActivity::class.java))
 
@@ -83,25 +72,43 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
+                    Toast.makeText(applicationContext, "Welcome, " + acct.displayName + "!", Toast.LENGTH_SHORT).show()
                     val user = auth.currentUser
-                    updateUI(user)
+
                     database = FirebaseDatabase.getInstance().reference
-                    database.child("user").child(user!!.uid).child("uid").setValue(user.uid)
-                    database.child("user").child(user.uid).child("username").setValue(acct.displayName)
-                    database.child("user").child(user.uid).child("profilePic").setValue(acct.photoUrl.toString())
-                    database.child("user").child(user.uid).child("progressSorting").setValue(0)
-                    database.child("user").child(user.uid).child("progressLists").setValue(25)
-                    database.child("user").child(user.uid).child("progressGraphs").setValue(0)
-                    database.child("user").child(user.uid).child("progressGreedy").setValue(0)
-                    database.child("user").child(user.uid).child("progressBST").setValue(0)
-                    database.child("user").child(user.uid).child("progressHeaps").setValue(0)
-                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                    database.child("user").child(user!!.uid).addListenerForSingleValueEvent(object :
+                        ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot) {
+                            if(p0.childrenCount > 0){
+                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                            }
+                            else{
+                                database.child("user").child(user.uid).child("uid").setValue(user.uid)
+                                database.child("user").child(user.uid).child("username").setValue(acct.displayName)
+                                database.child("user").child(user.uid).child("profilePic").setValue(acct.photoUrl.toString())
+                                database.child("user").child(user.uid).child("progressSorting").setValue("0")
+                                database.child("user").child(user.uid).child("progressLists").setValue("0")
+                                database.child("user").child(user.uid).child("progressGraphs").setValue("0")
+                                database.child("user").child(user.uid).child("progressGreedy").setValue("0")
+                                database.child("user").child(user.uid).child("progressBST").setValue("0")
+                                database.child("user").child(user.uid).child("progressHeaps").setValue("0")
+                                database.child("user").child(user.uid).child("scoreSorting").setValue("0")
+                                database.child("user").child(user.uid).child("scoreLists").setValue("0")
+                                database.child("user").child(user.uid).child("scoreGraphs").setValue("0")
+                                database.child("user").child(user.uid).child("scoreGreedy").setValue("0")
+                                database.child("user").child(user.uid).child("scoreBST").setValue("0")
+                                database.child("user").child(user.uid).child("scoreHeaps").setValue("0")
+                                startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+
+                        }
+                    })
+
                 } else {
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(applicationContext, "Authentication Failed.", Toast.LENGTH_SHORT).show()
-                    updateUI(null)
                 }
             }
     }
@@ -110,36 +117,6 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    private fun signOut() {
-        auth.signOut()
-        googleSignInClient.signOut().addOnCompleteListener(this) {
-            updateUI(null)
-        }
-    }
-
-    private fun revokeAccess() {
-        auth.signOut()
-        googleSignInClient.revokeAccess().addOnCompleteListener(this) {
-            updateUI(null)
-        }
-    }
-
-    private fun updateUI(user: FirebaseUser?) {
-        if (user != null) {
-            status.text = user.email
-            detail.text = user.uid
-
-            signInButton.visibility = View.GONE
-            signOutAndDisconnect.visibility = View.VISIBLE
-        } else {
-            status.text = "Signed out"
-            detail.text = null
-
-            signInButton.visibility = View.VISIBLE
-            signOutAndDisconnect.visibility = View.GONE
-        }
     }
 
     companion object {

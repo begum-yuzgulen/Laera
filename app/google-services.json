@@ -1,20 +1,21 @@
 {
   "project_info": {
-    "project_number": "327800809133",
-    "project_id": "laera-b3670",
-    "storage_bucket": "laera-b3670.appspot.com"
+    "project_number": "99114027462",
+    "firebase_url": "https://laera-305220-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "laera-305220",
+    "storage_bucket": "laera-305220.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:327800809133:android:ce743146592193ecf60824",
+        "mobilesdk_app_id": "1:99114027462:android:1bad8b370c97ffac648ac7",
         "android_client_info": {
           "package_name": "com.yuzgulen.laera"
         }
       },
       "oauth_client": [
         {
-          "client_id": "327800809133-tln6vveanc4lc9ho8cnnipclcci83tq6.apps.googleusercontent.com",
+          "client_id": "99114027462-qsms7u2suramln5rmnoncdkkbdft30mu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.yuzgulen.laera",
@@ -22,20 +23,20 @@
           }
         },
         {
-          "client_id": "327800809133-odoqavjdqv9p46005otmum938e80dha2.apps.googleusercontent.com",
+          "client_id": "99114027462-qpc5or4er2smmdkjlsca5et38lug2qpc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBmhe_p79LGkrtj02xIxWVd2Y3dnXKUAuA"
+          "current_key": "AIzaSyAY7p42_CWsGwz0W1TSgSrWj23bbvfIAbY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "327800809133-odoqavjdqv9p46005otmum938e80dha2.apps.googleusercontent.com",
+              "client_id": "99114027462-qpc5or4er2smmdkjlsca5et38lug2qpc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

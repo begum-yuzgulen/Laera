@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CanvasView">
+        <attr name="startX" format="float"/>
+        <attr name="startY" format="float"/>
+        <attr name="stopX" format="float"/>
+        <attr name="stopY" format="float"/>
+    </declare-styleable>
+</resources>

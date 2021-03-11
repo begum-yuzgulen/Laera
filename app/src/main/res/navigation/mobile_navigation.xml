@@ -8,36 +8,36 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.yuzgulen.laera.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_learn"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.yuzgulen.laera.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_exercise"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.yuzgulen.laera.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_profile"
+        android:name="com.yuzgulen.laera.ui.profile.ProfileFragment"
+        android:label="@string/menu_profile"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/nav_tools"
         android:name="com.yuzgulen.laera.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
+        android:label="@string/menu_leaderboard"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"
         android:name="com.yuzgulen.laera.ui.share.ShareFragment"
-        android:label="@string/menu_share"
+        android:label="@string/menu_rules"
         tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/nav_send"
         android:name="com.yuzgulen.laera.ui.send.SendFragment"
-        android:label="@string/menu_send"
+        android:label="@string/menu_about"
         tools:layout="@layout/fragment_send" />
 </navigation>
