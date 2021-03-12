@@ -11,9 +11,17 @@ import androidx.lifecycle.ViewModelProviders
 import android.graphics.Canvas
 import android.util.Log
 import android.widget.RelativeLayout
-import com.yuzgulen.laera.R
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import kotlinx.android.synthetic.main.fragment_gallery.view.*
+import de.blox.graphview.tree.BuchheimWalkerAlgorithm
+import de.blox.graphview.tree.BuchheimWalkerConfiguration
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import de.blox.graphview.GraphView
+import android.R
+import androidx.annotation.NonNull
+import de.blox.graphview.GraphAdapter
+import de.blox.graphview.Graph
+import de.blox.graphview.Node
 
 
 class GalleryFragment : Fragment() {
@@ -27,25 +35,8 @@ class GalleryFragment : Fragment() {
     ): View? {
         galleryViewModel =
             ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val firstLeft = root.textButton7.left
-        val firstRight = root.textButton7.right
+        val root = inflater.inflate(com.yuzgulen.laera.R.layout.fragment_gallery, container, false)
 
-        val startX = (firstLeft + firstRight) / 2
-        val startY = root.textButton7.bottom
-
-        val secondLeft = root.textButton6.left
-        val secondRight = root.textButton6.right
-
-        val stopX = (secondLeft + secondRight) / 2
-        val stopY = root.textButton6.bottom
-
-        Log.d("COORD", startX.toString())
-        Log.d("COORD", startY.toString())
-        Log.d("COORD", stopX.toString())
-        Log.d("COORD", stopY.toString())
-
-        // root.nodeLayout!!.addView(CanvasView(requireContext()))
         return root
     }
 }
