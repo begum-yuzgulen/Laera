@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/exerciseLayout"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical">
@@ -10,8 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="20sp">
+        android:gravity="center">
 
         <Button
             android:id="@+id/textButton1"
@@ -23,13 +23,27 @@
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
+        <com.yuzgulen.laera.ui.exercise.CanvasView
+            android:id="@+id/edge1"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <com.yuzgulen.laera.ui.exercise.CanvasView
+            android:id="@+id/edge2"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="20dp">
+        android:gravity="center">
 
         <Button
             android:id="@+id/textButton2"
@@ -61,6 +75,35 @@
             android:text="14"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="4">
+
+        <com.yuzgulen.laera.ui.exercise.CanvasView
+            android:id="@+id/edge3"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+        <com.yuzgulen.laera.ui.exercise.CanvasView
+            android:id="@+id/edge4"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="20dp" />
+        <com.yuzgulen.laera.ui.exercise.CanvasView
+            android:id="@+id/edge5"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="20dp" />
+        <com.yuzgulen.laera.ui.exercise.CanvasView
+            android:id="@+id/edge6"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="20dp" />
     </LinearLayout>
 
     <LinearLayout
