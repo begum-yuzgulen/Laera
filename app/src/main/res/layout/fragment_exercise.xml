@@ -77,7 +77,7 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -86,25 +86,21 @@
 
         <com.yuzgulen.laera.ui.exercise.CanvasView
             android:id="@+id/edge3"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_weight="1" />
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
         <com.yuzgulen.laera.ui.exercise.CanvasView
             android:id="@+id/edge4"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="20dp" />
         <com.yuzgulen.laera.ui.exercise.CanvasView
             android:id="@+id/edge5"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="20dp" />
         <com.yuzgulen.laera.ui.exercise.CanvasView
             android:id="@+id/edge6"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="20dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

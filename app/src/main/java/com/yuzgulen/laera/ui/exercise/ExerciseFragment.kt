@@ -28,7 +28,7 @@ class ExerciseFragment : Fragment() {
         val startY = button1.top.toFloat()
         val stopX = button2.left.toFloat()
         val stopY = button2.bottom.toFloat()
-        canvas.setCoordinates(startX + 5,startY - 5, stopX - 5,stopY + 5)
+        canvas.setCoordinates(startX,startY, stopX,stopY)
     }
 
     private fun drawEdgeOnRight(button1: TextView, button2: TextView, canvas: CanvasView) {
@@ -36,7 +36,64 @@ class ExerciseFragment : Fragment() {
         val startY = button1.top.toFloat()
         val stopX = button2.right.toFloat()
         val stopY = textButton3.bottom.toFloat()
-        canvas.setCoordinates(startX + 5,startY - 5, stopX - 5,stopY + 5)
+        canvas.setCoordinates(startX,startY, stopX,stopY )
+    }
+
+    private fun drawRandomBinaryTree() {
+        val root = (0..99).random()
+        textButton1.text = root.toString()
+        // left sub tree
+        if ( Math.random() < 0.95) {
+            // root has left child => node2
+            val node2 = (0..99).random()
+            textButton2.text = node2.toString()
+            drawEdgeOnLeft(textButton1, textButton2, edge1)
+            if (Math.random() < 0.7) {
+                // node2 has right child => node4
+                val node4 = (0..99).random()
+                textButton4.text = node4.toString()
+                drawEdgeOnLeft(textButton2, textButton4, edge3)
+            } else {
+                textButton4.visibility = View.INVISIBLE
+                textButton5.visibility = View.INVISIBLE
+            }
+            if (Math.random() < 0.7) {
+                // node2 has right child => node3
+                val node5 = (0..99).random()
+                textButton5.text = node5.toString()
+                drawEdgeOnRight(textButton2, textButton5, edge4)
+            } else textButton5.visibility = View.INVISIBLE
+        } else {
+            textButton2.visibility = View.INVISIBLE
+            textButton4.visibility = View.INVISIBLE
+            textButton5.visibility = View.INVISIBLE
+        }
+        // right sub tree
+        if ( Math.random() < 0.95 ) {
+            // root has right child => node3
+            val node3 = (0..99).random()
+            textButton3.text = node3.toString()
+            drawEdgeOnRight(textButton1, textButton3, edge2)
+            if ( Math.random() < 0.85 ) {
+                // node3 has left child => node6
+                val node6 = (0..99).random()
+                textButton6.text = node6.toString()
+                drawEdgeOnLeft(textButton3, textButton6, edge5)
+            } else {
+                textButton6.visibility = View.INVISIBLE
+                textButton7.visibility = View.INVISIBLE
+            }
+            if ( Math.random() < 0.7 ) {
+                // node3 has right child => node7
+                val node7 = (0..99).random()
+                textButton7.text = node7.toString()
+                drawEdgeOnRight(textButton3, textButton7, edge6)
+            } else textButton7.visibility = View.INVISIBLE
+        } else {
+            textButton3.visibility = View.INVISIBLE
+            textButton6.visibility = View.INVISIBLE
+            textButton7.visibility = View.INVISIBLE
+        }
     }
 
     override fun onCreateView(
@@ -57,8 +114,7 @@ class ExerciseFragment : Fragment() {
             override fun onGlobalLayout() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
-                drawEdgeOnLeft(textButton1, textButton2, edge1)
-                drawEdgeOnRight(textButton1, textButton3, edge2)
+                drawRandomBinaryTree()
 
             }
         })
