@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.View
 import com.yuzgulen.laera.R
@@ -16,6 +17,7 @@ class CanvasView(context: Context, attributeSet: AttributeSet)
     private var startY: Float = 0f
     private var stopX: Float = 0f
     private var stopY: Float = 0f
+    private var paintColor = Color.BLUE
 
     init {
         val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.CanvasView)
@@ -28,13 +30,9 @@ class CanvasView(context: Context, attributeSet: AttributeSet)
 
     override  fun onDraw(canvas: Canvas) {
         val paint = Paint()
-        paint.color = Color.BLUE
+        paint.color = paintColor
         paint.style = Paint.Style.STROKE
         paint.setStrokeWidth(10.toFloat())
-        val offset = 0
-//        canvas.drawLine(offset.toFloat(), (canvas.height / 2).toFloat(),
-//            (canvas.width - offset).toFloat(),
-//            (canvas.height / 2).toFloat(), paint)
         canvas.drawLine(startX, startY, stopX, stopY, paint)
     }
 
@@ -43,6 +41,12 @@ class CanvasView(context: Context, attributeSet: AttributeSet)
         startY = _startY
         stopX = _stopX
         stopY = _stopY
+        invalidate()
+        requestLayout()
+    }
+
+    fun deleteEdge() {
+        paintColor = Color.WHITE
         invalidate()
         requestLayout()
     }

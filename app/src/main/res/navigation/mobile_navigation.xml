@@ -25,13 +25,18 @@
         tools:layout="@layout/fragment_exercise">
         <argument android:name="selectedItem"  app:argType="string"/>
         <argument android:name="progress" app:argType="string"/>
+
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_exercise"
         android:name="com.yuzgulen.laera.ui.exercise.ExerciseFragment"
         android:label="@string/menu_exercise"
-        tools:layout="@layout/fragment_exercise" />
+        tools:layout="@layout/fragment_exercise">
+        <action
+            android:id="@+id/action_nav_exercise_to_traverseBSTExercise"
+            app:destination="@id/traverseBSTExercise" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"
@@ -56,4 +61,18 @@
         android:name="com.yuzgulen.laera.ui.send.SendFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_send" />
+    <fragment
+        android:id="@+id/traverseBSTExercise"
+        android:name="com.yuzgulen.laera.ui.exercise.categories.bst.TraverseBSTExercise"
+        android:label="TraverseBSTExercise">
+        <action
+            android:id="@+id/action_nav_traverse_to_exercise"
+            app:destination="@id/nav_exercise" />
+        <action
+            android:id="@+id/action_nav_traverse_to_traverse"
+            app:destination="@id/traverseBSTExercise"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/traverseBSTExercise"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>
