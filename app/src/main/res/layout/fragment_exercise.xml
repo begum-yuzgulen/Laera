@@ -7,12 +7,36 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical">
 
-    <Button
-        android:id="@+id/postfix"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:text="Binary Tree Traversal"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_gravity="center_horizontal"
-        android:text="BST Traversal Postfix"/>
+        android:gravity="center">
+        <Button
+            android:id="@+id/preorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Preorder"/>
+        <Button
+            android:id="@+id/inorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Inorder"/>
+        <Button
+            android:id="@+id/postorder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Postorder"/>
+    </LinearLayout>
+
 
 </LinearLayout>

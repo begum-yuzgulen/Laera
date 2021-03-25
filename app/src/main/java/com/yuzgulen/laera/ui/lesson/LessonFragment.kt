@@ -90,9 +90,9 @@ class LessonFragment : Fragment() {
                 }
             }
             6-> {
-//                view!!.findNavController().navigate(
-//                    LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem)
-//                )
+                view!!.findNavController().navigate(
+                    LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem)
+                )
             }
         }
 

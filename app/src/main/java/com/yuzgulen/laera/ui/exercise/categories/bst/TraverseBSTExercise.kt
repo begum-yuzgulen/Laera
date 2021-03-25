@@ -15,14 +15,13 @@ import com.yuzgulen.laera.ui.exercise.CanvasView
 import kotlinx.android.synthetic.main.traverse_bstexercise_fragment.*
 
 
-
-
 class TraverseBSTExercise : Fragment() {
 
     private lateinit var viewModel: TraverseBSTExerciseViewModel
     private lateinit var correctOrder: List<Int>
     var nodes: MutableList<Int> = mutableListOf()
     var addedNodes: MutableSet<Int> = mutableSetOf()
+    private lateinit var traversalType: String
 
     private fun drawEdgeOnLeft(button1: TextView, button2: TextView, canvas: CanvasView) {
         val startX = button1.left.toFloat()
@@ -117,6 +116,7 @@ class TraverseBSTExercise : Fragment() {
     ): View? {
         val root =  inflater.inflate(R.layout.traverse_bstexercise_fragment, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "BST Traversal"
+
         return root
     }
 
@@ -160,8 +160,11 @@ class TraverseBSTExercise : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val args = TraverseBSTExerciseArgs.fromBundle(arguments!!)
+        traversalType = args.traversalType
+        traversal.text = traversalType
         refreshTree.setOnClickListener {
-            view.findNavController().navigate(TraverseBSTExerciseDirections.actionNavTraverseToTraverse())
+            view.findNavController().navigate(TraverseBSTExerciseDirections.actionNavTraverseToTraverse(traversalType))
         }
         view.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
@@ -176,8 +179,8 @@ class TraverseBSTExercise : Fragment() {
                     val correct = checkIfOrderIsCorrect()
                     val resultText = popupView.findViewById<TextView>(R.id.text_view)
                     if(correct) {
-                        resultText.text = "The order is correct"
-                    } else resultText.text = "The order is not correct"
+                        resultText.text = getString(R.string.correct_traversal_order)
+                    } else resultText.text = getString(R.string.wrong_traversal_order)
                     val popupWindow = PopupWindow(
                         popupView, // Custom view to show in popup window
                         LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
@@ -188,7 +191,7 @@ class TraverseBSTExercise : Fragment() {
                     tryAgainButton.setOnClickListener{
                         popupWindow.dismiss()
                         if(correct){
-                            view.findNavController().navigate(TraverseBSTExerciseDirections.actionNavTraverseToTraverse())
+                            view.findNavController().navigate(TraverseBSTExerciseDirections.actionNavTraverseToTraverse(traversalType))
                         }
 
                     }

@@ -31,16 +31,24 @@ class ExerciseFragment : Fragment() {
     ): View? {
         exerciseViewModel =
             ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
-        val root = inflater.inflate(com.yuzgulen.laera.R.layout.fragment_exercise, container, false)
-
-        return root
+        return inflater.inflate(com.yuzgulen.laera.R.layout.fragment_exercise, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postfix.setOnClickListener{
+        preorder.setOnClickListener{
             view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise()
+                ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("preorder")
+            )
+        }
+        inorder.setOnClickListener{
+            view.findNavController().navigate(
+                ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("inorder")
+            )
+        }
+        postorder.setOnClickListener{
+            view.findNavController().navigate(
+                ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("postorder")
             )
         }
 

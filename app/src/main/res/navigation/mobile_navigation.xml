@@ -21,8 +21,12 @@
     <fragment
         android:id="@+id/nav_lesson"
         android:name="com.yuzgulen.laera.ui.lesson.LessonFragment"
-        android:label="@string/menu_exercise"
-        tools:layout="@layout/fragment_exercise">
+        android:label="Learn"
+        tools:layout="@layout/lesson_fragment">
+        <action
+            android:id="@+id/action_lessonFragment_to_quizzFragment"
+            app:destination="@+id/quizFragment"
+            app:popUpTo="@id/nav_home" />
         <argument android:name="selectedItem"  app:argType="string"/>
         <argument android:name="progress" app:argType="string"/>
 
@@ -35,7 +39,9 @@
         tools:layout="@layout/fragment_exercise">
         <action
             android:id="@+id/action_nav_exercise_to_traverseBSTExercise"
-            app:destination="@id/traverseBSTExercise" />
+            app:destination="@id/traverseBSTExercise">
+            <argument android:name="traversalType"  app:argType="string"/>
+        </action>
     </fragment>
 
     <fragment
@@ -65,6 +71,7 @@
         android:id="@+id/traverseBSTExercise"
         android:name="com.yuzgulen.laera.ui.exercise.categories.bst.TraverseBSTExercise"
         android:label="TraverseBSTExercise">
+        <argument android:name="traversalType"  app:argType="string"/>
         <action
             android:id="@+id/action_nav_traverse_to_exercise"
             app:destination="@id/nav_exercise" />
@@ -73,6 +80,39 @@
             app:destination="@id/traverseBSTExercise"
             app:launchSingleTop="true"
             app:popUpTo="@+id/traverseBSTExercise"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true">
+            <argument android:name="traversalType"  app:argType="string"/>
+        </action>
     </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.yuzgulen.laera.ui.quiz.QuizFragment"
+        android:label="QuizFragment">
+        <argument android:name="selectedItem"  app:argType="string"/>
+        <action
+            android:id="@+id/action_quizzFragment_to_winFragment"
+            app:destination="@id/quizResultFragment"
+            app:popUpTo="@+id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizResultFragment"
+        android:name="com.yuzgulen.laera.ui.quiz.QuizResultFragment"
+        android:label="quiz_result_fragment"
+        tools:layout="@layout/quiz_result_fragment">
+        <action
+            android:id="@+id/action_winFragment_to_quizzFragment"
+            app:destination="@id/quizFragment"
+            app:popUpTo="@+id/nav_home" />
+        <action
+            android:id="@+id/action_quizResultFragment_to_homeFragment"
+            app:destination="@id/nav_home"
+            app:popUpTo="@+id/nav_home" />
+        <argument
+            android:name="score"
+            app:argType="integer" />
+        <argument
+            android:name="topic"
+            app:argType="string" />
+    </fragment>
+
 </navigation>
