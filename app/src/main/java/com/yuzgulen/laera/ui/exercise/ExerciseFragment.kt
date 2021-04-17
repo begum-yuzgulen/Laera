@@ -51,7 +51,21 @@ class ExerciseFragment : Fragment() {
                 ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("postorder")
             )
         }
-
+        bubble.setOnClickListener{
+            view.findNavController().navigate(
+                ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Bubble Sort")
+            )
+        }
+        insertion.setOnClickListener{
+            view.findNavController().navigate(
+                ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Insertion Sort")
+            )
+        }
+        selection.setOnClickListener{
+            view.findNavController().navigate(
+                ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Selection Sort")
+            )
+        }
     }
 
 

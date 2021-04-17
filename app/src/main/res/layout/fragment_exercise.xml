@@ -17,6 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:gravity="center">
         <Button
             android:id="@+id/preorder"
@@ -36,6 +37,56 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Postorder"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:text="Array sorting"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:id="@+id/bubble"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Bubble Sort"/>
+        <Button
+            android:id="@+id/insertion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Insertion sort"/>
+        <Button
+            android:id="@+id/selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Selection sort"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:text="Linked list"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:id="@+id/linked_list_insertion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Insertion"/>
     </LinearLayout>
 
 

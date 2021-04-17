@@ -42,6 +42,11 @@
             app:destination="@id/traverseBSTExercise">
             <argument android:name="traversalType"  app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/action_nav_exercise_to_sortingAlgorithms"
+            app:destination="@id/sortingFragment">
+            <argument android:name="selectedItem"  app:argType="string"/>
+        </action>
     </fragment>
 
     <fragment
@@ -113,6 +118,34 @@
         <argument
             android:name="topic"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/sortingFragment"
+        android:name="com.yuzgulen.laera.ui.exercise.categories.sorting.SortingFragment"
+        android:label="SortingFragment">
+        <action
+            android:id="@+id/action_exerciseFragment_to_titleFragment"
+            app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_exerciseFragment_to_exerciseFragment"
+            app:destination="@id/sortingFragment" />
+        <action
+            android:id="@+id/action_exerciseFragment_to_congratsFragment"
+            app:destination="@id/sortingResultFragment" />
+        <argument android:name="selectedItem"  app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/sortingResultFragment"
+        android:name="com.yuzgulen.laera.ui.exercise.categories.sorting.SortingResultFragment"
+        android:label="sorting_result_fragment"
+        tools:layout="@layout/sorting_result_fragment">
+        <action
+            android:id="@+id/action_congratsFragment_to_titleFragment"
+            app:destination="@+id/nav_home"
+            app:popUpTo="@id/nav_exercise" />
+        <action
+            android:id="@+id/action_congratsFragment_to_chooseFragment"
+            app:destination="@+id/nav_exercise" />
     </fragment>
 
 </navigation>
