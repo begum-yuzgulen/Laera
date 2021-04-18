@@ -146,7 +146,7 @@
             android:textColor="@android:color/white"
             android:background="@color/colorAccent"
             android:textSize="20sp"
-            android:layout_width="60dp"
+            android:layout_width="40dp"
             android:layout_height="56dp" />
 
         <Button
@@ -166,7 +166,7 @@
             android:textColor="@android:color/white"
             android:background="@color/colorAccent"
             android:textSize="20sp"
-            android:layout_width="30dp"
+            android:layout_width="40dp"
             android:layout_height="56dp" />
 
         <Button
@@ -186,7 +186,7 @@
             android:textColor="@android:color/white"
             android:background="@color/colorAccent"
             android:textSize="20sp"
-            android:layout_width="60dp"
+            android:layout_width="40dp"
             android:layout_height="56dp" />
 
         <Button

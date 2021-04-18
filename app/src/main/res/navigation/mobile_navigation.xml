@@ -47,6 +47,14 @@
             app:destination="@id/sortingFragment">
             <argument android:name="selectedItem"  app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/action_nav_exercise_to_linkedListExercise"
+            app:destination="@id/linkedListExercise">
+        </action>
+        <action
+            android:id="@+id/action_nav_exercise_to_rightTreeRotation"
+            app:destination="@id/rightTreeRotation">
+        </action>
     </fragment>
 
     <fragment
@@ -147,5 +155,14 @@
             android:id="@+id/action_congratsFragment_to_chooseFragment"
             app:destination="@+id/nav_exercise" />
     </fragment>
+    <fragment
+        android:id="@+id/linkedListExercise"
+        android:name="com.yuzgulen.laera.ui.exercise.categories.linkedlist.LinkedListExercise"
+        android:label="LinkedListExercise" />
+    <fragment
+        android:id="@+id/rightTreeRotation"
+        android:name="com.yuzgulen.laera.ui.exercise.categories.treerotations.right.RightTreeRotation"
+        android:label="right_tree_rotation_fragment"
+        tools:layout="@layout/right_tree_rotation_fragment" />
 
 </navigation>

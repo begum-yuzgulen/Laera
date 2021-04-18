@@ -51,6 +51,11 @@ class ExerciseFragment : Fragment() {
                 ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("postorder")
             )
         }
+        right_tree_rotation.setOnClickListener{
+            view.findNavController().navigate(
+                ExerciseFragmentDirections.actionNavExerciseToRightTreeRotation()
+            )
+        }
         bubble.setOnClickListener{
             view.findNavController().navigate(
                 ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Bubble Sort")
@@ -64,6 +69,12 @@ class ExerciseFragment : Fragment() {
         selection.setOnClickListener{
             view.findNavController().navigate(
                 ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Selection Sort")
+            )
+        }
+
+        linked_list_insertion.setOnClickListener{
+            view.findNavController().navigate(
+                ExerciseFragmentDirections.actionNavExerciseToLinkedListExercise()
             )
         }
     }

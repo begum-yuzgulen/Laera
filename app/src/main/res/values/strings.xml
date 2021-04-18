@@ -19,4 +19,6 @@
     <string name="correct_traversal_order">The order is correct!</string>
     <string name="wrong_traversal_order">The order is NOT correct!</string>
     <string name="congrats"> Congratulations! You have finished the quiz with %d points. </string>
+
+    <string name="right_tree_rotation_task">Right rotate the tree above in order to obtain a balanced tree:</string>
 </resources>

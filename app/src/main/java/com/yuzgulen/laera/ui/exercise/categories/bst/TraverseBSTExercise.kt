@@ -35,7 +35,7 @@ class TraverseBSTExercise : Fragment() {
         val startX = button1.right.toFloat()
         val startY = button1.top.toFloat()
         val stopX = button2.right.toFloat()
-        val stopY = textButton3.bottom.toFloat()
+        val stopY = button2.bottom.toFloat()
         canvas.setCoordinates(startX,startY, stopX,stopY )
     }
 
