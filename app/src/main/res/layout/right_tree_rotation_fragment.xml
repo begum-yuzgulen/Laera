@@ -220,7 +220,6 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@drawable/dash_border"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>
         <RelativeLayout
@@ -250,7 +249,6 @@
                 android:background="@drawable/dash_border"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
             <Button
@@ -268,7 +266,6 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@drawable/dash_border"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -308,7 +305,6 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@drawable/dash_border"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
             <Button
@@ -326,7 +322,6 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@drawable/dash_border"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
             <Button
@@ -344,7 +339,6 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@drawable/dash_border"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
             <Button
@@ -362,7 +356,6 @@
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@drawable/dash_border"
-                android:textColor="@android:color/white"
                 android:textSize="20sp" />
         </LinearLayout>
 

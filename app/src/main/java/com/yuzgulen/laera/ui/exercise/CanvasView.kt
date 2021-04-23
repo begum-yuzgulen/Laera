@@ -36,11 +36,12 @@ class CanvasView(context: Context, attributeSet: AttributeSet)
         canvas.drawLine(startX, startY, stopX, stopY, paint)
     }
 
-    fun setCoordinates(_startX: Float, _startY: Float, _stopX: Float, _stopY: Float) {
+    fun setCoordinates(_startX: Float, _startY: Float, _stopX: Float, _stopY: Float, color: Int = Color.BLUE) {
         startX = _startX
         startY = _startY
         stopX = _stopX
         stopY = _stopY
+        paintColor = color
         invalidate()
         requestLayout()
     }
