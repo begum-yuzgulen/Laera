@@ -8,6 +8,11 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.algorithms.BinaryTree
@@ -20,7 +25,10 @@ import kotlinx.android.synthetic.main.right_tree_rotation_fragment.*
 class RightTreeRotation : Fragment() {
 
     private lateinit var viewModel: RightTreeRotationViewModel
-    private lateinit var correctOrder: List<Int>
+    private lateinit var correctOrder: Array<CharSequence>
+    private lateinit var database: DatabaseReference
+    private lateinit var myRefTries: DatabaseReference
+    private lateinit var myRefFailures: DatabaseReference
     var nodes: MutableList<Int> = mutableListOf()
     var addedNodes: MutableSet<Int> = mutableSetOf()
     private lateinit var traversalType: String
@@ -43,6 +51,13 @@ class RightTreeRotation : Fragment() {
         drawOrDeleteRightEdge(textButton2, textButton5, edge4)
         drawOrDeleteLeftEdge(textButton3, textButton6, edge5)
         drawOrDeleteRightEdge(textButton3, textButton7, edge6)
+        val currentOrder = arrayOf<CharSequence>(
+            textButton1.text,
+            textButton2.text,
+            textButton3.text,
+            textButton6.text,
+            textButton7.text)
+        current_order.text = currentOrder.joinToString()
 
     }
 
@@ -186,6 +201,9 @@ class RightTreeRotation : Fragment() {
         needed_node3.text = node3.toString()
         needed_node3.tag = node3.toString()
         needed_node3.visibility = View.VISIBLE
+
+        correctOrder = arrayOf(s_node2.text, s_node4.text, s_node1.text, s_node5.text, s_node3.text)
+        correct_order.text = correctOrder.joinToString()
     }
 
     override fun onCreateView(
@@ -194,10 +212,17 @@ class RightTreeRotation : Fragment() {
     ): View? {
         val root =  inflater.inflate(R.layout.right_tree_rotation_fragment, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "Binary Tree - Right Rotation"
-
+        database = FirebaseDatabase.getInstance().reference
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser!!
+        myRefTries = database.child("user").child(user.uid).child("right-rotation").child("tries")
+        myRefFailures = database.child("user").child(user.uid).child("right-rotation").child("failures")
         return root
     }
 
+    private fun compareResult(currentOrder: Array<CharSequence>): Boolean {
+        return currentOrder contentEquals correctOrder
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -252,6 +277,32 @@ class RightTreeRotation : Fragment() {
                     rebuildEdges()
                 }
 
+                submit.setOnClickListener {
+                    val tryAgain = "Try again"
+                    val exercises = "Exercises"
+                    val currentOrder = arrayOf<CharSequence>(
+                        textButton1.text,
+                        textButton2.text,
+                        textButton3.text,
+                        textButton6.text,
+                        textButton7.text)
+                    val ok = compareResult(currentOrder)
+
+                    val title = if(ok) "Correct" else "Incorrect"
+                    val message = if(ok) "Congratulations." else "Your response is not correct, but don't give up! Try again!"
+                    myRefTries.setValue(ServerValue.increment(1))
+                    if(!ok) myRefFailures.setValue(ServerValue.increment(1))
+                    MaterialAlertDialogBuilder(context!!)
+                        .setTitle(title)
+                        .setMessage(message)
+                        .setNegativeButton(tryAgain) { dialog, which ->
+                            // Respond to negative button press
+                        }
+                        .setPositiveButton(exercises) { dialog, which ->
+                            // Respond to positive button press
+                        }
+                        .show()
+                }
             }
         })
 
