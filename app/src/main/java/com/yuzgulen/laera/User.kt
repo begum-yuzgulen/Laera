@@ -1,7 +1,9 @@
 package com.yuzgulen.laera
 
+import android.util.Log
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.firestore.DocumentSnapshot
 
 @IgnoreExtraProperties
 data class User(
@@ -41,5 +43,9 @@ data class User(
             "username" to username,
             "profilePic" to profilePic
         )
+    }
+
+    override fun toString() : String {
+        return "User found and retrieved: " + username + uid.toString()
     }
 }
