@@ -13,9 +13,15 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import androidx.fragment.app.FragmentTransaction
+import com.google.firebase.auth.FirebaseAuth
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val fragmentManager = supportFragmentManager
+            val newFragment = SendFeedback()
+            newFragment.show(fragmentManager, "dialog")
+
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -42,6 +50,24 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        if(user != null){
+            changeNavigationHeaderInfo(user.displayName.toString(), user.photoUrl.toString() )
+        }
+    }
+
+    fun changeNavigationHeaderInfo(name :String, profilePic:String?=null,defaultProfile:Boolean=false) {
+        val header = nav_view.getHeaderView(0)
+
+        if(profilePic!=null) {
+            Picasso.get().load(profilePic).into(header.nav_header_pic)
+        }
+        else if(defaultProfile){
+            header.nav_header_pic.setImageResource(R.mipmap.ic_launcher)
+        }
+        header.nav_header_text.text = name
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
