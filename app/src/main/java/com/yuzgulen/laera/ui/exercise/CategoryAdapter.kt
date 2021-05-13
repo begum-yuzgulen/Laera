@@ -1,0 +1,91 @@
+package com.yuzgulen.laera.ui.exercise
+
+import android.content.Context
+import android.content.res.Resources
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.Toast
+import androidx.navigation.findNavController
+import com.example.laera.Topic
+import com.yuzgulen.laera.R
+import com.yuzgulen.laera.Strings
+import kotlinx.android.synthetic.main.category_entry.view.*
+
+internal class CategoryAdapter : BaseAdapter {
+    var categoryList = ArrayList<Category>()
+    var context: Context? = null
+
+    constructor(context: Context, categoryList: ArrayList<Category>) : super() {
+        this.context = context
+        this.categoryList = categoryList
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    }
+
+    override fun getCount(): Int {
+        return categoryList.size
+    }
+
+    override fun getItem(position: Int): String? {
+        return categoryList[position].name
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val categ = this.categoryList[position]
+
+        var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var categoryView = inflator.inflate(R.layout.category_entry, null)
+        categoryView.categoryName.text = categ.name!!
+        categoryView.categoryName.setOnClickListener {
+            when(categ.name!!){
+                Strings.get(R.string.preorder) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("preorder")
+                    )
+                }
+                Strings.get(R.string.inorder) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("inorder")
+                    )
+                }
+                Strings.get(R.string.postorder) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("postorder")
+                    )
+                }
+                Strings.get(R.string.bubbleSort) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(Strings.get(R.string.bubbleSort))
+                    )
+                }
+                Strings.get(R.string.insertionSort) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(Strings.get(R.string.insertionSort))
+                    )
+                }
+                Strings.get(R.string.selectionSort) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(Strings.get(R.string.selectionSort))
+                    )
+                }
+                Strings.get(R.string.rightRotation) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToRightTreeRotation()
+                    )
+                }
+                Strings.get(R.string.linkedListInsertion) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToLinkedListExercise()
+                    )
+                }
+
+            }
+        }
+        return categoryView
+    }
+}

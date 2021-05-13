@@ -21,4 +21,23 @@
     <string name="congrats"> Congratulations! You have finished the quiz with %d points. </string>
 
     <string name="right_tree_rotation_task">Right rotate the tree above in order to obtain a balanced tree:</string>
+
+
+    <!-- Binary Tree Traversal -->
+    <string name="preorder">Preorder</string>
+    <string name="inorder">Inorder</string>
+    <string name="postorder">Postorder</string>
+
+    <!-- Binary Tree Rotation -->
+    <string name="rightRotation">Right Tree Rotation</string>
+    <string name="leftRotation">Left Tree Rotation</string>
+
+    <!-- Array sorting -->
+    <string name="bubbleSort">Bubble Sort</string>
+    <string name="insertionSort">Insertion Sort</string>
+    <string name="selectionSort">Selection Sort</string>
+
+    <!-- Linked Lists -->
+    <string name="linkedListInsertion">Linked list insertion</string>
+
 </resources>

@@ -20,7 +20,7 @@ class QuizFragment : Fragment() {
 
     private lateinit var viewModel: QuizViewModel
     private lateinit var topic:String
-    val database = FirebaseDatabase.getInstance()
+    val database = FirebaseDatabase.getInstance().reference
     var scor : Int = 0
     val rng = Random()
     var generated = ArrayList<Int>()
@@ -81,7 +81,7 @@ class QuizFragment : Fragment() {
             if(!generated.contains(next))
                 generated.add(next)
         }
-        val myRef = database.getReference(topic)
+        val myRef = database.child("lessons").child(topic)
         loadQuestion(myRef, 0,binding, inflater)
         return binding.root
     }

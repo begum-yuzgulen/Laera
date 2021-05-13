@@ -1,28 +1,21 @@
 package com.yuzgulen.laera.ui.exercise
 
-import android.R.attr.button
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.core.content.ContextCompat
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.yuzgulen.laera.R
 import kotlinx.android.synthetic.main.fragment_exercise.*
-import android.R.attr.startX
-import android.opengl.ETC1.getHeight
-import android.view.ViewTreeObserver
-import android.widget.TextView
-import android.widget.Toast
-import androidx.navigation.findNavController
-import com.google.android.material.internal.ViewUtils.addOnGlobalLayoutListener
-import com.yuzgulen.laera.ui.home.HomeFragmentDirections
 
 
 class ExerciseFragment : Fragment() {
 
     private lateinit var exerciseViewModel: ExerciseViewModel
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,52 +24,40 @@ class ExerciseFragment : Fragment() {
     ): View? {
         exerciseViewModel =
             ViewModelProviders.of(this).get(ExerciseViewModel::class.java)
-        return inflater.inflate(com.yuzgulen.laera.R.layout.fragment_exercise, container, false)
+        //(activity as AppCompatActivity).supportActionBar!!.hide()
+        return inflater.inflate(R.layout.fragment_exercise, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        preorder.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("preorder")
-            )
-        }
-        inorder.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("inorder")
-            )
-        }
-        postorder.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToTraverseBSTExercise("postorder")
-            )
-        }
-        right_tree_rotation.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToRightTreeRotation()
-            )
-        }
-        bubble.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Bubble Sort")
-            )
-        }
-        insertion.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Insertion Sort")
-            )
-        }
-        selection.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms("Selection Sort")
-            )
-        }
+        tab_layout.setSelectedTabIndicatorColor(ContextCompat.getColor(context!!, R.color.white))
+        tab_layout.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
+        tab_layout.tabTextColors = ContextCompat.getColorStateList(context!!, R.color.white)
 
-        linked_list_insertion.setOnClickListener{
-            view.findNavController().navigate(
-                ExerciseFragmentDirections.actionNavExerciseToLinkedListExercise()
-            )
-        }
+        val numberOfTabs = 4
+        tab_layout.tabMode = TabLayout.MODE_FIXED
+        tab_layout.isInlineLabel = true
+        val adapter = TabsPagerAdapter(this, numberOfTabs)
+        tabs_viewpager.adapter = adapter
+        tabs_viewpager.isUserInputEnabled = true
+        TabLayoutMediator(tab_layout, tabs_viewpager) { tab, position ->
+            when (position) {
+                0 -> {
+                    tab.text = "Binary Tree Traversal"
+                }
+                1 -> {
+                    tab.text = "Binary Tree Rotations"
+                }
+                2 -> {
+                    tab.text = "Array sorting"
+                }
+                3 -> {
+                    tab.text = "Linked List"
+                }
+
+            }
+        }.attach()
+
     }
 
 
