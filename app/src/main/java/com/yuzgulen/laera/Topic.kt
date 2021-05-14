@@ -1,4 +1,4 @@
-package com.example.laera
+package com.yuzgulen.laera
 
 class Topic {
     var name: String? = null

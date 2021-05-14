@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Toast
 import androidx.navigation.findNavController
-import com.example.laera.Topic
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.Strings
 import kotlinx.android.synthetic.main.category_entry.view.*

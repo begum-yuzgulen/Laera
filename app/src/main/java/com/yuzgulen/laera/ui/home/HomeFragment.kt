@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.example.laera.Topic
-import com.example.laera.TopicAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.yuzgulen.laera.R
+import com.yuzgulen.laera.Topic
+import com.yuzgulen.laera.TopicAdapter
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import java.util.ArrayList
 
@@ -68,12 +66,13 @@ class HomeFragment : Fragment() {
                             topicList[4].progress = "Progress: ${progressHeaps}%"
                             topicList[5].progress = "Progress: ${progressGreedy}%"
                         }
-                        val adapter = TopicAdapter(activity!!.applicationContext, topicList)
+                        val adapter = TopicAdapter(topicList, view!!.findNavController())
                         root.gvTopics.adapter = adapter
 
-                        var selectedItem: String
+                        /*var selectedItem: String
                         root.gvTopics.setOnItemClickListener { parent, view, position, _ ->
                             selectedItem = parent.getItemAtPosition(position).toString()
+                            Toast.makeText(activity!!.applicationContext, "DO i even get here? $selectedItem", Toast.LENGTH_LONG).show()
                             var prog : String = "0"
                             when(selectedItem){
                                 "Sorting Algorithms" -> {prog = progressSorting!!}
@@ -86,7 +85,7 @@ class HomeFragment : Fragment() {
                             view.findNavController().navigate(
                                 HomeFragmentDirections.actionHomeFragmentToLessonFragment(selectedItem, prog)
                             )
-                        }
+                        }*/
                     }
 
                     override fun onCancelled(error: DatabaseError) {
