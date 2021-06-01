@@ -1,15 +1,13 @@
 package com.yuzgulen.laera.ui.exercise
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Toast
 import androidx.navigation.findNavController
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.Strings
+import com.yuzgulen.laera.utils.Strings
 import kotlinx.android.synthetic.main.category_entry.view.*
 
 internal class CategoryAdapter : BaseAdapter {

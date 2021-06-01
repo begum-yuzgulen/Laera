@@ -61,16 +61,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_gravity="end">
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/quizButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
+                    android:enabled="false"
                     android:text="Quiz"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@android:color/darker_gray"
                     style="?attr/borderlessButtonStyle"
                     />
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/progressButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Progress"

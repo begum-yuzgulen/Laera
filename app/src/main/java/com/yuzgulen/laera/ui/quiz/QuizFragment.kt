@@ -81,7 +81,7 @@ class QuizFragment : Fragment() {
             if(!generated.contains(next))
                 generated.add(next)
         }
-        val myRef = database.child("lessons").child(topic)
+        val myRef = database.child("questions").child(topic)
         loadQuestion(myRef, 0,binding, inflater)
         return binding.root
     }

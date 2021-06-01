@@ -35,7 +35,6 @@ class ExerciseFragment : Fragment() {
         tab_layout.tabTextColors = ContextCompat.getColorStateList(context!!, R.color.white)
 
         val numberOfTabs = 4
-        tab_layout.tabMode = TabLayout.MODE_FIXED
         tab_layout.isInlineLabel = true
         val adapter = TabsPagerAdapter(this, numberOfTabs)
         tabs_viewpager.adapter = adapter

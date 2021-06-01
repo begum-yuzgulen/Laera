@@ -8,6 +8,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 
 import com.yuzgulen.laera.R
+import com.yuzgulen.laera.utils.Strings
 import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.ui.exercise.DragShadow
 import com.yuzgulen.laera.algorithms.Node
@@ -85,7 +87,6 @@ class RightTreeRotation : Fragment() {
             DragEvent.ACTION_DROP -> {
                 val item: ClipData.Item = event.clipData.getItemAt(0)
                 val dragData = item.text
-                Toast.makeText(context, "Dropped $dragData", Toast.LENGTH_LONG).show()
                 receiverView.text =  dragData
                 rebuildEdges()
                 v.invalidate()
@@ -226,6 +227,20 @@ class RightTreeRotation : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        refreshTree.setOnClickListener {
+            view.findNavController().navigate(RightTreeRotationDirections.actionNavRightRotationToRightRotation())
+        }
+
+        info.setOnClickListener {
+            MaterialAlertDialogBuilder(context!!)
+                .setTitle("Instructions")
+                .setMessage(Strings.get(R.string.loremIpsum))
+                .setNegativeButton("Cancel") { dialog, which ->
+                    // Respond to negative button press
+                }
+                .show()
+        }
+
         view.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
