@@ -1,4 +1,4 @@
-package com.yuzgulen.laera
+package com.yuzgulen.laera.utils
 
 import android.app.Application
 

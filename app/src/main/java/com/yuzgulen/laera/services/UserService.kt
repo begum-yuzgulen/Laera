@@ -7,4 +7,7 @@ import retrofit2.http.Path
 interface UserService {
     @GET("user/{uid}.json")
     fun getCurrentUser(@Path("uid") uid : String): Call<UserResponse>
+
+    @GET("progress/{uid}.json")
+    fun getProgressUser(@Path("uid") uid : String): Call<List<ProgressResponse>>
 }

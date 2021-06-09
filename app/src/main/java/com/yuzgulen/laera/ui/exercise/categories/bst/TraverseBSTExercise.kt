@@ -5,6 +5,8 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 
@@ -20,7 +22,7 @@ class TraverseBSTExercise : Fragment() {
     private lateinit var viewModel: TraverseBSTExerciseViewModel
     private lateinit var correctOrder: List<Int>
     var nodes: MutableList<Int> = mutableListOf()
-    var addedNodes: MutableSet<Int> = mutableSetOf()
+
     private lateinit var traversalType: String
 
     private fun drawEdgeOnLeft(button1: TextView, button2: TextView, canvas: CanvasView) {
@@ -39,75 +41,60 @@ class TraverseBSTExercise : Fragment() {
         canvas.setCoordinates(startX,startY, stopX,stopY )
     }
 
-    private fun generateRandomNodeKey() : Int {
-        val key = (0..99).random()
-        if(!addedNodes.contains(key)) {
-            addedNodes.add(key)
-            return key
-        }
-        return generateRandomNodeKey()
-    }
+
 
     private fun drawRandomBinaryTree() {
-        val root = generateRandomNodeKey()
-        val bst = BinaryTree(Node(root))
-        textButton1.text = root.toString()
-        textButton1.visibility = View.VISIBLE
-        // left sub tree
-        if ( Math.random() < 0.95) {
-            // root has left child => node2
-            val node2 = generateRandomNodeKey()
-            textButton2.text = node2.toString()
-            drawEdgeOnLeft(textButton1, textButton2, edge1)
-            bst.insertChildAtLeft(node2, root)
-            textButton2.visibility = View.VISIBLE
-            if (Math.random() < 0.85) {
-                // node2 has left child => node4
-                val node4 = generateRandomNodeKey()
-                textButton4.text = node4.toString()
-                drawEdgeOnLeft(textButton2, textButton4, edge3)
-                bst.insertChildAtLeft(node4, node2)
-                textButton4.visibility = View.VISIBLE
-            }
-            if (Math.random() < 0.7) {
-                // node2 has right child => node3
-                val node5 = generateRandomNodeKey()
-                textButton5.text = node5.toString()
-                drawEdgeOnRight(textButton2, textButton5, edge4)
-                bst.insertChildAtRight(node5, node2)
-                textButton5.visibility = View.VISIBLE
-            }
-        }
-        // right sub tree
-        if ( Math.random() < 0.95 ) {
-            // root has right child => node3
-            val node3 = generateRandomNodeKey()
-            textButton3.text = node3.toString()
-            drawEdgeOnRight(textButton1, textButton3, edge2)
-            bst.insertChildAtRight(node3, root)
-            textButton3.visibility = View.VISIBLE
-            if ( Math.random() < 0.85 ) {
-                // node3 has left child => node6
-                val node6 = generateRandomNodeKey()
-                textButton6.text = node6.toString()
-                drawEdgeOnLeft(textButton3, textButton6, edge5)
-                bst.insertChildAtLeft(node6, node3)
-                textButton6.visibility = View.VISIBLE
-            }
-            if ( Math.random() < 0.7 ) {
-                // node3 has right child => node7
-                val node7 = generateRandomNodeKey()
-                textButton7.text = node7.toString()
-                drawEdgeOnRight(textButton3, textButton7, edge6)
-                bst.insertChildAtRight(node7, node3)
-                textButton7.visibility = View.VISIBLE
-            }
-        }
+        viewModel.generateRandomTree()
+        viewModel.nodesMap.observe(this, Observer {
+            textButton1.text = it["root"].toString()
+            textButton1.visibility = View.VISIBLE
 
-        correctOrder = bst.preOrder()
-        for (value in correctOrder) {
-            inOrder.append("$value ")
-        }
+            // root has left child => node2
+            if ("node2" in it) {
+                textButton2.text = it["node2"].toString()
+                drawEdgeOnLeft(textButton1, textButton2, edge1)
+                textButton2.visibility = View.VISIBLE
+                // node2 has left child => node4
+                if("node4" in it) {
+                    textButton4.text = it["node4"].toString()
+                    drawEdgeOnLeft(textButton2, textButton4, edge3)
+                    textButton4.visibility = View.VISIBLE
+                }
+                // node2 has right child => node5
+                if ("node5" in it) {
+                    textButton5.text = it["node5"].toString()
+                    drawEdgeOnRight(textButton2, textButton5, edge4)
+                    textButton5.visibility = View.VISIBLE
+                }
+            }
+
+            if ("node3" in it) {
+                textButton3.text = it["node3"].toString()
+                drawEdgeOnRight(textButton1, textButton3, edge2)
+                textButton3.visibility = View.VISIBLE
+
+                if("node6" in it) {
+                    textButton6.text = it["node6"].toString()
+                    drawEdgeOnLeft(textButton3, textButton6, edge5)
+                    textButton6.visibility = View.VISIBLE
+                }
+
+                if("node7" in it) {
+                    textButton7.text = it["node7"].toString()
+                    drawEdgeOnRight(textButton3, textButton7, edge6)
+                    textButton7.visibility = View.VISIBLE
+                }
+            }
+
+
+        })
+
+        viewModel.bst.observe(this, Observer {
+            correctOrder = it.preOrder()
+            for (value in correctOrder) {
+                inOrder.append("$value ")
+            }
+        })
     }
 
     override fun onCreateView(
@@ -116,7 +103,8 @@ class TraverseBSTExercise : Fragment() {
     ): View? {
         val root =  inflater.inflate(R.layout.traverse_bstexercise_fragment, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "BST Traversal"
-
+        viewModel =
+            ViewModelProvider(this).get(TraverseBSTExerciseViewModel::class.java)
         return root
     }
 

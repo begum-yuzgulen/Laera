@@ -8,32 +8,24 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
-
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.utils.Strings
-import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.ui.exercise.DragShadow
-import com.yuzgulen.laera.algorithms.Node
 import com.yuzgulen.laera.ui.exercise.CanvasView
 import kotlinx.android.synthetic.main.right_tree_rotation_fragment.*
+import android.os.CountDownTimer
+import java.util.concurrent.TimeUnit
 
 
 class RightTreeRotation : Fragment() {
 
     private lateinit var viewModel: RightTreeRotationViewModel
     private lateinit var correctOrder: Array<CharSequence>
-    private lateinit var database: DatabaseReference
-    private lateinit var myRefTries: DatabaseReference
-    private lateinit var myRefFailures: DatabaseReference
-    var nodes: MutableList<Int> = mutableListOf()
-    var addedNodes: MutableSet<Int> = mutableSetOf()
-    private lateinit var traversalType: String
+    var elapsedTime: String = ""
 
     private fun drawOrDeleteLeftEdge(button1: Button, button2: Button, edge: CanvasView) {
         if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
@@ -60,7 +52,6 @@ class RightTreeRotation : Fragment() {
             textButton6.text,
             textButton7.text)
         current_order.text = currentOrder.joinToString()
-
     }
 
     private val dragListen = View.OnDragListener { v, event ->
@@ -120,10 +111,10 @@ class RightTreeRotation : Fragment() {
 
         // Starts the drag
         v.startDrag(
-            dragData,   // the data to be dragged
-            myShadow,   // the drag shadow builder
-            null,       // no need to use local data
-            0           // flags (not currently used, set to 0)
+            dragData,
+            myShadow,
+            null,
+            0
         )
     }
 
@@ -144,67 +135,74 @@ class RightTreeRotation : Fragment() {
         canvas.setCoordinates(startX,startY, stopX,stopY, color)
     }
 
-    private fun generateRandomNodeKey() : Int {
-        val key = (0..99).random()
-        if(!addedNodes.contains(key)) {
-            addedNodes.add(key)
-            return key
-        }
-        return generateRandomNodeKey()
+    private fun drawRandomBinaryTree() {
+        viewModel.generateRandomTree()
+        viewModel.nodesMap.observe(this, Observer {
+            val root = it["root"].toString()
+            s_node1.text = root
+            s_node1.visibility = View.VISIBLE
+            needed_node1.text = root
+            needed_node1.tag = root
+            needed_node1.visibility = View.VISIBLE
+
+            // root has left child => node2
+            val node2 = it["node2"].toString()
+            s_node2.text = node2
+            drawEdgeOnLeft(s_node1, s_node2, s_edge1)
+            s_node2.visibility = View.VISIBLE
+            needed_node2.text = node2
+            needed_node2.tag = node2
+            needed_node2.visibility = View.VISIBLE
+            // node2 has left child => node4
+            val node4 = it["node4"].toString()
+            s_node4.text = node4
+            drawEdgeOnLeft(s_node2, s_node4, s_edge3)
+            s_node4.visibility = View.VISIBLE
+            needed_node4.text = node4
+            needed_node4.tag = node4
+            needed_node4.visibility = View.VISIBLE
+            // node2 has right child => node5
+            val node5 = it["node5"].toString()
+            s_node5.text = node5
+            drawEdgeOnRight(s_node2, s_node5, s_edge4)
+            s_node5.visibility = View.VISIBLE
+            needed_node5.text = node5
+            needed_node5.tag = node5
+            needed_node5.visibility = View.VISIBLE
+            // right tree
+            val node3 = it["node3"].toString()
+            s_node3.text = node3
+            drawEdgeOnRight(s_node1, s_node3, s_edge2)
+            s_node3.visibility = View.VISIBLE
+            needed_node3.text = node3
+            needed_node3.tag = node3
+            needed_node3.visibility = View.VISIBLE
+        })
+
+        viewModel.bst.observe(this, Observer {
+            correctOrder = arrayOf(s_node2.text, s_node4.text, s_node1.text, s_node5.text, s_node3.text)
+            correct_order.text = correctOrder.joinToString()
+        })
     }
 
-    private fun drawRandomBinaryTree() {
-        val root = generateRandomNodeKey()
-        val bst = BinaryTree(Node(root))
-        s_node1.text = root.toString()
-        s_node1.visibility = View.VISIBLE
-        needed_node1.text = root.toString()
-        needed_node1.tag = root.toString()
-        needed_node1.visibility = View.VISIBLE
-        // left sub tree
+    fun startTimer() {
+        object : CountDownTimer(300000, 1000) {
 
-        // root's left child => node2
-        val node2 = generateRandomNodeKey()
-        s_node2.text = node2.toString()
-        drawEdgeOnLeft(s_node1, s_node2, s_edge1)
-        bst.insertChildAtLeft(node2, root)
-        s_node2.visibility = View.VISIBLE
-        needed_node2.text = node2.toString()
-        needed_node2.tag = node2.toString()
-        needed_node2.visibility = View.VISIBLE
+            override fun onTick(millisUntilFinished: Long) {
+                timer.text = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)%60,
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)%60)
 
-        // node2' left child => node4
-        val node4 = generateRandomNodeKey()
-        s_node4.text = node4.toString()
-        drawEdgeOnLeft(s_node2, s_node4, s_edge3)
-        bst.insertChildAtLeft(node4, node2)
-        s_node4.visibility = View.VISIBLE
-        needed_node4.text = node4.toString()
-        needed_node4.tag = node4.toString()
-        needed_node4.visibility = View.VISIBLE
+                elapsedTime = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(300000-millisUntilFinished)%60,
+                    TimeUnit.MILLISECONDS.toSeconds(300000-millisUntilFinished)%60)
 
-        // node2's right child => node5
-        val node5 = generateRandomNodeKey()
-        s_node5.text = node5.toString()
-        drawEdgeOnRight(s_node2, s_node5, s_edge4)
-        bst.insertChildAtRight(node5, node2)
-        s_node5.visibility = View.VISIBLE
-        needed_node5.text = node5.toString()
-        needed_node5.tag = node5.toString()
-        needed_node5.visibility = View.VISIBLE
+            }
 
-        // right sub tree
-        val node3 = generateRandomNodeKey()
-        s_node3.text = node3.toString()
-        drawEdgeOnRight(s_node1, s_node3, s_edge2)
-        bst.insertChildAtRight(node3, root)
-        s_node3.visibility = View.VISIBLE
-        needed_node3.text = node3.toString()
-        needed_node3.tag = node3.toString()
-        needed_node3.visibility = View.VISIBLE
-
-        correctOrder = arrayOf(s_node2.text, s_node4.text, s_node1.text, s_node5.text, s_node3.text)
-        correct_order.text = correctOrder.joinToString()
+            override fun onFinish() {
+                timer.text = "done!"
+            }
+        }.start()
     }
 
     override fun onCreateView(
@@ -213,11 +211,8 @@ class RightTreeRotation : Fragment() {
     ): View? {
         val root =  inflater.inflate(R.layout.right_tree_rotation_fragment, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "Binary Tree - Right Rotation"
-        database = FirebaseDatabase.getInstance().reference
-        val auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser!!
-        myRefTries = database.child("user").child(user.uid).child("right-rotation").child("tries")
-        myRefFailures = database.child("user").child(user.uid).child("right-rotation").child("failures")
+        viewModel =
+            ViewModelProvider(this).get(RightTreeRotationViewModel::class.java)
         return root
     }
 
@@ -247,6 +242,7 @@ class RightTreeRotation : Fragment() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
                 drawRandomBinaryTree()
+                startTimer()
 
                 needed_node1.setOnLongClickListener(longClickListener)
                 needed_node2.setOnLongClickListener(longClickListener)
@@ -305,8 +301,7 @@ class RightTreeRotation : Fragment() {
 
                     val title = if(ok) "Correct" else "Incorrect"
                     val message = if(ok) "Congratulations." else "Your response is not correct, but don't give up! Try again!"
-                    myRefTries.setValue(ServerValue.increment(1))
-                    if(!ok) myRefFailures.setValue(ServerValue.increment(1))
+                    viewModel.updateScores(elapsedTime, ok)
                     MaterialAlertDialogBuilder(context!!)
                         .setTitle(title)
                         .setMessage(message)

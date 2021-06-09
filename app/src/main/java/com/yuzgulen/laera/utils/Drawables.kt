@@ -2,7 +2,6 @@ package com.yuzgulen.laera.utils
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
-import com.yuzgulen.laera.App
 
 object Drawables {
     fun get(@DrawableRes drawableRes: Int): Drawable? {

@@ -12,12 +12,9 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import android.view.View
-import android.widget.ListView
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
-import com.yuzgulen.laera.ui.exercise.ExerciseFragmentDirections
+import com.yuzgulen.laera.utils.App
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
