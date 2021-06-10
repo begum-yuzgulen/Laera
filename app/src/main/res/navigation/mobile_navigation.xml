@@ -82,7 +82,7 @@
         tools:layout="@layout/fragment_send" />
     <fragment
         android:id="@+id/traverseBSTExercise"
-        android:name="com.yuzgulen.laera.ui.exercise.categories.bst.TraverseBSTExercise"
+        android:name="com.yuzgulen.laera.ui.exercise.categories.treetraversal.TreeTraversalFragment"
         android:label="TraverseBSTExercise">
         <argument android:name="traversalType"  app:argType="string"/>
         <action

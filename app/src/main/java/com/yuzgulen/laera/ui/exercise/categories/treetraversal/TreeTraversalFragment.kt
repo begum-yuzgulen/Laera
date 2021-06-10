@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.ui.exercise.categories.bst
+package com.yuzgulen.laera.ui.exercise.categories.treetraversal
 
 import android.os.Bundle
 import android.view.*
@@ -11,15 +11,13 @@ import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
 
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.algorithms.BinaryTree
-import com.yuzgulen.laera.algorithms.Node
 import com.yuzgulen.laera.ui.exercise.CanvasView
-import kotlinx.android.synthetic.main.traverse_bstexercise_fragment.*
+import kotlinx.android.synthetic.main.tree_traversal_fragment.*
 
 
-class TraverseBSTExercise : Fragment() {
+class TreeTraversalFragment : Fragment() {
 
-    private lateinit var viewModel: TraverseBSTExerciseViewModel
+    private lateinit var viewModel: TreeTraversalViewModel
     private lateinit var correctOrder: List<Int>
     var nodes: MutableList<Int> = mutableListOf()
 
@@ -101,10 +99,10 @@ class TraverseBSTExercise : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root =  inflater.inflate(R.layout.traverse_bstexercise_fragment, container, false)
+        val root =  inflater.inflate(R.layout.tree_traversal_fragment, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "BST Traversal"
         viewModel =
-            ViewModelProvider(this).get(TraverseBSTExerciseViewModel::class.java)
+            ViewModelProvider(this).get(TreeTraversalViewModel::class.java)
         return root
     }
 
@@ -120,7 +118,7 @@ class TraverseBSTExercise : Fragment() {
             order.addView(nodeText)
             nodes.add(value.toInt())
         }
-        else Snackbar.make(view!!, "Already added $value", Snackbar.LENGTH_SHORT).show()
+        else Snackbar.make(requireView(), "Already added $value", Snackbar.LENGTH_SHORT).show()
     }
 
     fun setNodeOnClickListeners() {
@@ -148,11 +146,11 @@ class TraverseBSTExercise : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args = TraverseBSTExerciseArgs.fromBundle(arguments!!)
+        val args = TreeTraversalFragmentArgs.fromBundle(requireArguments())
         traversalType = args.traversalType
         traversal.text = traversalType
         refreshTree.setOnClickListener {
-            view.findNavController().navigate(TraverseBSTExerciseDirections.actionNavTraverseToTraverse(traversalType))
+            view.findNavController().navigate(TreeTraversalFragmentDirections.actionNavTraverseToTraverse(traversalType))
         }
         view.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
@@ -179,14 +177,14 @@ class TraverseBSTExercise : Fragment() {
                     tryAgainButton.setOnClickListener{
                         popupWindow.dismiss()
                         if(correct){
-                            view.findNavController().navigate(TraverseBSTExerciseDirections.actionNavTraverseToTraverse(traversalType))
+                            view.findNavController().navigate(TreeTraversalFragmentDirections.actionNavTraverseToTraverse(traversalType))
                         }
 
                     }
 
                     chooseExerciseButton.setOnClickListener {
                         view.findNavController().navigate(
-                            TraverseBSTExerciseDirections.actionNavTraverseToExercise()
+                            TreeTraversalFragmentDirections.actionNavTraverseToExercise()
                         )
                     }
 

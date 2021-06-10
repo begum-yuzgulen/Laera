@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.ui.exercise.categories.bst
+package com.yuzgulen.laera.ui.exercise.categories.treetraversal
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.algorithms.Node
 
-class TraverseBSTExerciseViewModel : ViewModel() {
+class TreeTraversalViewModel : ViewModel() {
     private val _nodesMap = MutableLiveData<MutableMap<String, Int>>()
     val nodesMap : LiveData<MutableMap<String, Int>> = _nodesMap
 
