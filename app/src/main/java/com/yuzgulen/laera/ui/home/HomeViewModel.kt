@@ -1,12 +1,19 @@
 package com.yuzgulen.laera.ui.home
 
+import android.net.Uri
+import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.yuzgulen.laera.Topic
 import com.yuzgulen.laera.services.*
 import com.yuzgulen.laera.utils.Drawables
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +41,7 @@ class HomeViewModel : ViewModel() {
                 }
             }
             override fun onFailure(call: Call<List<TopicResponse>>, t: Throwable) {
-                //root.allTopics!!.text = t.message
+                Log.e("error2", t.message!!);
             }
         })
     }
@@ -54,7 +61,8 @@ class HomeViewModel : ViewModel() {
                 }
             }
             override fun onFailure(call: Call<List<ProgressResponse>>, t: Throwable) {
-                //root.text_username!!.text = t.message
+                Log.e("error", t.message!!);
+                // root.text_username!!.text = t.message
             }
         })
     }
@@ -72,10 +80,11 @@ class HomeViewModel : ViewModel() {
                 Topic(
                     topic.id!!,
                     topic.title!!,
-                    Drawables.getIdentifier(topic.icon),
+                    topic.icon!!,
                     "Progress: ${topicsProgress}%"
                 )
             )
         }
     }
+
 }

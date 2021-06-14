@@ -15,6 +15,7 @@
             app:destination="@id/nav_lesson">
             <argument android:name="selectedItem" app:argType="string"/>
             <argument android:name="progress" app:argType="string"/>
+            <argument android:name="topicId" app:argType="string"/>
         </action>
     </fragment>
 
@@ -29,6 +30,7 @@
             app:popUpTo="@id/nav_home" />
         <argument android:name="selectedItem"  app:argType="string"/>
         <argument android:name="progress" app:argType="string"/>
+        <argument android:name="topicId" app:argType="string"/>
 
     </fragment>
 

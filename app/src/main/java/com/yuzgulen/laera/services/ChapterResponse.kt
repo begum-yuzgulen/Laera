@@ -3,20 +3,18 @@ package com.yuzgulen.laera.services
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import com.yuzgulen.laera.models.Chapter
-import com.yuzgulen.laera.models.Topic
 
-class TopicResponse {
-    @SerializedName("id")
+class ChapterResponse {
+    @SerializedName("layout")
     @Expose
-    var id: String? = ""
+    var layout: String? = ""
     @SerializedName("title")
     @Expose
     var title: String? = ""
-    @SerializedName("icon")
+    @SerializedName("content")
     @Expose
-    var icon: String? = ""
-    @SerializedName("nr_chapters")
+    var content: String? = ""
+    @SerializedName("image")
     @Expose
-    var nr_chapters: Int? = 0
-
+    var image: String? = ""
 }
