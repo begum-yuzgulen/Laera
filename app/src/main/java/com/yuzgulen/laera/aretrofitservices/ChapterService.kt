@@ -1,6 +1,6 @@
-package com.yuzgulen.laera.services
+package com.yuzgulen.laera.aretrofitservices
 
-import com.yuzgulen.laera.models.Chapter
+import com.yuzgulen.laera.domain.models.ChapterResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

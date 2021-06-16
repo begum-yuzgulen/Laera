@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.ui.home.HomeFragmentDirections
 import com.yuzgulen.laera.utils.Colors
 import kotlinx.android.synthetic.main.topics_entry.view.*
-import java.util.*
+import com.yuzgulen.laera.domain.models.Topic
 import kotlin.collections.ArrayList
 
 
@@ -47,13 +47,13 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>, private val navControl
         val storage = Firebase.storage
         val storageRef = storage.reference
 
-        storageRef.child("lesson_icons/" + filteredDataSet[position].image!!).downloadUrl.addOnSuccessListener {
+        storageRef.child("lesson_icons/" + filteredDataSet[position].icon!!).downloadUrl.addOnSuccessListener {
             Picasso.get().load(it).into(viewHolder.topicImage)
         }.addOnFailureListener {
             Log.e("storage error", it.message.toString())
         }
 
-        viewHolder.topicTitle.text = filteredDataSet[position].name!!
+        viewHolder.topicTitle.text = filteredDataSet[position].title!!
         viewHolder.topicProgress.text = filteredDataSet[position].progress!!
 
 
@@ -88,7 +88,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>, private val navControl
                 } else {
                     val resultList = ArrayList<Topic>()
                     for (row in dataSet) {
-                        if (row.name!!.lowercase().contains(charSearch.lowercase())) {
+                        if (row.title!!.lowercase().contains(charSearch.lowercase())) {
                             resultList.add(row)
                         }
                     }

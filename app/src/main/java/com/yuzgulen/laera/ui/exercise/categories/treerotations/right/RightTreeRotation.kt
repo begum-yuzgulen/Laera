@@ -16,8 +16,8 @@ import com.yuzgulen.laera.R
 import com.yuzgulen.laera.utils.Strings
 import com.yuzgulen.laera.ui.exercise.DragShadow
 import com.yuzgulen.laera.ui.exercise.CanvasView
-import kotlinx.android.synthetic.main.right_tree_rotation_fragment.*
 import android.os.CountDownTimer
+import kotlinx.android.synthetic.main.tree_rotation_fragment.*
 import java.util.concurrent.TimeUnit
 
 
@@ -26,6 +26,7 @@ class RightTreeRotation : Fragment() {
     private lateinit var viewModel: RightTreeRotationViewModel
     private lateinit var correctOrder: Array<CharSequence>
     var elapsedTime: String = ""
+    private lateinit var countdownTimer: CountDownTimer
 
     private fun drawOrDeleteLeftEdge(button1: Button, button2: Button, edge: CanvasView) {
         if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
@@ -186,12 +187,13 @@ class RightTreeRotation : Fragment() {
     }
 
     fun startTimer() {
-        object : CountDownTimer(300000, 1000) {
+        countdownTimer = object : CountDownTimer(300000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
-                timer.text = String.format("%02d:%02d",
-                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)%60,
-                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)%60)
+                if(timer != null)
+                    timer.text = String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)%60,
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)%60)
 
                 elapsedTime = String.format("%02d:%02d",
                     TimeUnit.MILLISECONDS.toMinutes(300000-millisUntilFinished)%60,
@@ -209,7 +211,7 @@ class RightTreeRotation : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root =  inflater.inflate(R.layout.right_tree_rotation_fragment, container, false)
+        val root =  inflater.inflate(R.layout.tree_rotation_fragment, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = "Binary Tree - Right Rotation"
         viewModel =
             ViewModelProvider(this).get(RightTreeRotationViewModel::class.java)
@@ -227,7 +229,7 @@ class RightTreeRotation : Fragment() {
         }
 
         info.setOnClickListener {
-            MaterialAlertDialogBuilder(context!!)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Instructions")
                 .setMessage(Strings.get(R.string.loremIpsum))
                 .setNegativeButton("Cancel") { dialog, which ->
@@ -316,6 +318,11 @@ class RightTreeRotation : Fragment() {
             }
         })
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countdownTimer.cancel()
     }
 }
 

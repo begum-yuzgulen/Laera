@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.services
+package com.yuzgulen.laera.domain.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

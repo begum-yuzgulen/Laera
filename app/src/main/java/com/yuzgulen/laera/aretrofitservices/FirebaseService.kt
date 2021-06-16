@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.services
+package com.yuzgulen.laera.aretrofitservices
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot

@@ -165,7 +165,7 @@
         android:id="@+id/rightTreeRotation"
         android:name="com.yuzgulen.laera.ui.exercise.categories.treerotations.right.RightTreeRotation"
         android:label="right_tree_rotation_fragment"
-        tools:layout="@layout/right_tree_rotation_fragment">
+        tools:layout="@layout/tree_rotation_fragment">
 
         <action
             android:id="@+id/action_nav_rightRotation_to_rightRotation"

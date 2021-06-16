@@ -5,22 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.firebase.auth.FirebaseAuth
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.User
-import com.yuzgulen.laera.services.Retrofit2Firebase
-import com.yuzgulen.laera.services.UserResponse
-import com.yuzgulen.laera.services.UserService
+import com.yuzgulen.laera.aretrofitservices.Retrofit2Firebase
+import com.yuzgulen.laera.domain.models.UserResponse
+import com.yuzgulen.laera.aretrofitservices.UserService
 import kotlinx.android.synthetic.main.fragment_slideshow.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class SlideshowFragment : Fragment() {
 

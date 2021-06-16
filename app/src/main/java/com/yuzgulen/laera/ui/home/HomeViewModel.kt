@@ -1,19 +1,15 @@
 package com.yuzgulen.laera.ui.home
 
-import android.net.Uri
 import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import com.yuzgulen.laera.Topic
-import com.yuzgulen.laera.services.*
-import com.yuzgulen.laera.utils.Drawables
-import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
+import com.yuzgulen.laera.domain.models.Topic
+import com.yuzgulen.laera.domain.usecases.GetTopics
+import com.yuzgulen.laera.domain.models.ProgressResponse
+import com.yuzgulen.laera.aretrofitservices.*
+import com.yuzgulen.laera.utils.ICallback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,27 +26,33 @@ class HomeViewModel : ViewModel() {
     var topicList = java.util.ArrayList<Topic>()
 
 
-    fun getAllTopics() {
-        val service = retrofit.create(TopicService::class.java)
-        val call = service.getTopics()
-        call.enqueue(object : Callback<List<TopicResponse>> {
-            override fun onResponse(call: Call<List<TopicResponse>>, response: Response<List<TopicResponse>>) {
-                if (response.code() == 200) {
-                    val topics = response.body()
-                    getProgresses(topics)
-                }
-            }
-            override fun onFailure(call: Call<List<TopicResponse>>, t: Throwable) {
-                Log.e("error2", t.message!!);
+    suspend fun getAllTopics() {
+        var topics: List<Topic> = listOf()
+        GetTopics().execute(object: ICallback<List<Topic>> {
+            override fun onCallback(value: List<Topic>) {
+                topics = value
+                getProgresses(topics)
             }
         })
+        Log.e("Elelelel", "topic${topics.joinToString { ", " }}")
+//        val call = service.getTopics()
+//        call.enqueue(object : Callback<List<TopicResponse>> {
+//            override fun onResponse(call: Call<List<TopicResponse>>, response: Response<List<TopicResponse>>) {
+//                if (response.code() == 200) {
+//                    val topics = response.body()
+//
+//                }
+//            }
+//            override fun onFailure(call: Call<List<TopicResponse>>, t: Throwable) {
+//            }
+//        })
     }
 
-    private fun getProgresses(topics: List<TopicResponse>) {
+    private fun getProgresses(topics: List<Topic>) {
         val userService = retrofit.create(UserService::class.java)
         val progressCall = userService.getProgressUser(currentUser!!.uid)
-        progressCall.enqueue(object : Callback<List<ProgressResponse>> {
-            override fun onResponse(call: Call<List<ProgressResponse>>, response: Response<List<ProgressResponse>>) {
+        progressCall.enqueue(object : Callback<ProgressResponse> {
+            override fun onResponse(call: Call<ProgressResponse>, response: Response<ProgressResponse>) {
                 if (response.code() == 200) {
                     val progresses = response.body()
                     if (created == 0) {
@@ -60,27 +62,27 @@ class HomeViewModel : ViewModel() {
                     _topicList.value = topicList
                 }
             }
-            override fun onFailure(call: Call<List<ProgressResponse>>, t: Throwable) {
-                Log.e("error", t.message!!);
-                // root.text_username!!.text = t.message
+            override fun onFailure(call: Call<ProgressResponse>, t: Throwable) {
+                Log.e("error", t.message!!)
             }
         })
     }
 
-    private fun getTopicProgress(progresses: List<ProgressResponse>, topicId: String) : Int {
-        val topicsProgressData = progresses.find { it.id == topicId }
-        val topicsProgress = if (topicsProgressData != null) topicsProgressData.progress else 0
-        return topicsProgress!!
+    private fun getTopicProgress(progresses: ProgressResponse, topicId: String) : Int {
+        val topicsProgressData = progresses.progresses[topicId]
+        val topicsProgress = if (topicsProgressData != null) topicsProgressData.progress else "0"
+        return topicsProgress!!.toInt()
     }
 
-    private fun loadTopics(topics: List<TopicResponse>, progresses: List<ProgressResponse>) {
+    private fun loadTopics(topics: List<Topic>, progresses: ProgressResponse) {
         for (topic in topics) {
             val topicsProgress = getTopicProgress(progresses, topic.id!!)
             topicList.add(
                 Topic(
-                    topic.id!!,
-                    topic.title!!,
-                    topic.icon!!,
+                    if(topic.id != null) topic.id else "",
+                    if(topic.title != null) topic.title else "",
+                    if(topic.icon != null) topic.icon else "",
+                    0,
                     "Progress: ${topicsProgress}%"
                 )
             )

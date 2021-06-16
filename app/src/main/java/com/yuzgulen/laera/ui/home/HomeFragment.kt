@@ -12,6 +12,10 @@ import androidx.navigation.findNavController
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.TopicAdapter
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class HomeFragment : Fragment() {
@@ -28,7 +32,9 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        homeViewModel.getAllTopics()
+        GlobalScope.launch(Dispatchers.Default) {
+            homeViewModel.getAllTopics()
+        }
         homeViewModel.topicsList.observe(viewLifecycleOwner, Observer {
             root.loading.visibility = View.GONE
 

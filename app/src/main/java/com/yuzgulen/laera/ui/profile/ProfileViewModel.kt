@@ -1,6 +1,5 @@
 package com.yuzgulen.laera.ui.profile
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.yuzgulen.laera.services.FirebaseService
 
 
 class ProfileViewModel : ViewModel() {

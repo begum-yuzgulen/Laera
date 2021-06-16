@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.services
+package com.yuzgulen.laera.aretrofitservices
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

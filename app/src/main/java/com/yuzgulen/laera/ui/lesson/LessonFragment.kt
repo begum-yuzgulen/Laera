@@ -11,11 +11,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.GsonBuilder
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.models.Chapter
-import com.yuzgulen.laera.services.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.app_bar_main.view.*
-import kotlinx.android.synthetic.main.lesson_fragment.*
+import com.yuzgulen.laera.domain.models.ChapterResponse
+import com.yuzgulen.laera.aretrofitservices.*
 import kotlinx.android.synthetic.main.lesson_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -83,13 +80,19 @@ class LessonFragment : Fragment() {
     private fun lesson(lessonProgress: String){
         var progress = lessonProgress.toInt()
         val identifier = resources.getIdentifier("@android:drawable/presence_online", null, null)
-        Log.d("values", progress.toString() + nrChapters.toString())
+
+        var index: Int = 0
         if(progress < nrChapters) {
-            //if (chapters[progress/20].layout == "layout1") {
+            index = progress*chapters.size/100
+            Log.d("values", progress.toString() + nrChapters.toString() + index.toString())
+            if (chapters[index].layout == "layout1") {
                 root.lesson_layout1.visibility = View.VISIBLE
-              //  root.content_layout2.visibility = View.INVISIBLE
-            //}
-            root.content_layout1.text = chapters[(progress/20)].content
+                root.content_layout2.visibility = View.INVISIBLE
+            } else if (chapters[progress/20].layout == "layout2") {
+                root.lesson_layout1.visibility = View.VISIBLE
+                root.content_layout2.visibility = View.INVISIBLE
+            }
+            root.content_layout1.text = chapters[index].content
             root.next.setOnClickListener {
                 root.prog1.setImageResource(identifier)
                 myRef.setValue(progress + 20)
@@ -175,7 +178,7 @@ class LessonFragment : Fragment() {
         root.title.text = args.topicId
         topic = args.topicId + "%d"
         selectedItemId = args.topicId
-        path = "progress" + topic.replaceFirstChar { c -> c.uppercaseChar() }
+        path = "progress" + selectedItemId.replaceFirstChar { c -> c.uppercaseChar() }
         root.title.text = path
 //        when(args.selectedItem){
 //            "Sorting Algorithms" -> {
