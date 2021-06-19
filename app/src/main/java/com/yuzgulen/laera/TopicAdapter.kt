@@ -18,7 +18,9 @@ import com.yuzgulen.laera.domain.models.Topic
 import kotlin.collections.ArrayList
 
 
-class TopicAdapter(private val dataSet: ArrayList<Topic>, private val navController: NavController) :
+class TopicAdapter(private val dataSet: ArrayList<Topic>,
+                   private val navController: NavController,
+                   private val searchView: SearchView) :
     RecyclerView.Adapter<TopicAdapter.ViewHolder>(), Filterable {
 
     var filteredDataSet = ArrayList<Topic>()
@@ -68,11 +70,13 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>, private val navControl
 
         viewHolder.progressIndicator.setProgress(progress.toInt(), true)
 
-        var selectedItem = viewHolder.topicTitle.text.toString()
+        val selectedItem = viewHolder.topicTitle.text.toString()
 
         viewHolder.itemView.setOnClickListener {
+            searchView.clearFocus()
             navController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToLessonFragment(selectedItem, progress, filteredDataSet[position].id!!)
+                HomeFragmentDirections.actionHomeFragmentToLessonFragment(selectedItem, progress, filteredDataSet[position].id!!,
+                filteredDataSet[position].nr_chapters!!)
             )
         }
     }

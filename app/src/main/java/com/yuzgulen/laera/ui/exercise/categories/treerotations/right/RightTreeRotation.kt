@@ -33,6 +33,7 @@ class RightTreeRotation : Fragment() {
             drawEdgeOnLeft(button1, button2, edge)
         } else drawEdgeOnLeft(button1, button2, edge, Color.WHITE)
     }
+
     private fun drawOrDeleteRightEdge(button1: Button, button2: Button, edge: CanvasView) {
         if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
             drawEdgeOnRight(button1, button2, edge)
@@ -88,13 +89,11 @@ class RightTreeRotation : Fragment() {
             DragEvent.ACTION_DRAG_ENDED -> {
                 v.invalidate()
 
-                // returns true; the value is ignored.
                 true
             }
 
 
             else -> {
-                // An unknown action type was received.
                 false
             }
         }
@@ -138,7 +137,7 @@ class RightTreeRotation : Fragment() {
 
     private fun drawRandomBinaryTree() {
         viewModel.generateRandomTree()
-        viewModel.nodesMap.observe(this, Observer {
+        viewModel.nodesMap.observe(this, {
             val root = it["root"].toString()
             s_node1.text = root
             s_node1.visibility = View.VISIBLE
@@ -180,9 +179,8 @@ class RightTreeRotation : Fragment() {
             needed_node3.visibility = View.VISIBLE
         })
 
-        viewModel.bst.observe(this, Observer {
+        viewModel.bst.observe(this, {
             correctOrder = arrayOf(s_node2.text, s_node4.text, s_node1.text, s_node5.text, s_node3.text)
-            correct_order.text = correctOrder.joinToString()
         })
     }
 
@@ -202,7 +200,7 @@ class RightTreeRotation : Fragment() {
             }
 
             override fun onFinish() {
-                timer.text = "done!"
+                viewModel.updateScores("5:00", false)
             }
         }.start()
     }

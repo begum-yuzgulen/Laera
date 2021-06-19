@@ -5,7 +5,7 @@ import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.utils.ICallback
 
 
-class GetTopics {
+class GetTopics : UseCase<ICallback<List<Topic>>> {
 
     companion object {
         private var INSTANCE: GetTopics? = null
@@ -17,8 +17,7 @@ class GetTopics {
         }
     }
 
-    fun execute(cb: ICallback<List<Topic>>) : Any {
-        return TopicService.getInstance().getTopics(cb)
+    override fun execute(callback: ICallback<List<Topic>>) : Any {
+        return TopicService.getInstance().getTopics(callback)
     }
-
 }

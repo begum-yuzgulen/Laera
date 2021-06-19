@@ -8,6 +8,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.yuzgulen.laera.domain.models.Chapter
 import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.utils.ICallback
 
@@ -34,6 +35,28 @@ class TopicService {
                     topics.add(postSnapshot.getValue<Topic>()!!)
                 }
                 cb.onCallback(topics.toList())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting list of topics failed
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+            }
+        })
+    }
+
+    fun getTopicChapters(topicId: String, cb: ICallback<List<Chapter>>) {
+        // Get a list of Topic objects
+        Firebase.database.reference.child("chapters").child(topicId).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val topicChapters: MutableList<Chapter> = mutableListOf()
+                for (postSnapshot in dataSnapshot.children) {
+                    Log.e("chaptersssss", postSnapshot.toString())
+                    val chapter = postSnapshot.getValue<Chapter>()!!
+                    Log.e("converted chapter", chapter.toString())
+                    topicChapters.add(chapter)
+                }
+                cb.onCallback(topicChapters.toList())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

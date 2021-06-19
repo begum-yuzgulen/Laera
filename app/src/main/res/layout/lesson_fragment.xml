@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text=""
-            android:textSize="24dp"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -71,6 +71,7 @@
 
             <ImageView
                 android:id="@+id/image_layout2"
+                android:contentDescription="Lesson image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -84,54 +85,24 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="center_horizontal"
             android:background="@color/colorAccent"
             android:text="Next"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.914"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.843" />
+            app:layout_constraintVertical_bias="0.943" />
 
-        <LinearLayout
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/lesson_progress"
+            android:contentDescription="Lesson progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/next">
-
-            <ImageView
-                android:id="@+id/prog1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/presence_invisible" />
-            <ImageView
-                android:id="@+id/prog2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/presence_invisible" />
-            <ImageView
-                android:id="@+id/prog3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/presence_invisible" />
-            <ImageView
-                android:id="@+id/prog4"
-                android:layout_width="wrap_content"
-                android:layout_height= "wrap_content"
-                app:srcCompat="@android:drawable/presence_invisible" />
-            <ImageView
-                android:id="@+id/prog5"
-                android:layout_width="wrap_content"
-                android:layout_height= "wrap_content"
-                app:srcCompat="@android:drawable/presence_invisible" />
-        </LinearLayout>
+            android:scaleY="4"
+            app:indicatorColor="@color/colorLightPrimary"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

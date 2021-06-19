@@ -2,9 +2,8 @@ package com.yuzgulen.laera.ui.home
 
 import android.os.Bundle
 import android.view.*
-import android.app.SearchManager;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
+import android.widget.SearchView
+import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class HomeFragment : Fragment() {
@@ -35,10 +33,10 @@ class HomeFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Default) {
             homeViewModel.getAllTopics()
         }
-        homeViewModel.topicsList.observe(viewLifecycleOwner, Observer {
+        homeViewModel.topicsList.observe(viewLifecycleOwner, {
             root.loading.visibility = View.GONE
 
-            adapter = TopicAdapter(it, requireView().findNavController())
+            adapter = TopicAdapter(it, requireView().findNavController(), root.topic_search)
             root.gvTopics.adapter = adapter
 
         })

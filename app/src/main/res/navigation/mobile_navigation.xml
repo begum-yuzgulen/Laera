@@ -31,6 +31,7 @@
         <argument android:name="selectedItem"  app:argType="string"/>
         <argument android:name="progress" app:argType="string"/>
         <argument android:name="topicId" app:argType="string"/>
+        <argument android:name="nrChapters" app:argType="integer"/>
 
     </fragment>
 

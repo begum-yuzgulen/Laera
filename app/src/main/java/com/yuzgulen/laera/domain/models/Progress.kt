@@ -1,13 +1,22 @@
 package com.yuzgulen.laera.domain.models
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
+import com.google.firebase.database.Exclude
+import com.google.firebase.database.IgnoreExtraProperties
 
-class Progress {
-    @SerializedName("progress")
-    @Expose
-    var progress: String? = ""
-    @SerializedName("title")
-    @Expose
-    var title: String? = ""
+
+@IgnoreExtraProperties
+data class Progress (
+    var progress: String? = null,
+    var title: String? = null,
+    var id: String? = ""
+) {
+
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "title" to title,
+            "progress" to progress,
+            "id" to id
+        )
+    }
 }
