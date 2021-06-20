@@ -3,7 +3,6 @@ package com.yuzgulen.laera
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             val fragmentManager = supportFragmentManager
-            val newFragment = SendFeedback()
+            val newFragment = SendFeedbackDialog()
             newFragment.show(fragmentManager, "dialog")
 
         }

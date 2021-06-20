@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SendFeedback">
+    tools:context=".SendFeedbackDialog">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,6 +44,7 @@
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/isAnonymous"
         android:text="Send anonymously"/>
 
     <Button
