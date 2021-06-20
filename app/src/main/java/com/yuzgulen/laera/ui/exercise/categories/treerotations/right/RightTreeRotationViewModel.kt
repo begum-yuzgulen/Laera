@@ -8,6 +8,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.algorithms.Node
+import com.yuzgulen.laera.domain.usecases.UpdateScore
+import com.yuzgulen.laera.services.ScoreService
 
 class RightTreeRotationViewModel : ViewModel() {
     private val _nodesMap = MutableLiveData<MutableMap<String, Int>>()
@@ -69,16 +71,6 @@ class RightTreeRotationViewModel : ViewModel() {
     }
 
     fun updateScores(finishTime: String, success: Boolean = true) {
-        val database = FirebaseDatabase.getInstance().reference
-        val auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser!!
-        val myRefTries = database.child("user").child(user.uid).child("right-rotation").child("tries")
-        val myRefTimes = database.child("user").child(user.uid).child("right-rotation").child("times")
-        val myRefFailures = database.child("user").child(user.uid).child("right-rotation").child("failures")
-        myRefTries.setValue(ServerValue.increment(1))
-        val newTime = myRefTimes.push()
-        newTime.child("time").setValue(finishTime)
-        newTime.child("success").setValue(success)
-        if(!success) myRefFailures.setValue(ServerValue.increment(1))
+        UpdateScore().execute("right-rotation", finishTime, success)
     }
 }

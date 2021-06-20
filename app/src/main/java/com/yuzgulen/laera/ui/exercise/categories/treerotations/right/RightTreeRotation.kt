@@ -17,27 +17,27 @@ import com.yuzgulen.laera.utils.Strings
 import com.yuzgulen.laera.ui.exercise.DragShadow
 import com.yuzgulen.laera.ui.exercise.CanvasView
 import android.os.CountDownTimer
+import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
+import com.yuzgulen.laera.utils.Colors
 import kotlinx.android.synthetic.main.tree_rotation_fragment.*
 import java.util.concurrent.TimeUnit
 
 
-class RightTreeRotation : Fragment() {
+class RightTreeRotation : ExerciseCategory() {
 
     private lateinit var viewModel: RightTreeRotationViewModel
     private lateinit var correctOrder: Array<CharSequence>
-    var elapsedTime: String = ""
-    private lateinit var countdownTimer: CountDownTimer
 
     private fun drawOrDeleteLeftEdge(button1: Button, button2: Button, edge: CanvasView) {
         if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
             drawEdgeOnLeft(button1, button2, edge)
-        } else drawEdgeOnLeft(button1, button2, edge, Color.WHITE)
+        } else drawEdgeOnLeft(button1, button2, edge, Colors.get(R.color.transperant))
     }
 
     private fun drawOrDeleteRightEdge(button1: Button, button2: Button, edge: CanvasView) {
         if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
             drawEdgeOnRight(button1, button2, edge)
-        } else drawEdgeOnLeft(button1, button2, edge, Color.WHITE)
+        } else drawEdgeOnLeft(button1, button2, edge, Colors.get(R.color.transperant))
     }
 
     private fun rebuildEdges() {
@@ -184,26 +184,6 @@ class RightTreeRotation : Fragment() {
         })
     }
 
-    fun startTimer() {
-        countdownTimer = object : CountDownTimer(300000, 1000) {
-
-            override fun onTick(millisUntilFinished: Long) {
-                if(timer != null)
-                    timer.text = String.format("%02d:%02d",
-                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)%60,
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)%60)
-
-                elapsedTime = String.format("%02d:%02d",
-                    TimeUnit.MILLISECONDS.toMinutes(300000-millisUntilFinished)%60,
-                    TimeUnit.MILLISECONDS.toSeconds(300000-millisUntilFinished)%60)
-
-            }
-
-            override fun onFinish() {
-                viewModel.updateScores("5:00", false)
-            }
-        }.start()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -242,7 +222,7 @@ class RightTreeRotation : Fragment() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
                 drawRandomBinaryTree()
-                startTimer()
+                startTimer(timer)
 
                 needed_node1.setOnLongClickListener(longClickListener)
                 needed_node2.setOnLongClickListener(longClickListener)
@@ -302,16 +282,7 @@ class RightTreeRotation : Fragment() {
                     val title = if(ok) "Correct" else "Incorrect"
                     val message = if(ok) "Congratulations." else "Your response is not correct, but don't give up! Try again!"
                     viewModel.updateScores(elapsedTime, ok)
-                    MaterialAlertDialogBuilder(context!!)
-                        .setTitle(title)
-                        .setMessage(message)
-                        .setNegativeButton(tryAgain) { dialog, which ->
-                            // Respond to negative button press
-                        }
-                        .setPositiveButton(exercises) { dialog, which ->
-                            // Respond to positive button press
-                        }
-                        .show()
+                    showDialog(title, message, RightTreeRotationDirections.actionNavRightRotationToRightRotation())
                 }
             }
         })
@@ -320,7 +291,7 @@ class RightTreeRotation : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        countdownTimer.cancel()
+        cancelTimer()
     }
 }
 

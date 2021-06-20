@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.algorithms.Node
+import com.yuzgulen.laera.domain.usecases.UpdateScore
 
 class TreeTraversalViewModel : ViewModel() {
     private val _nodesMap = MutableLiveData<MutableMap<String, Int>>()
@@ -14,8 +15,6 @@ class TreeTraversalViewModel : ViewModel() {
     val bst : LiveData<BinaryTree> = _bst
 
     var addedNodes: MutableSet<Int> = mutableSetOf()
-
-
 
     private fun generateRandomNodeKey() : Int {
         val key = (0..99).random()
@@ -72,6 +71,10 @@ class TreeTraversalViewModel : ViewModel() {
 
         _nodesMap.value = nodeMap
         _bst.value = bst
+    }
+
+    fun updateScores(finishTime: String, success: Boolean = true) {
+        UpdateScore().execute("tree-traversal", finishTime, success)
     }
 
 }
