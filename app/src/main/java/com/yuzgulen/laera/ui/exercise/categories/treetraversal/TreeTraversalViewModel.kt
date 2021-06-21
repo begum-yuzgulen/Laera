@@ -74,7 +74,7 @@ class TreeTraversalViewModel : ViewModel() {
     }
 
     fun updateScores(finishTime: String, success: Boolean = true) {
-        UpdateScore().execute("tree-traversal", finishTime, success)
+        UpdateScore().execute("tree-traversal", "Binary Tree Traversal", finishTime, success)
     }
 
 }

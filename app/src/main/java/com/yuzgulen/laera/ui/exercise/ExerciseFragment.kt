@@ -30,13 +30,13 @@ class ExerciseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tab_layout.setSelectedTabIndicatorColor(ContextCompat.getColor(context!!, R.color.white))
-        tab_layout.setBackgroundColor(ContextCompat.getColor(context!!, R.color.colorPrimary))
-        tab_layout.tabTextColors = ContextCompat.getColorStateList(context!!, R.color.white)
+        tab_layout.setSelectedTabIndicatorColor(ContextCompat.getColor(requireContext(), R.color.white))
+        tab_layout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        tab_layout.tabTextColors = ContextCompat.getColorStateList(requireContext(), R.color.white)
 
         val numberOfTabs = 4
         tab_layout.isInlineLabel = true
-        val adapter = TabsPagerAdapter(this, numberOfTabs)
+        val adapter = TabsPagerAdapter(this, numberOfTabs, true)
         tabs_viewpager.adapter = adapter
         tabs_viewpager.isUserInputEnabled = true
         TabLayoutMediator(tab_layout, tabs_viewpager) { tab, position ->

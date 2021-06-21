@@ -71,6 +71,6 @@ class RightTreeRotationViewModel : ViewModel() {
     }
 
     fun updateScores(finishTime: String, success: Boolean = true) {
-        UpdateScore().execute("right-rotation", finishTime, success)
+        UpdateScore().execute("tree-rotation", "Binary Tree Rotation", finishTime, success)
     }
 }

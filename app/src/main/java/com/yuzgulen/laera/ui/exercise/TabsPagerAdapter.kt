@@ -4,16 +4,18 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.yuzgulen.laera.R
+import com.yuzgulen.laera.ui.profile.ChartFragment
 import com.yuzgulen.laera.utils.Strings
 
 
-class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int) : FragmentStateAdapter(fragment){
+class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int, private var fromExercise: Boolean) : FragmentStateAdapter(fragment){
 
     override fun createFragment(position: Int): Fragment {
-        val bundle = Bundle()
+        val categoryBundle = Bundle()
+        val exerciseBundle = Bundle()
         when (position) {
             0 -> {
-                bundle.putStringArrayList(
+                categoryBundle.putStringArrayList(
                     "categories",
                     arrayListOf(
                         Strings.get(R.string.preorder),
@@ -21,18 +23,20 @@ class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int) : Fra
                         Strings.get(R.string.postorder)
                     )
                 )
+                exerciseBundle.putString("exerciseType", Strings.get(R.string.traversalExerciseID))
             }
             1 -> {
-                bundle.putStringArrayList(
+                categoryBundle.putStringArrayList(
                     "categories",
                     arrayListOf(
                         Strings.get(R.string.rightRotation),
                         Strings.get(R.string.leftRotation)
                     )
                 )
+                exerciseBundle.putString("exerciseType", Strings.get(R.string.treeRotationExerciseID))
             }
             2 -> {
-                bundle.putStringArrayList(
+                categoryBundle.putStringArrayList(
                     "categories",
                     arrayListOf(
                         Strings.get(R.string.bubbleSort),
@@ -40,18 +44,27 @@ class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int) : Fra
                         Strings.get(R.string.selectionSort)
                     )
                 )
+                exerciseBundle.putString("exerciseType", Strings.get(R.string.sortingExerciseID))
             }
             3-> {
-                bundle.putStringArrayList(
+                categoryBundle.putStringArrayList(
                     "categories",
                     arrayListOf(Strings.get(R.string.linkedListInsertion))
                 )
+                exerciseBundle.putString("exerciseType", Strings.get(R.string.listsExerciseID))
             }
-            else -> bundle.putStringArrayList("categories", arrayListOf())
+            else -> categoryBundle.putStringArrayList("categories", arrayListOf())
         }
-        val categoryFragment = CategoryFragment()
-        categoryFragment.arguments = bundle
-        return categoryFragment
+        return if (fromExercise) {
+            val categoryFragment = CategoryFragment()
+            categoryFragment.arguments = categoryBundle
+            categoryFragment
+        } else {
+            val chartFragment = ChartFragment()
+            chartFragment.arguments = exerciseBundle
+            chartFragment
+        }
+
     }
 
     override fun getItemCount(): Int {

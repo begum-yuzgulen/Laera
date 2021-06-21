@@ -13,7 +13,7 @@ class UpdateScore {
         }
     }
 
-    fun execute(exerciseId: String, finishTime: String, success: Boolean) {
-        return ScoreService.getInstance().updateScore(exerciseId, finishTime, success)
+    fun execute(exerciseId: String, exerciseTitle: String, finishTime: String, success: Boolean) {
+        return ScoreService.getInstance().updateScore(exerciseId, exerciseTitle, finishTime, success)
     }
 }
