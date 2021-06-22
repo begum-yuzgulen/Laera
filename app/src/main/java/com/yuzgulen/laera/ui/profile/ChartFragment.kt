@@ -1,13 +1,10 @@
 package com.yuzgulen.laera.ui.profile
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.data.BarEntry
 import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.domain.usecases.GetExerciseFinishTimes
@@ -36,9 +33,9 @@ class ChartFragment : Fragment() {
                 val times : MutableList<Int> = mutableListOf()
                 for (i in value.indices) {
                     labels.add("'T$i'")
-                    val spllitedTime: List<String> = value[i].split(":")
-                    val minutes = spllitedTime[0].toInt()
-                    val seconds = spllitedTime[1].toInt()
+                    val splitTime: List<String> = value[i].split(":")
+                    val minutes = splitTime[0].toInt()
+                    val seconds = splitTime[1].toInt()
 
                     times.add(minutes*60 + seconds)
                 }
@@ -46,7 +43,6 @@ class ChartFragment : Fragment() {
                 url += labels.toString() +
                         ", datasets:[{label:'Finish times (in seconds)', data:"  +
                         times.toString() + "}]}}"
-                Log.e("url is:", url)
                 Picasso.get().load(url).into(finishTimeChart)
             }
 

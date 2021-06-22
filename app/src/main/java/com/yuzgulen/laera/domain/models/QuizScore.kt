@@ -18,6 +18,6 @@ data class QuizScore (
     }
 
     override fun toString(): String {
-        return score.toString() + " | " + date
+        return "Score: " + score.toString() + " | " +"Date: " + date
     }
 }

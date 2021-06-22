@@ -29,7 +29,6 @@ class ProfileViewModel : ViewModel() {
     val userQuizScores: LiveData<List<QuizScores>> = _userQuizScores
 
     private var _chartUrl = MutableLiveData<String>()
-    val chartUrl: LiveData<String> = _chartUrl
 
 
 
@@ -50,9 +49,7 @@ class ProfileViewModel : ViewModel() {
             })
             GetQuizScores().execute(currentUser.uid, object : ICallback<List<QuizScores>> {
                 override fun onCallback(value: List<QuizScores>) {
-                    Log.e("from view model", value.joinToString { ", " })
                     _userQuizScores.value = value
-
                 }
             })
         }
@@ -67,7 +64,6 @@ class ProfileViewModel : ViewModel() {
                 val labels : MutableList<String> = mutableListOf()
                 val successes : MutableList<Int> = mutableListOf()
                 val failures : MutableList<Int> = mutableListOf()
-                Log.e("values", value.toString())
                 value.forEach {
                     labels.add("'" + it.title + "'")
                     successes.add(it.tries - it.failures)
@@ -79,7 +75,6 @@ class ProfileViewModel : ViewModel() {
                         successes.toString() + "}, {label:'Failures', backgroundColor:'red', data:"  +
                         failures.toString() + "}]}}"
 
-                Log.e("constructed url", url)
                 _chartUrl.value = url
             }
         })
