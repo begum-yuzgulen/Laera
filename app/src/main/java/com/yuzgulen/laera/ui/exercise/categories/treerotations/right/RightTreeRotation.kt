@@ -18,8 +18,17 @@ import com.yuzgulen.laera.ui.exercise.DragShadow
 import com.yuzgulen.laera.ui.exercise.CanvasView
 import android.os.CountDownTimer
 import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
+import com.yuzgulen.laera.ui.exercise.categories.treetraversal.TreeTraversalFragmentDirections
 import com.yuzgulen.laera.utils.Colors
+import kotlinx.android.synthetic.main.linked_list_exercise_fragment.*
 import kotlinx.android.synthetic.main.tree_rotation_fragment.*
+import kotlinx.android.synthetic.main.tree_rotation_fragment.refreshTree
+import kotlinx.android.synthetic.main.tree_rotation_fragment.submit
+import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton1
+import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton2
+import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton3
+import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton4
+import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton5
 import java.util.concurrent.TimeUnit
 
 
@@ -184,6 +193,28 @@ class RightTreeRotation : ExerciseCategory() {
         })
     }
 
+    private fun drawCorrectEdges() {
+        drawEdgeOnLeft(textButton1, textButton2, edge1)
+        drawEdgeOnRight(textButton1, textButton3, edge2)
+        drawEdgeOnLeft(textButton3, textButton6, edge5)
+        drawEdgeOnRight(textButton3, textButton7, edge6)
+        drawEdgeOnLeft(textButton2, textButton4, edge3, Colors.get(R.color.transperant))
+        drawEdgeOnRight(textButton2, textButton5, edge4, Colors.get(R.color.transperant))
+
+    }
+
+    fun showCorrectResult(buttons: List<Button>, emptyButtons: List<Button>) {
+        for (i in 0..correctOrder.size-1) {
+            if(buttons[i].text.toString().compareTo(correctOrder[i].toString()) != 0)
+                buttons[i].setTextColor( Colors.get(R.color.red))
+            buttons[i].text = correctOrder[i]
+        }
+        emptyButtons.forEach {
+            it.text = ""
+        }
+        drawCorrectEdges()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -269,8 +300,6 @@ class RightTreeRotation : ExerciseCategory() {
                 }
 
                 submit.setOnClickListener {
-                    val tryAgain = "Try again"
-                    val exercises = "Exercises"
                     val currentOrder = arrayOf<CharSequence>(
                         textButton1.text,
                         textButton2.text,
@@ -282,7 +311,26 @@ class RightTreeRotation : ExerciseCategory() {
                     val title = if(ok) "Correct" else "Incorrect"
                     val message = if(ok) "Congratulations." else "Your response is not correct, but don't give up! Try again!"
                     viewModel.updateScores(elapsedTime, ok)
-                    showDialog(title, message, RightTreeRotationDirections.actionNavRightRotationToRightRotation())
+                    //showDialog(title, message, RightTreeRotationDirections.actionNavRightRotationToRightRotation())
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(title)
+                        .setMessage(message)
+                        .setNegativeButton(tryAgain) { dialog, which ->
+                            view.findNavController().navigate(RightTreeRotationDirections.actionNavRightRotationToRightRotation())
+                        }
+                        .setPositiveButton(exercises) { dialog, which ->
+                            view.findNavController().navigate(
+                                TreeTraversalFragmentDirections.actionNavTraverseToExercise()
+                            )
+                        }
+                        .setNeutralButton("Show result") { dialog, which ->
+                            val buttons = listOf(textButton1, textButton2, textButton3, textButton6, textButton7)
+                            val emptyButtons = listOf(textButton4, textButton5)
+                            showCorrectResult(buttons, emptyButtons)
+
+
+                        }
+                        .show()
                 }
             }
         })
