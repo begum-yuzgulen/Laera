@@ -1,5 +1,6 @@
 package com.yuzgulen.laera.ui.exercise
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +11,9 @@ import com.yuzgulen.laera.R
 import com.yuzgulen.laera.utils.Strings
 import kotlinx.android.synthetic.main.category_entry.view.*
 
-internal class CategoryAdapter : BaseAdapter {
-    var categoryList = ArrayList<Category>()
-    var context: Context? = null
-
-    constructor(context: Context, categoryList: ArrayList<Category>) : super() {
-        this.context = context
-        this.categoryList = categoryList
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    }
+internal class CategoryAdapter(context: Context, private var categoryList: ArrayList<Category>) :
+    BaseAdapter() {
+    var context: Context? = context
 
     override fun getCount(): Int {
         return categoryList.size
@@ -32,11 +27,12 @@ internal class CategoryAdapter : BaseAdapter {
         return position.toLong()
     }
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val categ = this.categoryList[position]
 
-        var inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        var categoryView = inflator.inflate(R.layout.category_entry, null)
+        val inflator = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val categoryView = inflator.inflate(R.layout.category_entry, null)
         categoryView.categoryName.text = categ.name!!
         categoryView.categoryName.setOnClickListener {
             when(categ.name!!){

@@ -175,6 +175,11 @@
             app:popUpTo="@+id/rightTreeRotation"
             app:popUpToInclusive="true">
         </action>
+        <action
+            android:id="@+id/action_nav_rightRotation_to_exerciseCategory"
+            app:destination="@id/nav_exercise">
+        </action>
     </fragment>
+
 
 </navigation>

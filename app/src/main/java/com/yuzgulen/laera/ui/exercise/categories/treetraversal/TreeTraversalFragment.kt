@@ -172,6 +172,8 @@ class TreeTraversalFragment : ExerciseCategory() {
         val args = TreeTraversalFragmentArgs.fromBundle(requireArguments())
         traversalType = args.traversalType
         traversal.text = traversalType.capitalize() + " traversal"
+        val retryDirection = TreeTraversalFragmentDirections.actionNavTraverseToTraverse(traversalType)
+        val exerciseDirection = TreeTraversalFragmentDirections.actionNavTraverseToExercise()
         refreshTree.setOnClickListener {
             view.findNavController().navigate(TreeTraversalFragmentDirections.actionNavTraverseToTraverse(traversalType))
         }
@@ -181,7 +183,7 @@ class TreeTraversalFragment : ExerciseCategory() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
                 drawRandomBinaryTree()
-                startTimer(timer)
+                startTimer(timer, retryDirection, exerciseDirection)
                 setNodeOnClickListeners()
 
                 submit.setOnClickListener{
@@ -193,7 +195,7 @@ class TreeTraversalFragment : ExerciseCategory() {
                     } else getString(R.string.wrong_traversal_order)
 
                     viewModel.updateScores(elapsedTime, correct)
-                    showDialog(title, message, TreeTraversalFragmentDirections.actionNavTraverseToTraverse(traversalType))
+                    buildDialog(title, message, retryDirection, exerciseDirection).show()
 
                 }
 

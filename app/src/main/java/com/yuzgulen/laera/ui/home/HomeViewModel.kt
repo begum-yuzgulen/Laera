@@ -1,20 +1,14 @@
 package com.yuzgulen.laera.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.domain.usecases.GetTopics
-import com.yuzgulen.laera.domain.models.ProgressResponse
-import com.yuzgulen.laera.aretrofitservices.*
 import com.yuzgulen.laera.domain.models.Progress
 import com.yuzgulen.laera.domain.usecases.GetProgresses
 import com.yuzgulen.laera.utils.ICallback
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 

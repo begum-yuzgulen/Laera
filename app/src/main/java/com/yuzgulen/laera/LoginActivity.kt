@@ -51,17 +51,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
+
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account!!)
             } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
-                // ...
             }
         }
     }
@@ -86,24 +83,12 @@ class LoginActivity : AppCompatActivity() {
                                 database.child("user").child(user.uid).child("uid").setValue(user.uid)
                                 database.child("user").child(user.uid).child("username").setValue(acct.displayName)
                                 database.child("user").child(user.uid).child("profilePic").setValue(acct.photoUrl.toString())
-                                database.child("user").child(user.uid).child("progressSorting").setValue("0")
-                                database.child("user").child(user.uid).child("progressLists").setValue("0")
-                                database.child("user").child(user.uid).child("progressGraphs").setValue("0")
-                                database.child("user").child(user.uid).child("progressGreedy").setValue("0")
-                                database.child("user").child(user.uid).child("progressBST").setValue("0")
-                                database.child("user").child(user.uid).child("progressHeaps").setValue("0")
-                                database.child("user").child(user.uid).child("scoreSorting").setValue("0")
-                                database.child("user").child(user.uid).child("scoreLists").setValue("0")
-                                database.child("user").child(user.uid).child("scoreGraphs").setValue("0")
-                                database.child("user").child(user.uid).child("scoreGreedy").setValue("0")
-                                database.child("user").child(user.uid).child("scoreBST").setValue("0")
-                                database.child("user").child(user.uid).child("scoreHeaps").setValue("0")
                                 startActivity(Intent(this@LoginActivity,MainActivity::class.java))
                             }
                         }
 
                         override fun onCancelled(p0: DatabaseError) {
-
+                            Log.w(TAG, "Database error: " + p0.message)
                         }
                     })
 

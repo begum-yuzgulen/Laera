@@ -1,7 +1,9 @@
 package com.yuzgulen.laera.ui.quiz
 
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +29,7 @@ class QuizResultFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args = QuizResultFragmentArgs.fromBundle(arguments!!)
+        val args = QuizResultFragmentArgs.fromBundle(requireArguments())
         val score = args.score
         val topic = args.topic
         var path = ""
@@ -78,7 +80,7 @@ class QuizResultFragment : Fragment() {
             }
 
             override fun onCancelled(p0: DatabaseError) {
-
+                Log.e(TAG, "getScore:onCancelled", p0.toException())
             }
         })
 

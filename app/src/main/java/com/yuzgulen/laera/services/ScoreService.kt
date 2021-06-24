@@ -40,8 +40,8 @@ class ScoreService {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting list of topics failed
-                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+                // Getting quiz scores failed
+                Log.w(ContentValues.TAG, "getQuizScores:onCancelled", databaseError.toException())
             }
         })
     }
@@ -59,7 +59,7 @@ class ScoreService {
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting list of topics failed
-                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(ContentValues.TAG, "getExerciseScores:onCancelled", databaseError.toException())
             }
         })
     }
@@ -81,7 +81,7 @@ class ScoreService {
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting list of topics failed
-                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(ContentValues.TAG, "getExerciseFinishTimes:onCancelled", databaseError.toException())
             }
         })
     }

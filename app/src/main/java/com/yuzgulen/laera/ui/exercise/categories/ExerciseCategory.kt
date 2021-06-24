@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.yuzgulen.laera.R
 import com.yuzgulen.laera.ui.exercise.categories.treetraversal.TreeTraversalFragmentDirections
+import com.yuzgulen.laera.utils.Strings
 import java.util.concurrent.TimeUnit
 
 open class ExerciseCategory : Fragment() {
@@ -16,7 +18,7 @@ open class ExerciseCategory : Fragment() {
     val tryAgain = "Try again"
     val exercises = "Exercises"
 
-    fun startTimer(timer: TextView?) {
+    fun startTimer(timer: TextView?, retryDirection: NavDirections?, exerciseDirection: NavDirections?) {
         countdownTimer = object : CountDownTimer(300000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
@@ -32,24 +34,26 @@ open class ExerciseCategory : Fragment() {
             }
 
             override fun onFinish() {
-
+                buildDialog("Time", Strings.get(R.string.timeExpired), retryDirection, exerciseDirection).show()
             }
         }.start()
     }
 
-    fun showDialog(title: String, message: String, direction: NavDirections) {
-        MaterialAlertDialogBuilder(requireContext())
+    fun buildDialog(title: String, message: String, retryDirection: NavDirections?, exerciseDirection: NavDirections?) : MaterialAlertDialogBuilder  {
+        val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(title)
             .setMessage(message)
-            .setNegativeButton(tryAgain) { dialog, which ->
-                view?.findNavController()?.navigate(direction)
+        if (exerciseDirection != null) {
+            dialog.setPositiveButton(exercises) { _, _ ->
+                view?.findNavController()?.navigate(exerciseDirection)
             }
-            .setPositiveButton(exercises) { dialog, which ->
-                view?.findNavController()?.navigate(
-                    TreeTraversalFragmentDirections.actionNavTraverseToExercise()
-                )
+        }
+        if (retryDirection != null) {
+            dialog.setNegativeButton(tryAgain) { _, _ ->
+                view?.findNavController()?.navigate(retryDirection)
             }
-            .show()
+        }
+        return dialog
     }
 
     fun cancelTimer() {

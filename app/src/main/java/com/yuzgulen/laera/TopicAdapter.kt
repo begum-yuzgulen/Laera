@@ -74,6 +74,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
 
         viewHolder.itemView.setOnClickListener {
             searchView.clearFocus()
+            searchView.removeAllViews()
             navController.navigate(
                 HomeFragmentDirections.actionHomeFragmentToLessonFragment(selectedItem, progress, filteredDataSet[position].id!!,
                 filteredDataSet[position].nr_chapters!!)

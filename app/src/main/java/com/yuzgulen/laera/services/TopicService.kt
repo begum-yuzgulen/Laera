@@ -39,31 +39,31 @@ class TopicService {
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting list of topics failed
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(TAG, "getTopics:onCancelled", databaseError.toException())
             }
         })
     }
 
     fun getTopicChapters(topicId: String, cb: ICallback<List<Chapter>>) {
-        // Get a list of Topic objects
+        // Get a list of Topic chapters objects
         Firebase.database.reference.child("chapters").child(topicId).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val topicChapters: MutableList<Chapter> = mutableListOf()
                 for (postSnapshot in dataSnapshot.children) {
-                    Log.e("chaptersssss", postSnapshot.toString())
                     val chapter = postSnapshot.getValue<Chapter>()!!
-                    Log.e("converted chapter", chapter.toString())
                     topicChapters.add(chapter)
                 }
                 cb.onCallback(topicChapters.toList())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting list of topics failed
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(TAG, "getTopicChapters:onCancelled", databaseError.toException())
             }
         })
     }
 
+    fun getChapterImage(topicId: String, imageName: String) {
+
+    }
 }

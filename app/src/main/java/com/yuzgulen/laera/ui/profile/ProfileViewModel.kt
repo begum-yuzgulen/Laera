@@ -1,5 +1,6 @@
 package com.yuzgulen.laera.ui.profile
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,9 +31,6 @@ class ProfileViewModel : ViewModel() {
 
     private var _chartUrl = MutableLiveData<String>()
 
-
-
-
     fun getUser(): LiveData<User> {
 
         val currentUser = auth.currentUser
@@ -40,7 +38,7 @@ class ProfileViewModel : ViewModel() {
             database.child("user").child(currentUser.uid).addValueEventListener(object :
                 ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-
+                    Log.e(TAG, "getUser:onCancelled", error.toException())
                 }
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

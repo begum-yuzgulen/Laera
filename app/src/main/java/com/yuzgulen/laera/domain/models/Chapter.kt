@@ -10,7 +10,8 @@ import com.google.gson.annotations.SerializedName
 data class Chapter (
     var layout: String? = null,
     var title: String? = null,
-    var content: String? = null
+    var content: String? = null,
+    var image: String? = null
 ) {
 
     @Exclude
@@ -18,7 +19,8 @@ data class Chapter (
         return mapOf(
             "layout" to layout,
             "title" to title,
-            "content" to content
+            "content" to content,
+            "image" to image
         )
     }
 }

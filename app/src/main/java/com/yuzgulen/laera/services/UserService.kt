@@ -37,7 +37,7 @@ class UserService {
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting list of topics failed
-                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(ContentValues.TAG, "getUserData:onCancelled", databaseError.toException())
             }
         })
     }

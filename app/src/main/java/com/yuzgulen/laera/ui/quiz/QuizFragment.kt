@@ -1,7 +1,9 @@
 package com.yuzgulen.laera.ui.quiz
 
+import android.content.ContentValues.TAG
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,6 +68,7 @@ class QuizFragment : Fragment() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "loadQuestion:onCancelled", error.toException())
             }
         })
     }
@@ -73,7 +76,7 @@ class QuizFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
         val binding = DataBindingUtil.inflate<QuizFragmentBinding>(inflater,R.layout.quiz_fragment,container,false)
-        val args = QuizFragmentArgs.fromBundle(arguments!!)
+        val args = QuizFragmentArgs.fromBundle(requireArguments())
         binding.qCategory.text = args.selectedItem
         topic = args.selectedItem
         while (generated.size < 10) {
@@ -89,7 +92,7 @@ class QuizFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(QuizViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }

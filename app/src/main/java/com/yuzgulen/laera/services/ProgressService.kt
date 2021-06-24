@@ -24,7 +24,6 @@ class ProgressService {
     }
 
     fun getUserProgress(uid: String, callback: ICallback<List<Progress>>) {
-        // Get a list of Topic objects
         Firebase.database.reference.child("progress").child(uid).child("progresses").addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -36,8 +35,7 @@ class ProgressService {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                // Getting list of topics failed
-                Log.w(ContentValues.TAG, "loadPost:onCancelled", databaseError.toException())
+                Log.w(ContentValues.TAG, "getUserProgress:onCancelled", databaseError.toException())
             }
         })
     }

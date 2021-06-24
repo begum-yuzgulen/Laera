@@ -29,7 +29,7 @@ class DraggedKey(key: CharSequence, w: Int, h: Int) : Drawable() {
         mPaint.setStrokeWidth(2F)
         mPaint.setStyle(Paint.Style.FILL)
 
-        // Adjust the rect
+        // Adjust the rectangle
         mRect.left = 15.0f
         mRect.top = 50.0f
         mRect.right = 55.0f
@@ -47,11 +47,17 @@ class DraggedKey(key: CharSequence, w: Int, h: Int) : Drawable() {
         canvas.drawText(keyValue.toString(), width/2F, height/2F, paint)
     }
 
+    override fun setAlpha(p0: Int) {
+        mPaint.alpha = p0
+    }
+
     override fun getOpacity(): Int {
         return PixelFormat.OPAQUE
     }
 
-    override fun setAlpha(arg0: Int) {}
-
-    override fun setColorFilter(arg0: ColorFilter?) {}
+    override fun setColorFilter(arg0: ColorFilter?) {
+        if (arg0 != null) {
+            mPaint.colorFilter = arg0
+        }
+    }
 }

@@ -14,8 +14,6 @@
     <string name="menu_rules">Rules</string>
     <string name="menu_about">About</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="correct_traversal_order">The order is correct!</string>
     <string name="wrong_traversal_order">The order is NOT correct!</string>
     <string name="congrats"> Congratulations! You have finished the quiz with %d points. </string>
@@ -50,5 +48,8 @@
     <string name="lessonScoreList">Quiz Scores</string>
     <string name="exerciseTrials">Exercise trials</string>
     <string name="exerciseFinishTimes">Exercise Finish Times</string>
+
+
+    <string name="timeExpired">Time expired!</string>
 
 </resources>

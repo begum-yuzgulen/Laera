@@ -79,8 +79,7 @@ class RightTreeRotation : ExerciseCategory() {
             }
 
             DragEvent.ACTION_DRAG_ENTERED -> {
-                v.invalidate()
-                true
+                invalidate(v)
             }
 
             DragEvent.ACTION_DRAG_LOCATION ->
@@ -91,14 +90,11 @@ class RightTreeRotation : ExerciseCategory() {
                 val dragData = item.text
                 receiverView.text =  dragData
                 rebuildEdges()
-                v.invalidate()
-                true
+                invalidate(v)
             }
 
             DragEvent.ACTION_DRAG_ENDED -> {
-                v.invalidate()
-
-                true
+                invalidate(v)
             }
 
 
@@ -106,6 +102,11 @@ class RightTreeRotation : ExerciseCategory() {
                 false
             }
         }
+    }
+
+    fun invalidate(v: View) : Boolean {
+        v.invalidate()
+        return true
     }
 
     private val longClickListener = View.OnLongClickListener {v ->
@@ -215,6 +216,25 @@ class RightTreeRotation : ExerciseCategory() {
         drawCorrectEdges()
     }
 
+    fun setLongClickListeners() {
+        needed_node1.setOnLongClickListener(longClickListener)
+        needed_node2.setOnLongClickListener(longClickListener)
+        needed_node3.setOnLongClickListener(longClickListener)
+        needed_node4.setOnLongClickListener(longClickListener)
+        needed_node5.setOnLongClickListener(longClickListener)
+    }
+
+    fun setDragListeners() {
+        textButton1.setOnDragListener(dragListen)
+        textButton2.setOnDragListener(dragListen)
+        textButton3.setOnDragListener(dragListen)
+        textButton4.setOnDragListener(dragListen)
+        textButton5.setOnDragListener(dragListen)
+        textButton6.setOnDragListener(dragListen)
+        textButton7.setOnDragListener(dragListen)
+    }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -233,8 +253,10 @@ class RightTreeRotation : ExerciseCategory() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val retryDirection = RightTreeRotationDirections.actionNavRightRotationToRightRotation()
+        val exerciseDirection = RightTreeRotationDirections.actionNavRightRotationToExerciseCategory()
         refreshTree.setOnClickListener {
-            view.findNavController().navigate(RightTreeRotationDirections.actionNavRightRotationToRightRotation())
+            view.findNavController().navigate(retryDirection)
         }
 
         info.setOnClickListener {
@@ -253,50 +275,19 @@ class RightTreeRotation : ExerciseCategory() {
                 view.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
                 drawRandomBinaryTree()
-                startTimer(timer)
+                startTimer(timer, retryDirection, exerciseDirection)
 
-                needed_node1.setOnLongClickListener(longClickListener)
-                needed_node2.setOnLongClickListener(longClickListener)
-                needed_node3.setOnLongClickListener(longClickListener)
-                needed_node4.setOnLongClickListener(longClickListener)
-                needed_node5.setOnLongClickListener(longClickListener)
+                setLongClickListeners()
+                setDragListeners()
 
-                textButton1.setOnDragListener(dragListen)
-                textButton2.setOnDragListener(dragListen)
-                textButton3.setOnDragListener(dragListen)
-                textButton4.setOnDragListener(dragListen)
-                textButton5.setOnDragListener(dragListen)
-                textButton6.setOnDragListener(dragListen)
-                textButton7.setOnDragListener(dragListen)
+                val allNodeButtons = listOf(textButton1, textButton2, textButton3, textButton4,
+                    textButton5, textButton6, textButton7)
 
-                textButton1.setOnClickListener {
-                    textButton1.text = null
-                    rebuildEdges()
-                }
-                textButton2.setOnClickListener {
-                    textButton2.text = null
-                    rebuildEdges()
-                }
-                textButton3.setOnClickListener {
-                    textButton3.text = null
-                    rebuildEdges()
-                }
-                textButton4.setOnClickListener {
-                    textButton4.text = null
-                    rebuildEdges()
-                }
-                textButton5.setOnClickListener {
-                    textButton5.text = null
-                    rebuildEdges()
-                }
-                textButton6.setOnClickListener {
-                    textButton6.text = null
-                    rebuildEdges()
-                }
-
-                textButton7.setOnClickListener {
-                    textButton7.text = null
-                    rebuildEdges()
+                allNodeButtons.forEach { b ->
+                    b.setOnClickListener {
+                        b.text = null
+                        rebuildEdges()
+                    }
                 }
 
                 submit.setOnClickListener {
@@ -311,26 +302,15 @@ class RightTreeRotation : ExerciseCategory() {
                     val title = if(ok) "Correct" else "Incorrect"
                     val message = if(ok) "Congratulations." else "Your response is not correct, but don't give up! Try again!"
                     viewModel.updateScores(elapsedTime, ok)
-                    //showDialog(title, message, RightTreeRotationDirections.actionNavRightRotationToRightRotation())
-                    MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(title)
-                        .setMessage(message)
-                        .setNegativeButton(tryAgain) { dialog, which ->
-                            view.findNavController().navigate(RightTreeRotationDirections.actionNavRightRotationToRightRotation())
-                        }
-                        .setPositiveButton(exercises) { dialog, which ->
-                            view.findNavController().navigate(
-                                TreeTraversalFragmentDirections.actionNavTraverseToExercise()
-                            )
-                        }
+                    buildDialog(title, message, retryDirection,exerciseDirection)
                         .setNeutralButton("Show result") { dialog, which ->
                             val buttons = listOf(textButton1, textButton2, textButton3, textButton6, textButton7)
                             val emptyButtons = listOf(textButton4, textButton5)
                             showCorrectResult(buttons, emptyButtons)
-
-
                         }
                         .show()
+                    
+                    cancelTimer()
                 }
             }
         })
