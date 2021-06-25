@@ -2,6 +2,7 @@ package com.yuzgulen.laera.services
 
 import android.content.ContentValues
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -40,6 +41,15 @@ class UserService {
                 Log.w(ContentValues.TAG, "getUserData:onCancelled", databaseError.toException())
             }
         })
+    }
+
+    fun getUserName(uid: String, callback: ICallback<String>) {
+        Firebase.database.reference.child("user").child(uid).child("username").get().addOnSuccessListener {
+            callback.onCallback(it.value.toString())
+        }.addOnFailureListener{
+            Log.e("Firebase", "Error getting username")
+            callback.onCallback("User")
+        }
     }
 
 }

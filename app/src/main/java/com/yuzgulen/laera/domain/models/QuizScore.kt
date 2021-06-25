@@ -5,8 +5,9 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class QuizScore (
-    var score: Int? = null,
-    var date: String? = null
+    var score: Float? = null,
+    var date: String? = null,
+    var uid: String? = null
 ) {
 
     @Exclude
@@ -18,6 +19,8 @@ data class QuizScore (
     }
 
     override fun toString(): String {
-        return "Score: " + score.toString() + " | " +"Date: " + date
+        if (uid == null)
+            return "Score: " + score.toString() + " | " +"Date: " + date
+        return uid + " - " + score.toString()
     }
 }

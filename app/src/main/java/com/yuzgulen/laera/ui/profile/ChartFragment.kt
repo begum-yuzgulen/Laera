@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.R
+import com.yuzgulen.laera.domain.models.QuizScores
 import com.yuzgulen.laera.domain.usecases.GetExerciseFinishTimes
 import com.yuzgulen.laera.utils.ICallback
 import kotlinx.android.synthetic.main.fragment_chart.*

@@ -9,7 +9,6 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.yuzgulen.laera.domain.models.ExerciseScores
 import com.yuzgulen.laera.domain.models.QuizScores
-import com.yuzgulen.laera.ui.exercise.categories.sorting.Exercise
 import com.yuzgulen.laera.utils.ICallback
 
 class ScoreService {

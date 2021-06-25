@@ -68,9 +68,9 @@
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="com.yuzgulen.laera.ui.slideshow.SlideshowFragment"
+        android:name="com.yuzgulen.laera.ui.leaderboard.LeaderboardFragment"
         android:label="@string/menu_leaderboard"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
         android:id="@+id/nav_share"

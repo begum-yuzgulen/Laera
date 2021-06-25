@@ -17,4 +17,15 @@ data class QuizScores (
             "scores" to scores
         )
     }
+
+    override fun equals(other: Any?): Boolean {
+        val otherTitle = (other as QuizScores).title
+        if (otherTitle != null)
+            return title?.compareTo(otherTitle) == 0
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return title?.hashCode() ?: 0
+    }
 }

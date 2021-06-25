@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.domain.models.Chapter
+import com.yuzgulen.laera.domain.models.QuizScores
 import com.yuzgulen.laera.domain.usecases.GetChapters
 import com.yuzgulen.laera.domain.usecases.UpdateProgress
 import com.yuzgulen.laera.utils.ICallback
