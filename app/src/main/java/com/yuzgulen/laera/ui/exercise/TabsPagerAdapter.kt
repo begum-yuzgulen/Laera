@@ -49,7 +49,7 @@ class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int, priva
             3-> {
                 categoryBundle.putStringArrayList(
                     "categories",
-                    arrayListOf(Strings.get(R.string.linkedListInsertion))
+                    arrayListOf(Strings.get(R.string.redBlackTreeRecoloring))
                 )
                 exerciseBundle.putString("exerciseType", Strings.get(R.string.listsExerciseID))
             }

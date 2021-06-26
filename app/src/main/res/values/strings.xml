@@ -51,5 +51,6 @@
 
 
     <string name="timeExpired">Time expired!</string>
+    <string name="redBlackTreeRecoloring">RB Tree Recoloring</string>
 
 </resources>

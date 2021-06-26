@@ -22,7 +22,6 @@ import com.yuzgulen.laera.utils.ICallback
 class ProfileViewModel : ViewModel() {
 
     private var _userProfile = MutableLiveData<User>()
-    val userProfile: LiveData<User> = _userProfile
     private val database = FirebaseDatabase.getInstance().reference
     private val auth = FirebaseAuth.getInstance()
     private var _userQuizScores = MutableLiveData<List<QuizScores>>()
@@ -75,9 +74,7 @@ class ProfileViewModel : ViewModel() {
                 _chartUrl.value = url
             }
         })
-
         return _chartUrl
-
     }
 
     fun signOut(googleSignInClient: GoogleSignInClient){

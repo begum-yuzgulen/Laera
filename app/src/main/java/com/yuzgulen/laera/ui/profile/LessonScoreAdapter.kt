@@ -2,11 +2,9 @@ package com.yuzgulen.laera.ui.profile
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.yuzgulen.laera.R
@@ -34,21 +32,15 @@ class LessonScoreAdapter(private val context: Context,
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        // Get view for row item
-        val rowView = inflater.inflate(R.layout.lesson_score_entry, parent, false)
-        rowView.lesson_title.text = dataSource[position].title
-        Log.d("beee", dataSource[position].scores.toString())
-        val adapter = ArrayAdapter(context, android.R.layout.simple_expandable_list_item_1, dataSource[position].scores.toTypedArray())
-        //rowView.quizScoresList.adapter = adapter
-        var scores = ""
+        val lessonScoreEntry = inflater.inflate(R.layout.lesson_score_entry, parent, false)
+        lessonScoreEntry.lesson_title.text = dataSource[position].title
         dataSource[position].scores.forEach {
             val tv = TextView(context)
             tv.setPadding(20,20,20,20)
             tv.text = it.toString()
-            rowView.scores.addView(tv)
+            lessonScoreEntry.scores.addView(tv)
         }
-        //rowView.scores.text = scores
-        return rowView
+        return lessonScoreEntry
     }
 
 }

@@ -7,7 +7,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.domain.usecases.GetTopics
 import com.yuzgulen.laera.domain.models.Progress
-import com.yuzgulen.laera.domain.models.QuizScores
 import com.yuzgulen.laera.domain.usecases.GetProgresses
 import com.yuzgulen.laera.utils.ICallback
 

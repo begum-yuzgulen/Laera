@@ -2,8 +2,6 @@ package com.yuzgulen.laera.domain.models
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 
 
 @IgnoreExtraProperties

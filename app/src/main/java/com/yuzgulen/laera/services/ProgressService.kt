@@ -42,7 +42,7 @@ class ProgressService {
 
     fun updateProgress(uid: String, topicId: String, progress: Int) {
         Firebase.database.reference.child("progress").child(uid).child("progresses")
-            .child(topicId).child("id").setValue(progress.toString())
+            .child(topicId).child("progress").setValue(progress.toString())
     }
 
 }

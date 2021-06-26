@@ -1,10 +1,16 @@
 package com.yuzgulen.laera
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.LinearProgressIndicator
@@ -15,6 +21,8 @@ import com.yuzgulen.laera.ui.home.HomeFragmentDirections
 import com.yuzgulen.laera.utils.Colors
 import kotlinx.android.synthetic.main.topics_entry.view.*
 import com.yuzgulen.laera.domain.models.Topic
+import com.yuzgulen.laera.ui.home.GeneratePDF
+import com.yuzgulen.laera.utils.App
 import kotlin.collections.ArrayList
 
 
@@ -35,6 +43,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
         val topicProgress: TextView = view.topicProgress
         val progressIndicator: LinearProgressIndicator = view.progress_indicator
         val quizButton: Button = view.quizButton
+        val progressButton: Button = view.progressButton
     }
     private var itemsCopy = ArrayList(dataSet)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -80,6 +89,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
                 filteredDataSet[position].nr_chapters!!)
             )
         }
+        viewHolder.progressButton.tag = filteredDataSet[position].id
     }
 
     override fun getItemCount() = filteredDataSet.size

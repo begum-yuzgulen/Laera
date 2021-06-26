@@ -68,19 +68,10 @@
             android:textAllCaps="true"
             android:text="@string/exerciseTrials"/>
 
-        <com.jsibbold.zoomage.ZoomageView
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/all_exercises_progress"
-            app:zoomage_restrictBounds="false"
-            app:zoomage_animateOnReset="true"
-            app:zoomage_autoResetMode="UNDER"
-            app:zoomage_autoCenter="true"
-            app:zoomage_zoomable="true"
-            app:zoomage_doubleTapToZoom="true"
-            app:zoomage_translatable="true"
-            app:zoomage_minScale="0.6"
-            app:zoomage_maxScale="8"/>
+            android:id="@+id/all_exercises_progress" />
 
         <View
             android:layout_width="match_parent"

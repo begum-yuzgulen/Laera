@@ -76,6 +76,7 @@
                     android:id="@+id/progressButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="onClickRequestPermission"
                     android:text="Progress"
                     android:textColor="@color/colorPrimary"
                     style="?attr/borderlessButtonStyle"

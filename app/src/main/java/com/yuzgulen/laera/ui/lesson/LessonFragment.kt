@@ -39,50 +39,51 @@ class LessonFragment : Fragment() {
             override fun onCallback(value: List<Chapter>) {
                 chapters = value
                 nrChapters = chapters.size
-                Log.e("chapters", chapters.joinToString { ", " })
-                lesson(progress)
+                lesson((progress.toInt()*nrChapters/100))
             }
         })
     }
 
-    private fun lesson(lessonProgress: String){
-        var progress = lessonProgress.toInt()
-        root.lesson_progress.progress = (progress * 100)/nrChapters
-        if(progress < nrChapters) {
-            if (chapters[progress].layout == "layout1") {
+    private fun lesson(progress: Int) {
+        var index = progress
+        root.lesson_progress.progress = index*100/nrChapters
+        Log.e("progress and nrChapters", chapters[index].toString())
+        if(index < nrChapters) {
+            if (chapters[index].layout == "layout1") {
                 root.lesson_layout1.visibility = View.VISIBLE
                 root.content_layout2.visibility = View.INVISIBLE
-            } else if (chapters[progress].layout == "layout2") {
+            } else if (chapters[index].layout == "layout2") {
                 root.lesson_layout1.visibility = View.VISIBLE
                 root.content_layout2.visibility = View.INVISIBLE
             }
-            root.title.text = chapters[progress].title
-            root.content_layout1.text = chapters[progress].content
+            root.title.text = chapters[index].title
+            root.content_layout1.text = chapters[index].content
 
-            if(chapters[progress].image != null) {
+            if(chapters[index].image != null) {
                 val storage = Firebase.storage
                 val storageRef = storage.reference
-
-                storageRef.child("lessons/" + selectedItemId + "/" + chapters[progress].image).downloadUrl.addOnSuccessListener {
+                storageRef.child("lessons/" + selectedItemId + "/" + chapters[index].image).downloadUrl.addOnSuccessListener {
                     Picasso.get().load(it).into(root.image_layout1)
                 }.addOnFailureListener {
                     Log.e("storage error", it.message.toString())
                 }
             }
 
-            if (progress == nrChapters - 1) {
+            if (index == nrChapters - 1) {
                 root.next.text = "Open quiz"
                 root.next.setOnClickListener {
+                    index += 1
+                    UpdateProgress().execute(currentUser!!.uid, selectedItemId, index)
                     requireView().findNavController().navigate(
                         LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem)
                     )
                 }
             } else {
                 root.next.setOnClickListener {
-                    UpdateProgress().execute(currentUser!!.uid, selectedItemId, progress + 1)
-                    progress += 1
+                    index += 1
+                    UpdateProgress().execute(currentUser!!.uid, selectedItemId, index)
 
-                    lesson(progress.toString())
+                    lesson(index)
 
                 }
             }

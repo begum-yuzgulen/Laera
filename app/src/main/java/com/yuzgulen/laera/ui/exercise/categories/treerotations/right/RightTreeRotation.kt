@@ -18,9 +18,9 @@ import com.yuzgulen.laera.ui.exercise.DragShadow
 import com.yuzgulen.laera.ui.exercise.CanvasView
 import android.os.CountDownTimer
 import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
-import com.yuzgulen.laera.ui.exercise.categories.treetraversal.TreeTraversalFragmentDirections
+import com.yuzgulen.laera.ui.exercise.categories.commons.BinaryTreeGeneration
 import com.yuzgulen.laera.utils.Colors
-import kotlinx.android.synthetic.main.linked_list_exercise_fragment.*
+import kotlinx.android.synthetic.main.binary_tree.*
 import kotlinx.android.synthetic.main.tree_rotation_fragment.*
 import kotlinx.android.synthetic.main.tree_rotation_fragment.refreshTree
 import kotlinx.android.synthetic.main.tree_rotation_fragment.submit
@@ -147,6 +147,7 @@ class RightTreeRotation : ExerciseCategory() {
 
     private fun drawRandomBinaryTree() {
         viewModel.generateRandomTree()
+        val btGenerator = BinaryTreeGeneration()
         viewModel.nodesMap.observe(this, {
             val root = it["root"].toString()
             s_node1.text = root
@@ -158,7 +159,7 @@ class RightTreeRotation : ExerciseCategory() {
             // root has left child => node2
             val node2 = it["node2"].toString()
             s_node2.text = node2
-            drawEdgeOnLeft(s_node1, s_node2, s_edge1)
+            btGenerator.drawEdgeOnLeft(s_node1, s_node2, s_edge1)
             s_node2.visibility = View.VISIBLE
             needed_node2.text = node2
             needed_node2.tag = node2
@@ -166,7 +167,7 @@ class RightTreeRotation : ExerciseCategory() {
             // node2 has left child => node4
             val node4 = it["node4"].toString()
             s_node4.text = node4
-            drawEdgeOnLeft(s_node2, s_node4, s_edge3)
+            btGenerator.drawEdgeOnLeft(s_node2, s_node4, s_edge3)
             s_node4.visibility = View.VISIBLE
             needed_node4.text = node4
             needed_node4.tag = node4
@@ -174,7 +175,7 @@ class RightTreeRotation : ExerciseCategory() {
             // node2 has right child => node5
             val node5 = it["node5"].toString()
             s_node5.text = node5
-            drawEdgeOnRight(s_node2, s_node5, s_edge4)
+            btGenerator.drawEdgeOnRight(s_node2, s_node5, s_edge4)
             s_node5.visibility = View.VISIBLE
             needed_node5.text = node5
             needed_node5.tag = node5
@@ -182,7 +183,7 @@ class RightTreeRotation : ExerciseCategory() {
             // right tree
             val node3 = it["node3"].toString()
             s_node3.text = node3
-            drawEdgeOnRight(s_node1, s_node3, s_edge2)
+            btGenerator.drawEdgeOnRight(s_node1, s_node3, s_edge2)
             s_node3.visibility = View.VISIBLE
             needed_node3.text = node3
             needed_node3.tag = node3

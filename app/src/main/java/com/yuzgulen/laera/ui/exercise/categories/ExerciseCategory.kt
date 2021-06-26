@@ -7,7 +7,6 @@ import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.ui.exercise.categories.treetraversal.TreeTraversalFragmentDirections
 import com.yuzgulen.laera.utils.Strings
 import java.util.concurrent.TimeUnit
 

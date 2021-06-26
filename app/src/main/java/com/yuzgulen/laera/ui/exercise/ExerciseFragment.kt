@@ -51,7 +51,7 @@ class ExerciseFragment : Fragment() {
                     tab.text = "Array sorting"
                 }
                 3 -> {
-                    tab.text = "Linked List"
+                    tab.text = "Red Black Trees"
                 }
 
             }
