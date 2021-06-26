@@ -44,10 +44,15 @@ class LessonFragment : Fragment() {
         })
     }
 
+    fun navigateToQuiz() {
+        requireView().findNavController().navigate(
+            LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem)
+        )
+    }
+
     private fun lesson(progress: Int) {
         var index = progress
         root.lesson_progress.progress = index*100/nrChapters
-        Log.e("progress and nrChapters", chapters[index].toString())
         if(index < nrChapters) {
             if (chapters[index].layout == "layout1") {
                 root.lesson_layout1.visibility = View.VISIBLE
@@ -74,19 +79,18 @@ class LessonFragment : Fragment() {
                 root.next.setOnClickListener {
                     index += 1
                     UpdateProgress().execute(currentUser!!.uid, selectedItemId, index)
-                    requireView().findNavController().navigate(
-                        LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem)
-                    )
+                    navigateToQuiz()
                 }
             } else {
                 root.next.setOnClickListener {
                     index += 1
                     UpdateProgress().execute(currentUser!!.uid, selectedItemId, index)
-
                     lesson(index)
 
                 }
             }
+        } else {
+            navigateToQuiz()
         }
     }
 

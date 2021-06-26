@@ -21,8 +21,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
+import com.yuzgulen.laera.domain.usecases.IsAdmin
 import com.yuzgulen.laera.ui.home.GeneratePDF
 import com.yuzgulen.laera.utils.App
+import com.yuzgulen.laera.utils.ICallback
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
@@ -52,10 +54,11 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_exercise, R.id.nav_profile,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send
+                R.id.nav_tools, R.id.nav_share, R.id.nav_send, R.id.nav_admin
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -63,7 +66,15 @@ class MainActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         val user = auth.currentUser
-        if(user != null){
+        if(user != null) {
+            IsAdmin.getInstance().execute(user.uid, object: ICallback<Boolean> {
+                override fun onCallback(value: Boolean) {
+                    if(!value) {
+                        navView.menu.findItem(R.id.nav_admin).isVisible = false
+                    }
+                }
+
+            })
             changeNavigationHeaderInfo(user.displayName.toString(), user.photoUrl.toString() )
         }
     }

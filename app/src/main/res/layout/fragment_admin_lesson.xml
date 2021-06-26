@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_lesson"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"/>
+
+
+    <EditText
+        android:id="@+id/lessonTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lessonTitle"
+        android:imeOptions="actionDone"/>
+
+    <Button
+        android:id="@+id/lessonIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Icon"/>
+
+    <ImageView
+        android:id="@+id/lessonIconImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chapters"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transperant"
+        android:id="@+id/addChapter"
+        android:text="+ chapter"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:id="@+id/submitLesson"
+        android:text="Submit lesson"/>
+
+</LinearLayout>

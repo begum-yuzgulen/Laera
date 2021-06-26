@@ -1,9 +1,18 @@
 package com.yuzgulen.laera.services
 
+import android.content.ContentValues
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.yuzgulen.laera.domain.models.Chapter
+import com.yuzgulen.laera.domain.models.Feedback
+import com.yuzgulen.laera.utils.ICallback
 
 class FeedbackService {
     companion object {
@@ -39,5 +48,23 @@ class FeedbackService {
                 dbRef.child("feedback").child(feedbackId).child("imageLocation").setValue(it.toString())
             }
         }
+    }
+
+    fun getFeedback(callback: ICallback<List<Feedback>>) {
+        Firebase.database.reference.child("feedback").addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val feedbacks: MutableList<Feedback> = mutableListOf()
+                for (postSnapshot in dataSnapshot.children) {
+                    val feedback = postSnapshot.getValue<Feedback>()!!
+                    feedbacks.add(feedback)
+                }
+                callback.onCallback(feedbacks.toList())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(ContentValues.TAG, "getFeedback:onCancelled", databaseError.toException())
+            }
+        })
     }
 }

@@ -52,4 +52,15 @@ class UserService {
         }
     }
 
+    fun isAdmin(uid: String, callback: ICallback<Boolean>) {
+        Firebase.database.reference.child("user").child(uid).child("admin").get().addOnSuccessListener {
+            if (it.value != null && it.value == true)
+                callback.onCallback(true)
+            else callback.onCallback(false)
+        }.addOnFailureListener{
+            Log.e("Firebase", "Error getting type")
+            callback.onCallback(false)
+        }
+    }
+
 }

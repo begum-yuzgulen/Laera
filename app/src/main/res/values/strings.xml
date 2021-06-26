@@ -52,5 +52,25 @@
 
     <string name="timeExpired">Time expired!</string>
     <string name="redBlackTreeRecoloring">RB Tree Recoloring</string>
+    <string name="menu_admin">Admin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_lesson">Add lesson</string>
+    <string name="lessonTitle">Lesson Title</string>
+    <string name="lessonNrChapter">Nr of chapter</string>
+    <string name="chapter1">Chapter 1</string>
+    <string name="layout1">Layout 1</string>
+    <string name="layout2">Layout 2</string>
+    <string name="layout3">Layout 3</string>
+    <string name="chapterLayout">Chapter Layout</string>
+    <string name="chapterTitle">Chapter title</string>
+    <string name="chapterText">Chapter Text</string>
+    <string name="lessonId">LessonId</string>
+    <string name="chooseLesson">Choose the lesson:</string>
+    <string name="questionText">Question</string>
+    <string name="answer1">Option 1</string>
+    <string name="answer2">Option 2</string>
+    <string name="answer3">Option 3</string>
+    <string name="answer4">Option 4</string>
 
 </resources>

@@ -8,16 +8,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.*
-import com.yuzgulen.laera.Question
+import com.yuzgulen.laera.domain.models.Question
 
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.databinding.QuizFragmentBinding
-import kotlinx.android.synthetic.main.quiz_fragment.*
+import com.yuzgulen.laera.domain.usecases.HasQuestions
+import com.yuzgulen.laera.utils.App
+import com.yuzgulen.laera.utils.ICallback
 import java.util.*
 
 class QuizFragment : Fragment() {
@@ -99,7 +102,17 @@ class QuizFragment : Fragment() {
         binding.quizLayout.visibility = View.VISIBLE
         (activity as AppCompatActivity).supportActionBar?.title = "$topic Quiz"
         val myRef = database.child("questions").child(topic)
-        loadQuestion(myRef, 0,binding, inflater)
+        HasQuestions.getInstance().execute(topic, object :
+            ICallback<Boolean> {
+            override fun onCallback(value: Boolean) {
+                if (value) {
+                    loadQuestion(myRef, 0,binding, inflater)
+                } else {
+                    Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
         return binding.root
     }
 

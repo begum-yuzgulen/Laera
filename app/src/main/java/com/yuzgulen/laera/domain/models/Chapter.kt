@@ -3,7 +3,6 @@ package com.yuzgulen.laera.domain.models
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 
-
 @IgnoreExtraProperties
 data class Chapter (
     var layout: String? = null,

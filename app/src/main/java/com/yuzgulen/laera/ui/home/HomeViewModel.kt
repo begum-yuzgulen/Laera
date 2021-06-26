@@ -52,6 +52,7 @@ class HomeViewModel : ViewModel() {
     private fun loadTopics(topics: List<Topic>, progresses: List<Progress>) {
         for (topic in topics) {
             val topicsProgress = getTopicProgress(progresses, topic.id!!)
+            if (topic.nr_chapters != null && topic.nr_chapters!! > 0)
             topicList.add(
                 Topic(
                     if(topic.id != null) topic.id else "",

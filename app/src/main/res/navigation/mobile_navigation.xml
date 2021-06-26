@@ -87,6 +87,13 @@
         android:name="com.yuzgulen.laera.ui.send.SendFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_send" />
+
+    <fragment
+        android:id="@+id/nav_admin"
+        android:name="com.yuzgulen.laera.ui.admin.AdminFragment"
+        android:label="@string/menu_admin"
+        tools:layout="@layout/admin_fragment" />
+
     <fragment
         android:id="@+id/traverseBSTExercise"
         android:name="com.yuzgulen.laera.ui.exercise.categories.treetraversal.TreeTraversalFragment"
@@ -173,6 +180,25 @@
         android:id="@+id/redBlackTreeFragment"
         android:name="com.yuzgulen.laera.ui.exercise.categories.rbtree.RedBlackTreeFragment"
         android:label="RedBlackTreeFragment" />
+    <fragment
+        android:id="@+id/adminQuestionFragment"
+        android:name="com.yuzgulen.laera.ui.admin.AdminQuestionFragment"
+        android:label="fragment_admin_question"
+        tools:layout="@layout/fragment_admin_question">
+
+        <action
+            android:id="@+id/action_nav_adminQuiz_to_adminQuiz"
+            app:destination="@id/adminQuestionFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/adminQuestionFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_nav_adminQuiz_to_adminFragment"
+            app:destination="@id/nav_admin">
+        </action>
+
+    </fragment>
 
 
 </navigation>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/chapterEntry"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:checkedButton="@+id/radio_button_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radio_button_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/layout1"/>
+        <RadioButton
+            android:id="@+id/radio_button_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/layout2"/>
+        <RadioButton
+            android:id="@+id/radio_button_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/layout3"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/chapterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="15"
+        android:ems = "100"
+        android:inputType="textCapSentences|textMultiLine"
+        android:hint="@string/chapterTitle" />
+
+    <EditText
+        android:id="@+id/chapterText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="15"
+        android:ems = "100"
+        android:inputType="textCapSentences|textMultiLine"
+        android:hint="@string/chapterText" />
+
+    <Button
+        android:id="@+id/load_image1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload chapter image"/>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <EditText
+        android:id="@+id/chapterText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="15"
+        android:ems = "100"
+        android:inputType="textCapSentences|textMultiLine"
+        android:hint="@string/chapterText"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/load_image2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload an image"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+</LinearLayout>

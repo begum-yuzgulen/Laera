@@ -9,6 +9,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.yuzgulen.laera.domain.models.Chapter
+import com.yuzgulen.laera.domain.models.Question
 import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.utils.ICallback
 
@@ -63,7 +64,46 @@ class TopicService {
         })
     }
 
-    fun getChapterImage(topicId: String, imageName: String) {
+    fun addTopic(topic: Topic) {
+        Firebase.database.reference.child("topics").push().setValue(topic)
+    }
 
+    fun addTopicChapters(chapters: List<Chapter>) {
+
+    }
+
+    fun hasQuestions(topicId: String, callback: ICallback<Boolean>) {
+        Firebase.database.reference.child("questions").child(topicId).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                callback.onCallback(dataSnapshot.children.count() > 0)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(TAG, "getTopicChapters:onCancelled", databaseError.toException())
+            }
+        })
+    }
+
+    fun getTopicNames(callback: ICallback<List<String>>) {
+        Firebase.database.reference.child("topics").addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val topics: MutableList<String> = mutableListOf()
+                for (postSnapshot in dataSnapshot.children) {
+                    topics.add(postSnapshot.child("title").value.toString())
+                }
+                callback.onCallback(topics.toList())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting list of topics failed
+                Log.w(TAG, "getTopicNames:onCancelled", databaseError.toException())
+            }
+        })
+    }
+
+    fun addQuestion(topicId: String, question: Question) {
+        Firebase.database.reference.child("questions").child(topicId).push().setValue(question)
     }
 }

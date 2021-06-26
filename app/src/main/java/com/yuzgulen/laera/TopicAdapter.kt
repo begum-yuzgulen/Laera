@@ -10,9 +10,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -21,8 +24,11 @@ import com.yuzgulen.laera.ui.home.HomeFragmentDirections
 import com.yuzgulen.laera.utils.Colors
 import kotlinx.android.synthetic.main.topics_entry.view.*
 import com.yuzgulen.laera.domain.models.Topic
+import com.yuzgulen.laera.domain.usecases.HasQuestions
 import com.yuzgulen.laera.ui.home.GeneratePDF
+import com.yuzgulen.laera.ui.quiz.QuizFragmentDirections
 import com.yuzgulen.laera.utils.App
+import com.yuzgulen.laera.utils.ICallback
 import kotlin.collections.ArrayList
 
 
@@ -84,10 +90,19 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
         viewHolder.itemView.setOnClickListener {
             searchView.clearFocus()
             searchView.removeAllViews()
-            navController.navigate(
-                HomeFragmentDirections.actionHomeFragmentToLessonFragment(selectedItem, progress, filteredDataSet[position].id!!,
-                filteredDataSet[position].nr_chapters!!)
-            )
+            HasQuestions.getInstance().execute(filteredDataSet[position].title!!, object : ICallback<Boolean>{
+                override fun onCallback(value: Boolean) {
+                    if (value) {
+                        navController.navigate(
+                            HomeFragmentDirections.actionHomeFragmentToLessonFragment(selectedItem, progress, filteredDataSet[position].id!!,
+                                filteredDataSet[position].nr_chapters!!)
+                        )
+                    } else {
+                        Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            })
         }
         viewHolder.progressButton.tag = filteredDataSet[position].id
     }
