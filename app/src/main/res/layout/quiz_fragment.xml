@@ -7,8 +7,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/quizz_layout"
+            android:id="@+id/quizLayout"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -20,7 +31,6 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:text="TextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:text="TextView"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +66,6 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="64dp"
                 android:layout_marginEnd="32dp"
-                android:text="Answer 1"
                 android:textColor="#000000"
                 android:backgroundTint="#00000000"
                 app:strokeColor="#000"
@@ -75,7 +82,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:text="Answer 2"
                 android:textColor="#000000"
                 android:backgroundTint="#00000000"
                 app:strokeColor="#000"
@@ -93,7 +99,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:text="Answer 3"
                 app:layout_constraintBottom_toTopOf="@+id/ans4"
                 android:textColor="#000000"
                 android:backgroundTint="#00000000"
@@ -111,7 +116,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:text="Answer 4"
                 android:textColor="#000"
                 android:backgroundTint="#00000000"
                 app:strokeColor="#000"
@@ -136,7 +140,7 @@
                 android:id="@+id/skip_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
+                android:textColor="#FFF"
                 app:strokeColor="#000"
                 android:text="SKIP"
                 android:background="@color/colorPrimary"

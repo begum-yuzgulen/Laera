@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.*
 import com.yuzgulen.laera.Question
 
@@ -63,7 +65,15 @@ class QuizFragment : Fragment() {
                     }
                 }
                 else{
-                    view?.findNavController()?.navigate(QuizFragmentDirections.actionQuizzFragmentToWinFragment(scor,topic))
+                    MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Quiz Finished")
+                    .setMessage("You have finished $topic quiz with a score of $scor/10.")
+                    .setPositiveButton("Go to lessons") { _, _ ->
+                        view?.findNavController()?.navigate(QuizFragmentDirections.actionQuizzFragmentToHomeFragment())
+                    }
+                    .setNegativeButton("Try again") { _, _ ->
+                        view?.findNavController()?.navigate(QuizFragmentDirections.actionQuizzFragmentToQuizFragment(topic))
+                    }.show()
                     return
                 }
             }
@@ -76,6 +86,7 @@ class QuizFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle? ): View? {
         val binding = DataBindingUtil.inflate<QuizFragmentBinding>(inflater,R.layout.quiz_fragment,container,false)
+
         val args = QuizFragmentArgs.fromBundle(requireArguments())
         binding.qCategory.text = args.selectedItem
         topic = args.selectedItem
@@ -84,6 +95,9 @@ class QuizFragment : Fragment() {
             if(!generated.contains(next))
                 generated.add(next)
         }
+        binding.loading.visibility = View.GONE
+        binding.quizLayout.visibility = View.VISIBLE
+        (activity as AppCompatActivity).supportActionBar?.title = "$topic Quiz"
         val myRef = database.child("questions").child(topic)
         loadQuestion(myRef, 0,binding, inflater)
         return binding.root
