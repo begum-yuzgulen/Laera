@@ -26,12 +26,12 @@
         android:orientation="horizontal"
         android:gravity="center">
 
-        <com.yuzgulen.laera.ui.exercise.CanvasView
+        <com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
             android:id="@+id/s_edge1"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <com.yuzgulen.laera.ui.exercise.CanvasView
+        <com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
             android:id="@+id/s_edge2"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
@@ -80,19 +80,19 @@
         android:gravity="center"
         android:weightSum="4">
 
-        <com.yuzgulen.laera.ui.exercise.CanvasView
+        <com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
             android:id="@+id/s_edge3"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
-        <com.yuzgulen.laera.ui.exercise.CanvasView
+        <com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
             android:id="@+id/s_edge4"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
-        <com.yuzgulen.laera.ui.exercise.CanvasView
+        <com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
             android:id="@+id/s_edge5"
             android:layout_width="match_parent"
             android:layout_height="20dp" />
-        <com.yuzgulen.laera.ui.exercise.CanvasView
+        <com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
             android:id="@+id/s_edge6"
             android:layout_width="match_parent"
             android:layout_height="20dp" />

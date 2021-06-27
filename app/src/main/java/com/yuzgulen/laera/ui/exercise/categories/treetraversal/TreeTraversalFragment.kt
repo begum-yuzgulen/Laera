@@ -1,22 +1,17 @@
 package com.yuzgulen.laera.ui.exercise.categories.treetraversal
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.ui.exercise.CanvasView
-import com.yuzgulen.laera.ui.exercise.ExerciseFragment
+import com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
 import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
-import kotlinx.android.synthetic.main.tree_rotation_fragment.*
 import kotlinx.android.synthetic.main.tree_traversal_fragment.*
 import kotlinx.android.synthetic.main.tree_traversal_fragment.edge1
 import kotlinx.android.synthetic.main.tree_traversal_fragment.edge2
@@ -24,7 +19,6 @@ import kotlinx.android.synthetic.main.tree_traversal_fragment.edge3
 import kotlinx.android.synthetic.main.tree_traversal_fragment.edge4
 import kotlinx.android.synthetic.main.tree_traversal_fragment.edge5
 import kotlinx.android.synthetic.main.tree_traversal_fragment.edge6
-import kotlinx.android.synthetic.main.tree_traversal_fragment.exerciseLayout
 import kotlinx.android.synthetic.main.tree_traversal_fragment.refreshTree
 import kotlinx.android.synthetic.main.tree_traversal_fragment.submit
 import kotlinx.android.synthetic.main.tree_traversal_fragment.textButton1
@@ -35,7 +29,6 @@ import kotlinx.android.synthetic.main.tree_traversal_fragment.textButton5
 import kotlinx.android.synthetic.main.tree_traversal_fragment.textButton6
 import kotlinx.android.synthetic.main.tree_traversal_fragment.textButton7
 import kotlinx.android.synthetic.main.tree_traversal_fragment.timer
-import java.util.concurrent.TimeUnit
 
 
 class TreeTraversalFragment : ExerciseCategory() {

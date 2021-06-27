@@ -15,7 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.LoginActivity
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.ui.exercise.TabsPagerAdapter
+import com.yuzgulen.laera.ui.exercise.utils.TabsPagerAdapter
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 

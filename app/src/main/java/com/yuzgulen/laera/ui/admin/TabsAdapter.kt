@@ -1,12 +1,7 @@
 package com.yuzgulen.laera.ui.admin
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.yuzgulen.laera.R
-import com.yuzgulen.laera.ui.exercise.CategoryFragment
-import com.yuzgulen.laera.ui.profile.ChartFragment
-import com.yuzgulen.laera.utils.Strings
 
 class TabsAdapter (fragment: Fragment, private var numberOfTabs: Int) : FragmentStateAdapter(fragment){
 

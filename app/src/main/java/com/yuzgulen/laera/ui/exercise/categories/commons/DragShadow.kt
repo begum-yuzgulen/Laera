@@ -1,12 +1,8 @@
-package com.yuzgulen.laera.ui.exercise
+package com.yuzgulen.laera.ui.exercise.categories.commons
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Point
-import android.graphics.drawable.ColorDrawable
 import android.view.View
-import com.yuzgulen.laera.R
-import java.lang.StringBuilder
 
 class DragShadow(v: View, key: CharSequence) : View.DragShadowBuilder(v) {
 

@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.ui.exercise
+package com.yuzgulen.laera.ui.exercise.utils
 
 
 class Category {

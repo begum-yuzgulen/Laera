@@ -6,7 +6,6 @@ import android.widget.TextView
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.algorithms.Node
-import com.yuzgulen.laera.ui.exercise.CanvasView
 import com.yuzgulen.laera.utils.Colors
 
 class BinaryTreeGeneration {

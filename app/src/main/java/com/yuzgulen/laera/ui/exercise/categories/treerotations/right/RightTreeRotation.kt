@@ -5,18 +5,15 @@ import android.content.ClipDescription
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.utils.Strings
-import com.yuzgulen.laera.ui.exercise.DragShadow
-import com.yuzgulen.laera.ui.exercise.CanvasView
-import android.os.CountDownTimer
+import com.yuzgulen.laera.ui.exercise.categories.commons.DragShadow
+import com.yuzgulen.laera.ui.exercise.categories.commons.CanvasView
 import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
 import com.yuzgulen.laera.ui.exercise.categories.commons.BinaryTreeGeneration
 import com.yuzgulen.laera.utils.Colors
@@ -29,7 +26,6 @@ import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton2
 import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton3
 import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton4
 import kotlinx.android.synthetic.main.tree_rotation_fragment.textButton5
-import java.util.concurrent.TimeUnit
 
 
 class RightTreeRotation : ExerciseCategory() {

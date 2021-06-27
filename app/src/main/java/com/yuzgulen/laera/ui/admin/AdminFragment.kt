@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.ui.exercise.TabsPagerAdapter
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
 class AdminFragment : Fragment() {

@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.core.content.ContextCompat
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yuzgulen.laera.R
+import com.yuzgulen.laera.ui.exercise.utils.TabsPagerAdapter
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
 

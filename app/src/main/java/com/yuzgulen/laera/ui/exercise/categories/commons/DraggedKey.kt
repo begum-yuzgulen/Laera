@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.ui.exercise
+package com.yuzgulen.laera.ui.exercise.categories.commons
 
 import android.R.attr.bottom
 import android.R.attr.right

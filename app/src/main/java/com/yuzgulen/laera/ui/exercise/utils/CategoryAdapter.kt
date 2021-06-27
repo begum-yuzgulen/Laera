@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.ui.exercise
+package com.yuzgulen.laera.ui.exercise.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.navigation.findNavController
 import com.yuzgulen.laera.R
+import com.yuzgulen.laera.ui.exercise.ExerciseFragmentDirections
 import com.yuzgulen.laera.utils.Strings
 import kotlinx.android.synthetic.main.category_entry.view.*
 
@@ -53,17 +54,29 @@ internal class CategoryAdapter(context: Context, private var categoryList: Array
                 }
                 Strings.get(R.string.bubbleSort) -> {
                     categoryView.findNavController().navigate(
-                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(Strings.get(R.string.bubbleSort))
+                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(
+                            Strings.get(
+                                R.string.bubbleSort
+                            )
+                        )
                     )
                 }
                 Strings.get(R.string.insertionSort) -> {
                     categoryView.findNavController().navigate(
-                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(Strings.get(R.string.insertionSort))
+                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(
+                            Strings.get(
+                                R.string.insertionSort
+                            )
+                        )
                     )
                 }
                 Strings.get(R.string.selectionSort) -> {
                     categoryView.findNavController().navigate(
-                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(Strings.get(R.string.selectionSort))
+                        ExerciseFragmentDirections.actionNavExerciseToSortingAlgorithms(
+                            Strings.get(
+                                R.string.selectionSort
+                            )
+                        )
                     )
                 }
                 Strings.get(R.string.rightRotation) -> {
