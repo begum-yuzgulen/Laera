@@ -1,4 +1,4 @@
-package com.yuzgulen.laera.ui.exercise.categories.sorting
+package com.yuzgulen.laera.algorithms
 
 class SortingAlgorithms {
     fun  bubbleSort(array : IntArray) : MutableList<IntArray> {

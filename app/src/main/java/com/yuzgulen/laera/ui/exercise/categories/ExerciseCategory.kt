@@ -58,4 +58,11 @@ open class ExerciseCategory : Fragment() {
     fun cancelTimer() {
         countdownTimer.cancel()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cancelTimer()
+    }
+
+
 }

@@ -9,43 +9,61 @@
         android:orientation="vertical"
         android:weightSum="5">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:layout_weight="0.1"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_weight="0.2"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="20dp"
                 android:src="@drawable/ic_renew" />
+
             <TextView
-                android:id="@+id/iteration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:textAlignment="viewEnd"
-                android:layout_weight="1.8"
-                android:text="TextView" />
+                android:layout_centerInParent="true"
+                android:textSize="18sp"
+                android:id="@+id/timer"/>
+
+            <Button
+                android:id="@+id/info"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/ic_info"
+                android:textColor="@color/colorPrimary" />
 
 
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/iteration"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp" />
+
+        </RelativeLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_gravity="center_horizontal"
-            android:text="Bubble Sort"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:id="@+id/selectedAlg"
             android:layout_weight="0.8"/>
 
