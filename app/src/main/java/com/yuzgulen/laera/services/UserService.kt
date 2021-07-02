@@ -10,6 +10,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.yuzgulen.laera.domain.models.Topic
+import com.yuzgulen.laera.domain.models.User
 import com.yuzgulen.laera.utils.ICallback
 
 class UserService {
@@ -43,12 +44,11 @@ class UserService {
         })
     }
 
-    fun getUserName(uid: String, callback: ICallback<String>) {
-        Firebase.database.reference.child("user").child(uid).child("username").get().addOnSuccessListener {
-            callback.onCallback(it.value.toString())
-        }.addOnFailureListener{
-            Log.e("Firebase", "Error getting username")
-            callback.onCallback("User")
+    fun getUser(uid: String, callback: ICallback<User>) {
+        Firebase.database.reference.child("user").child(uid).get().addOnSuccessListener {
+            callback.onCallback(it.getValue<User>()!!)
+        }.addOnFailureListener {
+            Log.e("Firebase error","getUser:onFailure")
         }
     }
 

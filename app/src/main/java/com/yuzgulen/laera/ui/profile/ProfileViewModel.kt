@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.yuzgulen.laera.User
+import com.yuzgulen.laera.domain.models.User
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -70,6 +70,8 @@ class ProfileViewModel : ViewModel() {
                         ", datasets:[{label:'Successes', backgroundColor:'green', data:" +
                         successes.toString() + "}, {label:'Failures', backgroundColor:'red', data:"  +
                         failures.toString() + "}]}}"
+
+                Log.e("URLLLL", url)
 
                 _chartUrl.value = url
             }

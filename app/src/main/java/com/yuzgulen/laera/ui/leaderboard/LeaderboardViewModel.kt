@@ -1,15 +1,14 @@
 package com.yuzgulen.laera.ui.leaderboard
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.database.DataSnapshot
 import com.yuzgulen.laera.domain.models.ExerciseScores
-import com.yuzgulen.laera.domain.models.QuizScores
 import com.yuzgulen.laera.domain.models.Trial
+import com.yuzgulen.laera.domain.models.User
 import com.yuzgulen.laera.domain.usecases.GetLeaderboard
-import com.yuzgulen.laera.domain.usecases.GetUsername
+import com.yuzgulen.laera.domain.usecases.GetUser
 import com.yuzgulen.laera.services.ScoreService
 import com.yuzgulen.laera.utils.ICallback
 
@@ -20,11 +19,11 @@ class LeaderboardViewModel : ViewModel() {
     }
     val text: LiveData<String> = _text
 
-    private val _leaderboard = MutableLiveData<MutableMap<String, MutableList<Map<String, Float>>>>()
+    private val _leaderboard = MutableLiveData<MutableMap<String, MutableList<Map<User, Float>>>>()
 
-    val leaderboard: LiveData<MutableMap<String, MutableList<Map<String, Float>>>> = _leaderboard
+    val leaderboard: LiveData<MutableMap<String, MutableList<Map<User, Float>>>> = _leaderboard
 
-    val lb : MutableMap<String, MutableList<Map<String, Float>>> = mutableMapOf()
+    val lb : MutableMap<String, MutableList<Map<User, Float>>> = mutableMapOf()
 
     fun getLeaderboard() {
         GetLeaderboard().execute(object : ICallback<Iterable<DataSnapshot>>{
@@ -63,8 +62,8 @@ class LeaderboardViewModel : ViewModel() {
     }
 
     private fun getUsername(uid: String, score: Float, title: String) {
-        GetUsername.getInstance().execute(uid, object : ICallback<String> {
-            override fun onCallback(value: String) {
+        GetUser.getInstance().execute(uid, object : ICallback<User> {
+            override fun onCallback(value: User) {
                 val scorePair = mapOf(value to score)
                 if (lb[title] == null) {
                     lb[title] = mutableListOf(scorePair)

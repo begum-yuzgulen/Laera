@@ -8,6 +8,10 @@
     <ListView
         android:layout_margin="20dp"
         android:id="@+id/leaderboard_list"
+        android:divider="@null"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

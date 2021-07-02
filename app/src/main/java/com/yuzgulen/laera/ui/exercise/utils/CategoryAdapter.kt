@@ -84,7 +84,7 @@ internal class CategoryAdapter(context: Context, private var categoryList: Array
                         ExerciseFragmentDirections.actionNavExerciseToRightTreeRotation()
                     )
                 }
-                Strings.get(R.string.redBlackTreeRecoloring) -> {
+                Strings.get(R.string.redBlackTreeInsertionCases) -> {
                     categoryView.findNavController().navigate(
                         ExerciseFragmentDirections.actionNavExerciseToRedBlackTreeRecoloring()
                     )

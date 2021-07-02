@@ -9,8 +9,9 @@ class AdminViewModel : ViewModel() {
         imageStorageRef.putBytes(image)
     }
 
-    fun uploadChapterImage(image: ByteArray, lessonId: String, title: String) {
+    fun uploadChapterImage(image: ByteArray, lessonId: String, title: String) : String {
         val imageStorageRef = FirebaseStorage.getInstance().reference.child("lessons/$lessonId" + "_" +"$title.png")
         imageStorageRef.putBytes(image)
+        return lessonId + "_" +"$title.png"
     }
 }

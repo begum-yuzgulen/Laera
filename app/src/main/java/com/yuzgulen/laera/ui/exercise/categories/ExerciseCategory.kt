@@ -55,6 +55,16 @@ open class ExerciseCategory : Fragment() {
         return dialog
     }
 
+    fun showInformation(messageResourceId: Int) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Instructions")
+            .setMessage(Strings.get(messageResourceId))
+            .setNegativeButton("Cancel") { dialog, which ->
+                // Respond to negative button press
+            }
+            .show()
+    }
+
     fun cancelTimer() {
         countdownTimer.cancel()
     }

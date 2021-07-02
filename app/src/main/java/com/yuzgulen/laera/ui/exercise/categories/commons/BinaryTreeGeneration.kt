@@ -1,26 +1,37 @@
 package com.yuzgulen.laera.ui.exercise.categories.commons
 
+import android.content.ClipData
+import android.content.ClipDescription
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.util.Log
+import android.view.DragEvent
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.algorithms.Node
 import com.yuzgulen.laera.utils.Colors
+import kotlinx.android.synthetic.main.tree_rotation_fragment.*
+
 
 class BinaryTreeGeneration {
 
     var addedNodes: MutableSet<Int> = mutableSetOf()
+    lateinit var onDropFunction : () -> Unit
+    var backgroundColor: Int? = null
 
-    private fun drawOrDeleteLeftEdge(button1: Button, button2: Button, edge: CanvasView) {
+    fun drawOrDeleteLeftEdge(button1: Button, button2: Button, edge: CanvasView, color: Int = Color.BLUE) {
         if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
-            drawEdgeOnLeft(button1, button2, edge)
+            drawEdgeOnLeft(button1, button2, edge, color)
         } else drawEdgeOnLeft(button1, button2, edge, Colors.get(R.color.transperant))
     }
 
-    private fun drawOrDeleteRightEdge(button1: Button, button2: Button, edge: CanvasView) {
+    fun drawOrDeleteRightEdge(button1: Button, button2: Button, edge: CanvasView, color: Int = Color.BLUE) {
         if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
-            drawEdgeOnRight(button1, button2, edge)
+            drawEdgeOnRight(button1, button2, edge, color)
         } else drawEdgeOnLeft(button1, button2, edge, Colors.get(R.color.transperant))
     }
 
@@ -85,5 +96,82 @@ class BinaryTreeGeneration {
         bst.insertChildAtRight(node7, node3)
 
         return Pair(nodeMap, bst)
+    }
+
+    private val longClickListener = View.OnLongClickListener { v ->
+        val item = ClipData.Item(v.tag as? CharSequence)
+        val background: Drawable = v.getBackground()
+        if (background is ColorDrawable) backgroundColor = background.color
+
+        val dragData = ClipData(
+            v.tag as? CharSequence,
+            arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN),
+            item)
+
+        val myShadow = DragShadow(v, v.tag as CharSequence )
+
+        // Starts the drag
+        v.startDrag(
+            dragData,
+            myShadow,
+            null,
+            0
+        )
+    }
+
+    fun setLongClickListeners(buttons: List<Button>) {
+        buttons.forEach { it.setOnLongClickListener(longClickListener) }
+    }
+
+    private val dragListen = View.OnDragListener { v, event ->
+        val receiverView:Button = v as Button
+
+        when (event.action) {
+            DragEvent.ACTION_DRAG_STARTED -> {
+                if (event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
+                    v.invalidate()
+                    true
+                } else {
+                    false
+                }
+            }
+
+            DragEvent.ACTION_DRAG_ENTERED -> {
+                invalidate(v)
+            }
+
+            DragEvent.ACTION_DRAG_LOCATION ->
+                true
+
+            DragEvent.ACTION_DROP -> {
+                val item: ClipData.Item = event.clipData.getItemAt(0)
+                val dragData = item.text
+                receiverView.text =  dragData
+                if (backgroundColor != null) {
+                    receiverView.setBackgroundColor(backgroundColor!!)
+                }
+                onDropFunction()
+                invalidate(v)
+            }
+
+            DragEvent.ACTION_DRAG_ENDED -> {
+                invalidate(v)
+            }
+
+
+            else -> {
+                false
+            }
+        }
+    }
+
+    fun invalidate(v: View) : Boolean {
+        v.invalidate()
+        return true
+    }
+
+    fun setDragListeners(textButtons: List<Button>, function: () -> Unit) {
+        onDropFunction = function
+        textButtons.forEach { it.setOnDragListener(dragListen) }
     }
 }

@@ -32,118 +32,19 @@ class RightTreeRotation : ExerciseCategory() {
 
     private lateinit var viewModel: RightTreeRotationViewModel
     private lateinit var correctOrder: Array<CharSequence>
+    private var btGenerator: BinaryTreeGeneration = BinaryTreeGeneration()
 
-    private fun drawOrDeleteLeftEdge(button1: Button, button2: Button, edge: CanvasView) {
-        if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
-            drawEdgeOnLeft(button1, button2, edge)
-        } else drawEdgeOnLeft(button1, button2, edge, Colors.get(R.color.transperant))
-    }
-
-    private fun drawOrDeleteRightEdge(button1: Button, button2: Button, edge: CanvasView) {
-        if (!button1.text.isNullOrEmpty() && !button2.text.isNullOrEmpty()) {
-            drawEdgeOnRight(button1, button2, edge)
-        } else drawEdgeOnLeft(button1, button2, edge, Colors.get(R.color.transperant))
-    }
-
-    private fun rebuildEdges() {
-        drawOrDeleteLeftEdge(textButton1, textButton2, edge1)
-        drawOrDeleteRightEdge(textButton1, textButton3, edge2)
-        drawOrDeleteLeftEdge(textButton2, textButton4, edge3)
-        drawOrDeleteRightEdge(textButton2, textButton5, edge4)
-        drawOrDeleteLeftEdge(textButton3, textButton6, edge5)
-        drawOrDeleteRightEdge(textButton3, textButton7, edge6)
-        val currentOrder = arrayOf<CharSequence>(
-            textButton1.text,
-            textButton2.text,
-            textButton3.text,
-            textButton6.text,
-            textButton7.text)
-        current_order.text = currentOrder.joinToString()
-    }
-
-    private val dragListen = View.OnDragListener { v, event ->
-        val receiverView:Button = v as Button
-
-        when (event.action) {
-            DragEvent.ACTION_DRAG_STARTED -> {
-                if (event.clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-                    v.invalidate()
-                    true
-                } else {
-                    false
-                }
-            }
-
-            DragEvent.ACTION_DRAG_ENTERED -> {
-                invalidate(v)
-            }
-
-            DragEvent.ACTION_DRAG_LOCATION ->
-                true
-
-            DragEvent.ACTION_DROP -> {
-                val item: ClipData.Item = event.clipData.getItemAt(0)
-                val dragData = item.text
-                receiverView.text =  dragData
-                rebuildEdges()
-                invalidate(v)
-            }
-
-            DragEvent.ACTION_DRAG_ENDED -> {
-                invalidate(v)
-            }
-
-
-            else -> {
-                false
-            }
-        }
-    }
-
-    fun invalidate(v: View) : Boolean {
-        v.invalidate()
-        return true
-    }
-
-    private val longClickListener = View.OnLongClickListener {v ->
-        val item = ClipData.Item(v.tag as? CharSequence)
-
-        val dragData = ClipData(
-            v.tag as? CharSequence,
-            arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN),
-            item)
-
-        val myShadow = DragShadow(v, v.tag as CharSequence )
-
-        // Starts the drag
-        v.startDrag(
-            dragData,
-            myShadow,
-            null,
-            0
-        )
-    }
-
-
-    private fun drawEdgeOnLeft(button1: TextView, button2: TextView, canvas: CanvasView, color: Int = Color.BLUE) {
-        val startX = button1.left.toFloat()
-        val startY = button1.top.toFloat()
-        val stopX = button2.left.toFloat()
-        val stopY = button2.bottom.toFloat()
-        canvas.setCoordinates(startX,startY, stopX,stopY, color)
-    }
-
-    private fun drawEdgeOnRight(button1: TextView, button2: TextView, canvas: CanvasView, color: Int = Color.BLUE) {
-        val startX = button1.right.toFloat()
-        val startY = button1.top.toFloat()
-        val stopX = button2.right.toFloat()
-        val stopY = button2.bottom.toFloat()
-        canvas.setCoordinates(startX,startY, stopX,stopY, color)
+    val rebuildEdges = {
+        btGenerator.drawOrDeleteLeftEdge(textButton1, textButton2, edge1, Colors.get(R.color.colorAccent))
+        btGenerator.drawOrDeleteRightEdge(textButton1, textButton3, edge2, Colors.get(R.color.colorAccent))
+        btGenerator.drawOrDeleteLeftEdge(textButton2, textButton4, edge3, Colors.get(R.color.colorAccent))
+        btGenerator.drawOrDeleteRightEdge(textButton2, textButton5, edge4, Colors.get(R.color.colorAccent))
+        btGenerator.drawOrDeleteLeftEdge(textButton3, textButton6, edge5, Colors.get(R.color.colorAccent))
+        btGenerator.drawOrDeleteRightEdge(textButton3, textButton7, edge6, Colors.get(R.color.colorAccent))
     }
 
     private fun drawRandomBinaryTree() {
         viewModel.generateRandomTree()
-        val btGenerator = BinaryTreeGeneration()
         viewModel.nodesMap.observe(this, {
             val root = it["root"].toString()
             s_node1.text = root
@@ -192,12 +93,12 @@ class RightTreeRotation : ExerciseCategory() {
     }
 
     private fun drawCorrectEdges() {
-        drawEdgeOnLeft(textButton1, textButton2, edge1)
-        drawEdgeOnRight(textButton1, textButton3, edge2)
-        drawEdgeOnLeft(textButton3, textButton6, edge5)
-        drawEdgeOnRight(textButton3, textButton7, edge6)
-        drawEdgeOnLeft(textButton2, textButton4, edge3, Colors.get(R.color.transperant))
-        drawEdgeOnRight(textButton2, textButton5, edge4, Colors.get(R.color.transperant))
+        btGenerator.drawEdgeOnLeft(textButton1, textButton2, edge1)
+        btGenerator.drawEdgeOnRight(textButton1, textButton3, edge2)
+        btGenerator.drawEdgeOnLeft(textButton3, textButton6, edge5)
+        btGenerator.drawEdgeOnRight(textButton3, textButton7, edge6)
+        btGenerator.drawEdgeOnLeft(textButton2, textButton4, edge3, Colors.get(R.color.transperant))
+        btGenerator.drawEdgeOnRight(textButton2, textButton5, edge4, Colors.get(R.color.transperant))
 
     }
 
@@ -212,25 +113,6 @@ class RightTreeRotation : ExerciseCategory() {
         }
         drawCorrectEdges()
     }
-
-    fun setLongClickListeners() {
-        needed_node1.setOnLongClickListener(longClickListener)
-        needed_node2.setOnLongClickListener(longClickListener)
-        needed_node3.setOnLongClickListener(longClickListener)
-        needed_node4.setOnLongClickListener(longClickListener)
-        needed_node5.setOnLongClickListener(longClickListener)
-    }
-
-    fun setDragListeners() {
-        textButton1.setOnDragListener(dragListen)
-        textButton2.setOnDragListener(dragListen)
-        textButton3.setOnDragListener(dragListen)
-        textButton4.setOnDragListener(dragListen)
-        textButton5.setOnDragListener(dragListen)
-        textButton6.setOnDragListener(dragListen)
-        textButton7.setOnDragListener(dragListen)
-    }
-
 
 
     override fun onCreateView(
@@ -257,13 +139,7 @@ class RightTreeRotation : ExerciseCategory() {
         }
 
         info.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Instructions")
-                .setMessage(Strings.get(R.string.loremIpsum))
-                .setNegativeButton("Cancel") { dialog, which ->
-                    // Respond to negative button press
-                }
-                .show()
+            showInformation(R.string.loremIpsum)
         }
 
         view.viewTreeObserver.addOnGlobalLayoutListener(object :
@@ -274,8 +150,11 @@ class RightTreeRotation : ExerciseCategory() {
                 drawRandomBinaryTree()
                 startTimer(timer, retryDirection, exerciseDirection)
 
-                setLongClickListeners()
-                setDragListeners()
+                btGenerator.setLongClickListeners(listOf(needed_node1, needed_node2,
+                    needed_node3, needed_node4, needed_node5))
+
+                btGenerator.setDragListeners(listOf(textButton1, textButton2, textButton3,
+                    textButton4, textButton5, textButton6, textButton7), rebuildEdges)
 
                 val allNodeButtons = listOf(textButton1, textButton2, textButton3, textButton4,
                     textButton5, textButton6, textButton7)

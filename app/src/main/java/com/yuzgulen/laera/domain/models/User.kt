@@ -1,4 +1,4 @@
-package com.yuzgulen.laera
+package com.yuzgulen.laera.domain.models
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties

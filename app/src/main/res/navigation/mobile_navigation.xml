@@ -51,10 +51,6 @@
             <argument android:name="selectedItem"  app:argType="string"/>
         </action>
         <action
-            android:id="@+id/action_nav_exercise_to_linkedListExercise"
-            app:destination="@id/linkedListExercise">
-        </action>
-        <action
             android:id="@+id/action_nav_exercise_to_rightTreeRotation"
             app:destination="@id/rightTreeRotation">
         </action>
@@ -77,16 +73,16 @@
         tools:layout="@layout/fragment_leaderboard" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.yuzgulen.laera.ui.share.ShareFragment"
+        android:id="@+id/nav_rules"
+        android:name="com.yuzgulen.laera.ui.rules.RulesFragment"
         android:label="@string/menu_rules"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/fragment_rules" />
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="com.yuzgulen.laera.ui.send.SendFragment"
+        android:id="@+id/nav_about"
+        android:name="com.yuzgulen.laera.ui.about.AboutFragment"
         android:label="@string/menu_about"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/nav_admin"
@@ -139,10 +135,6 @@
         <argument android:name="selectedItem"  app:argType="string"/>
     </fragment>
     <fragment
-        android:id="@+id/linkedListExercise"
-        android:name="com.yuzgulen.laera.ui.exercise.categories.linkedlist.LinkedListExercise"
-        android:label="LinkedListExercise" />
-    <fragment
         android:id="@+id/rightTreeRotation"
         android:name="com.yuzgulen.laera.ui.exercise.categories.treerotations.right.RightTreeRotation"
         android:label="right_tree_rotation_fragment"
@@ -163,7 +155,21 @@
     <fragment
         android:id="@+id/redBlackTreeFragment"
         android:name="com.yuzgulen.laera.ui.exercise.categories.rbtree.RedBlackTreeFragment"
-        android:label="RedBlackTreeFragment" />
+        android:label="RedBlackTreeFragment">
+
+        <action
+            android:id="@+id/action_nav_rbTree_to_rbTree"
+            app:destination="@id/redBlackTreeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/redBlackTreeFragment"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_nav_rbTree_to_exerciseCategory"
+            app:destination="@id/nav_exercise">
+        </action>
+
+    </fragment>
     <fragment
         android:id="@+id/adminQuestionFragment"
         android:name="com.yuzgulen.laera.ui.admin.AdminQuestionFragment"

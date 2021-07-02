@@ -12,10 +12,9 @@
 
         <Button
             android:id="@+id/s_node1"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -44,10 +43,9 @@
 
         <Button
             android:id="@+id/s_node2"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -64,10 +62,9 @@
 
         <Button
             android:id="@+id/s_node3"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -106,10 +103,9 @@
 
         <Button
             android:id="@+id/s_node4"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -126,10 +122,9 @@
 
         <Button
             android:id="@+id/s_node5"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -146,10 +141,9 @@
 
         <Button
             android:id="@+id/s_node6"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
@@ -166,10 +160,9 @@
 
         <Button
             android:id="@+id/s_node7"
-            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
             android:textColor="@android:color/white"
             android:textSize="18sp" />

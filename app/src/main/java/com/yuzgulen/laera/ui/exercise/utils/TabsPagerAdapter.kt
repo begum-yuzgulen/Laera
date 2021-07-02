@@ -15,6 +15,7 @@ class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int, priva
         val exerciseBundle = Bundle()
         when (position) {
             0 -> {
+                categoryBundle.putInt("instruction", R.string.btTraversalInst)
                 categoryBundle.putStringArrayList(
                     "categories",
                     arrayListOf(
@@ -26,6 +27,7 @@ class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int, priva
                 exerciseBundle.putString("exerciseType", Strings.get(R.string.traversalExerciseID))
             }
             1 -> {
+                categoryBundle.putInt("instruction", R.string.btTraversalInst)
                 categoryBundle.putStringArrayList(
                     "categories",
                     arrayListOf(
@@ -36,6 +38,15 @@ class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int, priva
                 exerciseBundle.putString("exerciseType", Strings.get(R.string.treeRotationExerciseID))
             }
             2 -> {
+                categoryBundle.putInt("instruction", R.string.btTraversalInst)
+                categoryBundle.putStringArrayList(
+                    "categories",
+                    arrayListOf(Strings.get(R.string.redBlackTreeInsertionCases))
+                )
+                exerciseBundle.putString("exerciseType", Strings.get(R.string.listsExerciseID))
+            }
+            3 -> {
+                categoryBundle.putInt("instruction", R.string.btTraversalInst)
                 categoryBundle.putStringArrayList(
                     "categories",
                     arrayListOf(
@@ -46,14 +57,11 @@ class TabsPagerAdapter (fragment: Fragment, private var numberOfTabs: Int, priva
                 )
                 exerciseBundle.putString("exerciseType", Strings.get(R.string.sortingExerciseID))
             }
-            3-> {
-                categoryBundle.putStringArrayList(
-                    "categories",
-                    arrayListOf(Strings.get(R.string.redBlackTreeRecoloring))
-                )
-                exerciseBundle.putString("exerciseType", Strings.get(R.string.listsExerciseID))
+
+            else -> {
+                categoryBundle.putInt("instruction", R.string.btTraversalInst)
+                categoryBundle.putStringArrayList("categories", arrayListOf())
             }
-            else -> categoryBundle.putStringArrayList("categories", arrayListOf())
         }
         return if (fromExercise) {
             val categoryFragment = CategoryFragment()

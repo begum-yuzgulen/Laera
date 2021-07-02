@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
@@ -40,6 +41,7 @@ class SortingFragment : ExerciseCategory() {
         val generatedArray : MutableList<Int> = viewModel.randomArray(toSort)
         val args = SortingFragmentArgs.fromBundle(requireArguments())
         selectedItem = args.selectedItem
+        (activity as AppCompatActivity).supportActionBar?.title = selectedItem
         binding.generated.text = toSort.toString()
 
         for(i in 0..4) {
@@ -104,7 +106,7 @@ class SortingFragment : ExerciseCategory() {
     fun arraysEqual(a : IntArray, b: IntArray, binding: SortingFragmentBinding) : Boolean {
         for(i in 0..4)
             if(a[i] !=  b[i]) {
-                when(i){
+                when(i) {
                     0 -> binding.selected1.setBackgroundColor(Color.RED)
                     1 -> binding.selected2.setBackgroundColor(Color.RED)
                     2 -> binding.selected3.setBackgroundColor(Color.RED)

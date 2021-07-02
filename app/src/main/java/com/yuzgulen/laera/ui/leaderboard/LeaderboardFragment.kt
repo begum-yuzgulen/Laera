@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.yuzgulen.laera.R
@@ -15,6 +16,7 @@ import com.yuzgulen.laera.ui.profile.LessonScoreAdapter
 import kotlinx.android.synthetic.main.fragment_leaderboard.*
 import kotlinx.android.synthetic.main.fragment_leaderboard.view.*
 import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.lesson_score_entry.view.*
 
 
 class LeaderboardFragment : Fragment() {
@@ -38,7 +40,7 @@ class LeaderboardFragment : Fragment() {
                 val exScores : MutableList<QuizScore> = mutableListOf()
                 v.forEach{
                     for ((k2, v2) in it) {
-                        exScores.add(QuizScore(v2, null, k2))
+                        exScores.add(QuizScore(v2, null, k2.username, k2.profilePic))
                     }
                 }
                 exScores.sortByDescending {es -> es.score}

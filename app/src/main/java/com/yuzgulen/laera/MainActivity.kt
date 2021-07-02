@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_exercise, R.id.nav_profile,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send, R.id.nav_admin
+                R.id.nav_tools, R.id.nav_rules, R.id.nav_about, R.id.nav_admin
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             Picasso.get().load(profilePic).into(header.nav_header_pic)
         }
         else if(defaultProfile){
-            header.nav_header_pic.setImageResource(R.mipmap.ic_launcher)
+            header.nav_header_pic.setImageResource(R.drawable.ic_profile)
         }
         header.nav_header_text.text = name
     }

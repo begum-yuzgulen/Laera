@@ -8,6 +8,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class QuizScores (
     var title: String? = null,
     var scores: List<QuizScore> = listOf(),
+    var profilePic: String? = ""
 ) {
 
     @Exclude

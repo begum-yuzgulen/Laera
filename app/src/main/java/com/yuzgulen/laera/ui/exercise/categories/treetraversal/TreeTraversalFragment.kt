@@ -105,9 +105,6 @@ class TreeTraversalFragment : ExerciseCategory() {
 
         viewModel.bst.observe(this, Observer {
             correctOrder = it.preOrder()
-            for (value in correctOrder) {
-                inOrder.append("$value ")
-            }
         })
     }
 
@@ -116,7 +113,7 @@ class TreeTraversalFragment : ExerciseCategory() {
         savedInstanceState: Bundle?
     ): View? {
         val root =  inflater.inflate(R.layout.tree_traversal_fragment, container, false)
-        (activity as AppCompatActivity).supportActionBar?.title = "BST Traversal"
+        (activity as AppCompatActivity).supportActionBar?.title = "Binary Tree Traversal"
         viewModel =
             ViewModelProvider(this).get(TreeTraversalViewModel::class.java)
         return root
@@ -125,7 +122,7 @@ class TreeTraversalFragment : ExerciseCategory() {
     private fun addButtonToOrder(value: String) {
         val key = value.toInt()
         if (!nodes.contains(key)) {
-            val nodeText : Button = LayoutInflater.from(context).inflate(R.layout.node, null) as Button
+            val nodeText : Button = LayoutInflater.from(context).inflate(R.layout.node, order, false) as Button
             nodeText.text = value
             nodeText.setOnClickListener {
                 order.removeView(nodeText)
@@ -165,6 +162,9 @@ class TreeTraversalFragment : ExerciseCategory() {
         val args = TreeTraversalFragmentArgs.fromBundle(requireArguments())
         traversalType = args.traversalType
         traversal.text = traversalType.capitalize() + " traversal"
+        info.setOnClickListener {
+            showInformation(R.string.btTraversalInst)
+        }
         val retryDirection = TreeTraversalFragmentDirections.actionNavTraverseToTraverse(traversalType)
         val exerciseDirection = TreeTraversalFragmentDirections.actionNavTraverseToExercise()
         refreshTree.setOnClickListener {

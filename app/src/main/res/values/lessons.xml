@@ -208,10 +208,13 @@ Exercise:
  &#8226; The button from the top-left corner generates a new array and the button from middle bottom deletes an entry."
     </string>
     <string name="about">
-"Laera is a tool for learning about some of the most popular sorting algorithms and data structures."
-    </string>
-    <string name="aboutMe">
-"I'm Begum Yuzgulen, student in second year at West University of Timisoara, Faculty of Mathematics and Computer Science.
-I love building apps and this is my project for Individual Project course."
+"Developed by Begüm Yüzgülen
+\nLaera is an Android m-learning application, for data structures designed to be a tool of help for pupils and students.
+
+The application consists of two main parts:
+- the learning part, where the most popular data structures (e.g, linked lists, arrays, trees, graphs, etc.) are well explained;
+- the exercising part, giving the user the possibility to test their knowledge gathered in the learning part, by solving practical exercises, where they need to apply the properties for a particular data structure.
+
+Exercises, as well as quizzes, track the progress of the user, which can be seen in the Profile section in form of visual charts, showing the topics where the user is getting better score and the topics where the user is not performing as expected."
     </string>
 </resources>

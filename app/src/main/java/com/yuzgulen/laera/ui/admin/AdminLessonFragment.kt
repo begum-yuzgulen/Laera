@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.get
@@ -25,16 +26,17 @@ import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.domain.usecases.AddLesson
 import kotlinx.android.synthetic.main.chapter_entry_layout.view.*
 import kotlinx.android.synthetic.main.fragment_admin_lesson.*
+import kotlinx.android.synthetic.main.fragment_admin_lesson.view.*
 import java.io.ByteArrayOutputStream
 
 
 class AdminLessonFragment : Fragment() {
 
-    private lateinit var chapterView: View
     var nrChapters = 0
     private val pickImage = 100
     private var imageUri: Uri? = null
     private var loaded: Boolean = false
+    private lateinit var imageView : ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +44,21 @@ class AdminLessonFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val root = inflater.inflate(R.layout.fragment_admin_lesson, container, false)
-        chapterView = inflater.inflate(R.layout.chapter_entry_layout, container, false)
+        imageView = root.lessonIconImage
+        root.addChapter.setOnClickListener {
+            nrChapters += 1
+            val chapterLabel = TextView(context)
+            chapterLabel.text = resources.getString(R.string.chapterLabel, nrChapters)
+            val chapterView = inflater.inflate(R.layout.chapter_entry_layout, chapters, false)
+            chapterView.id = nrChapters
+            chapterView.load_image1.setOnClickListener {
+                imageView = chapterView.chapterImage
+                val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+                startActivityForResult(gallery, pickImage)
+            }
+            chapters.addView(chapterLabel)
+            chapters.addView(chapterView)
+        }
         return root
     }
 
@@ -53,7 +69,7 @@ class AdminLessonFragment : Fragment() {
             if(p2.action == KeyEvent.ACTION_DOWN && p1 == KeyEvent.KEYCODE_ENTER){
                 // perform action on enter key press
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm?.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                imm.hideSoftInputFromWindow(view.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
                 lessonTitle.clearFocus()
                 lessonTitle.isCursorVisible = false
                 true
@@ -64,19 +80,11 @@ class AdminLessonFragment : Fragment() {
 
         lessonTitle.setOnKeyListener(keyListener)
 
-        addChapter.setOnClickListener {
-            nrChapters += 1
-            val tv = TextView(context)
-            val chapterNr = nrChapters + 1
-            tv.text = "Chapter $chapterNr"
-            chapters.addView(tv)
-            chapters.addView(chapterView)
-
-        }
-
         lessonIcon.setOnClickListener {
+            imageView = lessonIconImage
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage)
+
+            startActivityForResult(gallery, pickImage, )
         }
 
         submitLesson.setOnClickListener {
@@ -89,8 +97,20 @@ class AdminLessonFragment : Fragment() {
                 val v = chapters[i]
                 if (v is TextView) continue
                 if (v is LinearLayout) {
-                    val chapter = Chapter("layout1", (v.chapterTitle as EditText).text.toString(), (v.chapterText1 as EditText).text.toString(), "image")
-                    Log.e("chapter", chapter.toString())
+                    var image : ByteArray? = null
+                    var upload : String? = null
+                    if (v.chapterImage.drawable != null) {
+                        val bitmap = (v.chapterImage.drawable as BitmapDrawable).bitmap
+                        val stream = ByteArrayOutputStream()
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
+                        image = stream.toByteArray()
+                    }
+
+                    if(image != null) {
+                        upload = AdminViewModel().uploadChapterImage(image, title.lowercase().replace("\\s".toRegex(), ""), v.chapterTitle.toString())
+                    }
+                    val chapter = Chapter(v.chapterLayout.checkedRadioButtonId.toString(), (v.chapterTitle as EditText).text.toString(), (v.chapterText1 as EditText).text.toString(), upload)
+                    Log.e("chapter:", chapter.toString())
                 }
             }
             if (loaded) {
@@ -109,7 +129,7 @@ class AdminLessonFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
-            lessonIconImage.setImageURI(imageUri)
+            imageView.setImageURI(imageUri)
             loaded = true
         }
     }

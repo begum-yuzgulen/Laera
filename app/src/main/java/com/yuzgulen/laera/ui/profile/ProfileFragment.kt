@@ -12,10 +12,16 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore.setLoggingEnabled
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.LoginActivity
 import com.yuzgulen.laera.R
+import com.yuzgulen.laera.domain.models.ExerciseScores
+import com.yuzgulen.laera.domain.usecases.GetExerciseScores
 import com.yuzgulen.laera.ui.exercise.utils.TabsPagerAdapter
+import com.yuzgulen.laera.utils.ICallback
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
@@ -68,6 +74,31 @@ class ProfileFragment : Fragment() {
             Picasso.get().load(it).into(all_exercises_progress)
         })
         return root
+    }
+
+    fun loadExerciseScoresChart() {
+        var url = "https://quickchart.io/chart?c={type:'bar',data:{labels:"
+        GetExerciseScores().execute(FirebaseAuth.getInstance().currentUser!!.uid, object :
+            ICallback<List<ExerciseScores>> {
+            override fun onCallback(value: List<ExerciseScores>) {
+                val labels: MutableList<String> = mutableListOf()
+                val successes: MutableList<Int> = mutableListOf()
+                val failures: MutableList<Int> = mutableListOf()
+                value.forEach {
+                    labels.add("'" + it.title + "'")
+                    successes.add(it.tries - it.failures)
+                    failures.add(it.failures)
+
+                }
+                url += labels.toString() +
+                        ", datasets:[{label:'Successes', backgroundColor:'green', data:" +
+                        successes.toString() + "}, {label:'Failures', backgroundColor:'red', data:" +
+                        failures.toString() + "}]}}"
+                Picasso.get().isLoggingEnabled = true
+                Picasso.get().load(url).placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_exercise).into(all_exercises_progress)
+            }
+        })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -58,6 +58,7 @@
     <string name="add_lesson">Add lesson</string>
     <string name="lessonTitle">Lesson Title</string>
     <string name="lessonNrChapter">Nr of chapter</string>
+    <string name="chapterLabel">Chapter %d</string>
     <string name="chapter1">Chapter 1</string>
     <string name="layout1">Layout 1</string>
     <string name="layout2">Layout 2</string>
@@ -72,5 +73,30 @@
     <string name="answer2">Option 2</string>
     <string name="answer3">Option 3</string>
     <string name="answer4">Option 4</string>
+    <string name="submitLesson">Submit Lesson</string>
+    <string name="btTraversalInst">
+In order to correctly solve the exercise, you have to press on the nodes of the generated binary tree using the selected traversal order.
+By pressing on a node, it will appear under the binary tree, after the last pressed node. If you change your mind, you can press on the node from
+the area under the binary tree, which will result in deleting the node.
+    </string>
+
+    <string name="btRotationInst">
+In order to correctly solve the exercise, you have to drag the nodes into the drop areas and construct the rotated tree from the
+randomly generated binary tree on the top of the page.
+    </string>
+
+    <string name="redBlackTreeInst">
+In order to correctly solve the exercise, you have to identify the insertion case and perform the needed operation by dragging
+the nodes into the drop areas. Initially, the nodes that can be dragged are colored in the same color as in the generated binary tree. After dropping a node,
+you can click on it to change the node’s color.
+    </string>
+
+    <string name="arraySortingInst">
+In order to correctly solve the exercise, you have to press on the nodes of the generated binary tree using the selected traversal order.
+By pressing on a node, it will appear under the binary tree, after the last pressed node. If you change your mind, you can press on the node from
+the area under the binary tree, which will result in deleting the node.
+    </string>
+
+    <string name="redBlackTreeInsertionCases">Insertion Cases</string>
 
 </resources>

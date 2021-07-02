@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.yuzgulen.laera.domain.usecases.SendFeedback
 import kotlinx.android.synthetic.main.fragment_send_feedback.*
@@ -45,6 +46,9 @@ class SendFeedbackDialog : DialogFragment() {
             } else {
                 SendFeedback().execute(feedback_text.text.toString(), isAnonymous.isChecked, null)
             }
+            Toast.makeText(requireContext(), "Message sent! Thank you for your feedback!", Toast.LENGTH_LONG).show()
+
+            this.onDestroy()
 
         }
     }

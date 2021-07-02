@@ -48,11 +48,12 @@ class ExerciseFragment : Fragment() {
                     tab.text = "Binary Tree Rotations"
                 }
                 2 -> {
-                    tab.text = "Array sorting"
-                }
-                3 -> {
                     tab.text = "Red Black Trees"
                 }
+                3 -> {
+                    tab.text = "Array sorting"
+                }
+
 
             }
         }.attach()

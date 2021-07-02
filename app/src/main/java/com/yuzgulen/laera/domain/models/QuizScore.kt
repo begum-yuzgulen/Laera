@@ -7,7 +7,8 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class QuizScore (
     var score: Float? = null,
     var date: String? = null,
-    var uid: String? = null
+    var uid: String? = null,
+    var profilePic: String? = null
 ) {
 
     @Exclude
