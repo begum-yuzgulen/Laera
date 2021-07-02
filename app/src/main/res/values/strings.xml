@@ -98,5 +98,6 @@ the area under the binary tree, which will result in deleting the node.
     </string>
 
     <string name="redBlackTreeInsertionCases">Insertion Cases</string>
+    <string name="loginAbout">Learn practically about data structures!</string>
 
 </resources>
