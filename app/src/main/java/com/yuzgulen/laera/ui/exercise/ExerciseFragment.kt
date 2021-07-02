@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.ui.exercise.utils.TabsPagerAdapter
+import com.yuzgulen.laera.utils.TabMenuMediator
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
 
@@ -34,30 +35,12 @@ class ExerciseFragment : Fragment() {
         tab_layout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         tab_layout.tabTextColors = ContextCompat.getColorStateList(requireContext(), R.color.white)
 
-        val numberOfTabs = 4
+        val numberOfTabs = TabMenuMediator.TAB_COUNT
         tab_layout.isInlineLabel = true
         val adapter = TabsPagerAdapter(this, numberOfTabs, true)
         tabs_viewpager.adapter = adapter
         tabs_viewpager.isUserInputEnabled = true
-        TabLayoutMediator(tab_layout, tabs_viewpager) { tab, position ->
-            when (position) {
-                0 -> {
-                    tab.text = "Binary Tree Traversal"
-                }
-                1 -> {
-                    tab.text = "Binary Tree Rotations"
-                }
-                2 -> {
-                    tab.text = "Red Black Trees"
-                }
-                3 -> {
-                    tab.text = "Array sorting"
-                }
-
-
-            }
-        }.attach()
-
+        TabMenuMediator.get(tab_layout, tabs_viewpager).attach()
     }
 
 

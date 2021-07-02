@@ -139,7 +139,7 @@ class RedBlackTreeFragment : ExerciseCategory() {
 
     private fun drawRandomBinaryTree(case: InsertionCase) {
         viewModel.generateRandomTree()
-        viewModel.nodesMap.observe(viewLifecycleOwner, {
+        viewModel.rbTreeNodesMap.observe(viewLifecycleOwner, {
             val root = it["root"].toString()
             s_node1.text = root
             s_node1.visibility = View.VISIBLE

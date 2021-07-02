@@ -8,16 +8,14 @@ import com.yuzgulen.laera.domain.usecases.UpdateScore
 import com.yuzgulen.laera.ui.exercise.categories.commons.BinaryTreeGeneration
 
 class RedBlackTreeViewModel : ViewModel() {
-    private val _nodesMap = MutableLiveData<MutableMap<String, Int>>()
-    val nodesMap : LiveData<MutableMap<String, Int>> = _nodesMap
+    private val _rbTreeNodesMap = MutableLiveData<MutableMap<String, Int>>()
+    val rbTreeNodesMap : LiveData<MutableMap<String, Int>> = _rbTreeNodesMap
 
     private val _bst = MutableLiveData<BinaryTree>()
-    val bst : LiveData<BinaryTree> = _bst
-    var addedNodes: MutableSet<Int> = mutableSetOf()
 
     fun generateRandomTree() {
         val binaryTree = BinaryTreeGeneration().generateRandomTree()
-        _nodesMap.value = binaryTree.first!!
+        _rbTreeNodesMap.value = binaryTree.first!!
         _bst.value = binaryTree.second!!
     }
 
