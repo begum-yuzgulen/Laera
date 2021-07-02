@@ -162,9 +162,8 @@ class SortingFragment : ExerciseCategory() {
             b.setOnClickListener {
                 selectedButtons[pressed - 1].text = b.text
                 selectedButtons[pressed - 1].visibility = View.VISIBLE
-                if (pressed == 5) {
-                    if(checkArray(binding, steps.get(iteration)))
-                        buttons(binding, steps, iteration+1)
+                if (pressed == 5 && checkArray(binding, steps.get(iteration))) {
+                    buttons(binding, steps, iteration+1)
                 }
                 pressed++
             }

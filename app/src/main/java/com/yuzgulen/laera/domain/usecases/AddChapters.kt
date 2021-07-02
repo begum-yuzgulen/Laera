@@ -15,7 +15,7 @@ class AddChapters {
         }
     }
 
-    fun execute(chapters: List<Chapter>) : Any {
-        return TopicService.getInstance().addTopicChapters(chapters)
+    fun execute(chapters: List<Chapter>, topicId: String) : Any {
+        return TopicService.getInstance().addTopicChapters(chapters, topicId)
     }
 }

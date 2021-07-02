@@ -8,7 +8,7 @@ data class Topic(
     var id: String? = null,
     var title: String? = null,
     var icon: String? = null,
-    var nr_chapters: Int? = 1,
+    var nrChapters: Int? = 1,
     var progress: String? = null
 ) {
 
@@ -18,7 +18,7 @@ data class Topic(
             "id" to id,
             "title" to title,
             "icon" to icon,
-            "nr_chapters" to nr_chapters,
+            "nrChapters" to nrChapters,
             "progress" to progress
         )
     }

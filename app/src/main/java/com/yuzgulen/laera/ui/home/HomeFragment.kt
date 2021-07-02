@@ -1,6 +1,7 @@
 package com.yuzgulen.laera.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.TopicAdapter
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,16 +32,7 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        GlobalScope.launch(Dispatchers.Default) {
-            homeViewModel.getAllTopics()
-        }
-        homeViewModel.topicsList.observe(viewLifecycleOwner, {
-            root.loading.visibility = View.GONE
-
-            adapter = TopicAdapter(it, requireView().findNavController(), root.topic_search)
-            root.gvTopics.adapter = adapter
-
-        })
+        getTopics()
         (root.topic_search as SearchView).setOnQueryTextListener(object: OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -52,5 +45,30 @@ class HomeFragment : Fragment() {
 
         })
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getTopics()
+    }
+
+    private fun getTopics() {
+        GlobalScope.launch(Dispatchers.Default) {
+            homeViewModel.getAllTopics()
+        }
+        homeViewModel.topicsList.observe(viewLifecycleOwner, {
+            loading.visibility = View.GONE
+
+            adapter = TopicAdapter(it, requireView().findNavController(), topic_search)
+            gvTopics.adapter = adapter
+
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.removeTopicsList()
+        loading.visibility = View.VISIBLE
+        getTopics()
     }
 }

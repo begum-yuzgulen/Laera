@@ -84,7 +84,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
                     if (value) {
                         navController.navigate(
                             HomeFragmentDirections.actionHomeFragmentToLessonFragment(selectedItem, progress, filteredDataSet[position].id!!,
-                                filteredDataSet[position].nr_chapters!!)
+                                filteredDataSet[position].nrChapters!!)
                         )
                     } else {
                         Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()

@@ -68,8 +68,10 @@ class TopicService {
         Firebase.database.reference.child("topics").push().setValue(topic)
     }
 
-    fun addTopicChapters(chapters: List<Chapter>) {
-
+    fun addTopicChapters(chapters: List<Chapter>, topicId: String) {
+        chapters.forEach {
+            Firebase.database.reference.child("chapters").child(topicId).push().setValue(it)
+        }
     }
 
     fun hasQuestions(topicId: String, callback: ICallback<Boolean>) {

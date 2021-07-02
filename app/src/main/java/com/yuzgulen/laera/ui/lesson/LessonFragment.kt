@@ -54,13 +54,9 @@ class LessonFragment : Fragment() {
         var index = progress
         root.lesson_progress.progress = index*100/nrChapters
         if(index < nrChapters) {
-            if (chapters[index].layout == "layout1") {
-                root.lesson_layout1.visibility = View.VISIBLE
-                root.content_layout2.visibility = View.INVISIBLE
-            } else if (chapters[index].layout == "layout2") {
-                root.lesson_layout1.visibility = View.VISIBLE
-                root.content_layout2.visibility = View.INVISIBLE
-            }
+            root.lesson_layout1.visibility = View.VISIBLE
+            root.content_layout2.visibility = View.INVISIBLE
+
             root.title.text = chapters[index].title
             root.content_layout1.text = chapters[index].content
 

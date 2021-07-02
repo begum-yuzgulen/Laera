@@ -23,8 +23,6 @@ class LeaderboardService {
 
     private val dbRef = Firebase.database.reference
 
-    val leaderboard: MutableMap<String, Map<String, Float>> = mutableMapOf()
-
     fun getLeaderboard(callback: ICallback<Iterable<DataSnapshot>>) {
 
         dbRef.child("scores").addListenerForSingleValueEvent(object :
@@ -37,25 +35,5 @@ class LeaderboardService {
                 Log.w(ContentValues.TAG, "getUserProgress:onCancelled", databaseError.toException())
             }
         })
-    }
-
-    private fun getLeaderboardScores(children: Iterable<DataSnapshot>) {
-
-    }
-
-    private fun computeMeanTime(times: HashMap<String, Trial>) : Int {
-        var sumTimes = 0
-        for((key, value) in times) {
-            if(value.time != null ) {
-                val splitTime: List<String> = value.time!!.split(":")
-                val minutes = splitTime[0].toInt()
-                val seconds = splitTime[1].toInt()
-
-                sumTimes += minutes*60 + seconds
-            }
-
-        }
-        return sumTimes
-
     }
 }

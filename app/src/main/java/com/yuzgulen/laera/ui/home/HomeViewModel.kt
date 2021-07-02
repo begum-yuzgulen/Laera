@@ -31,6 +31,11 @@ class HomeViewModel : ViewModel() {
         })
     }
 
+    fun removeTopicsList() {
+        _topicList.value?.clear()
+        created = 0
+    }
+
     private fun getProgresses(topics: List<Topic>) {
         GetProgresses().execute(currentUser!!.uid, object: ICallback<List<Progress>> {
             override fun onCallback(value: List<Progress>) {
@@ -52,14 +57,14 @@ class HomeViewModel : ViewModel() {
     private fun loadTopics(topics: List<Topic>, progresses: List<Progress>) {
         for (topic in topics) {
             val topicsProgress = getTopicProgress(progresses, topic.id!!)
-            if (topic.nr_chapters != null && topic.nr_chapters!! > 0)
+            if (topic.nrChapters != null && topic.nrChapters!! > 0)
             topicList.add(
                 Topic(
                     if(topic.id != null) topic.id else "",
                     if(topic.title != null) topic.title else "",
                     if(topic.icon != null) topic.icon else "",
                     0,
-                    "Progress: ${(100*topicsProgress) / topic.nr_chapters!! }%"
+                    "Progress: ${(100*topicsProgress) / topic.nrChapters!! }%"
                 )
             )
         }

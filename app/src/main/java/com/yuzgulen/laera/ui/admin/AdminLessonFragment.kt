@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.domain.models.Chapter
 import com.yuzgulen.laera.domain.models.Topic
+import com.yuzgulen.laera.domain.usecases.AddChapters
 import com.yuzgulen.laera.domain.usecases.AddLesson
 import kotlinx.android.synthetic.main.chapter_entry_layout.view.*
 import kotlinx.android.synthetic.main.fragment_admin_lesson.*
@@ -89,9 +90,9 @@ class AdminLessonFragment : Fragment() {
 
         submitLesson.setOnClickListener {
             val title = lessonTitle.text.toString()
-            val lesson = Topic(title.lowercase().replace("\\s".toRegex(), ""), title,
-                "topic_" + title.lowercase().replace("\\s".toRegex(), ""),
-                nrChapters, null)
+            val lessonId = title.lowercase().replace("\\s".toRegex(), "")
+            val lesson = Topic(lessonId, title, "topic_$lessonId", nrChapters, null)
+
             val lessonChapters : MutableList<Chapter> = mutableListOf()
             for (i in 0 until chapters.childCount) {
                 val v = chapters[i]
@@ -107,12 +108,16 @@ class AdminLessonFragment : Fragment() {
                     }
 
                     if(image != null) {
-                        upload = AdminViewModel().uploadChapterImage(image, title.lowercase().replace("\\s".toRegex(), ""), v.chapterTitle.toString())
+                        upload = AdminViewModel().uploadChapterImage(image, lessonId, v.chapterTitle.toString())
                     }
                     val chapter = Chapter(v.chapterLayout.checkedRadioButtonId.toString(), (v.chapterTitle as EditText).text.toString(), (v.chapterText1 as EditText).text.toString(), upload)
+                    lessonChapters.add(chapter)
                     Log.e("chapter:", chapter.toString())
                 }
             }
+
+            AddChapters.getInstance().execute(lessonChapters, lessonId)
+
             if (loaded) {
                 val bitmap = (lessonIconImage.drawable as BitmapDrawable).bitmap
                 val stream = ByteArrayOutputStream()

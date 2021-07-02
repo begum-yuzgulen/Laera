@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val v = setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -128,19 +128,20 @@ class MainActivity : AppCompatActivity() {
                 this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) -> {
-                requestPermissionLauncher.launch(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-
+                launchPermission()
             }
 
             else -> {
-                requestPermissionLauncher.launch(
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
+                launchPermission()
             }
         }
 
+    }
+
+    private fun launchPermission() {
+        requestPermissionLauncher.launch(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
     }
 
 }
