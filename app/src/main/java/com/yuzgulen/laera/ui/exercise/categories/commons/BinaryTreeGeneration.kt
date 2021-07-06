@@ -10,8 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.algorithms.BinaryTree
-import com.yuzgulen.laera.algorithms.Node
+import com.yuzgulen.laera.ui.exercise.categories.commons.algorithms.BinaryTree
 import com.yuzgulen.laera.utils.Colors
 
 
@@ -65,7 +64,7 @@ class BinaryTreeGeneration {
         val root = nodeKeys[3]
         val nodeMap = mutableMapOf<String, Int>()
         nodeMap["root"] = root
-        val bst = BinaryTree(Node(root))
+        val bst = BinaryTree(BinaryTree.Node(root))
         // left sub tree
         // root has left child => node2
         val node2 = nodeKeys[1]

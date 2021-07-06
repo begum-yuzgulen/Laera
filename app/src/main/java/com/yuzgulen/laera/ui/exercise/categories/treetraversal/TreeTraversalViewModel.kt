@@ -3,8 +3,7 @@ package com.yuzgulen.laera.ui.exercise.categories.treetraversal
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yuzgulen.laera.algorithms.BinaryTree
-import com.yuzgulen.laera.algorithms.Node
+import com.yuzgulen.laera.ui.exercise.categories.commons.algorithms.BinaryTree
 import com.yuzgulen.laera.domain.usecases.UpdateScore
 
 class TreeTraversalViewModel : ViewModel() {
@@ -29,7 +28,7 @@ class TreeTraversalViewModel : ViewModel() {
         val root = generateRandomNodeKey()
         val nodeMap = mutableMapOf<String, Int>()
         nodeMap["root"] = root
-        val bst = BinaryTree(Node(root))
+        val bst = BinaryTree(BinaryTree.Node(root))
         // left sub tree
         if ( Math.random() < 0.95) {
             // root has left child => node2

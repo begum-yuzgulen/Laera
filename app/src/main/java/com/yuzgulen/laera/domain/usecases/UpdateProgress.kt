@@ -13,7 +13,7 @@ class UpdateProgress {
         }
     }
 
-    fun execute(uid: String, topicId: String, progress: Int) : Any {
-        return ProgressService.getInstance().updateProgress(uid, topicId, progress)
+    fun execute(uid: String, topicId: String, topicName: String, progress: Int) : Any {
+        return ProgressService.getInstance().updateProgress(uid, topicId, topicName, progress)
     }
 }

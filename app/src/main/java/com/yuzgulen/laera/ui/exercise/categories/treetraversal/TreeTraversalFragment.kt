@@ -88,7 +88,12 @@ class TreeTraversalFragment : ExerciseCategory() {
         })
 
         viewModel.bst.observe(this, Observer {
-            correctOrder = it.preOrder()
+            correctOrder = when(traversalType)  {
+                "preorder" -> it.preOrder()
+                "postorder" -> it.postOrder()
+                "inorder" -> it.inOrder()
+                else -> listOf()
+            }
         })
     }
 

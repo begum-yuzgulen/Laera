@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
@@ -14,11 +15,8 @@ import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.domain.models.Chapter
-import com.yuzgulen.laera.domain.usecases.GetChapters
-import com.yuzgulen.laera.domain.usecases.HasQuestions
 import com.yuzgulen.laera.domain.usecases.UpdateProgress
 import com.yuzgulen.laera.utils.App
-import com.yuzgulen.laera.utils.ICallback
 import kotlinx.android.synthetic.main.lesson_fragment.view.*
 
 
@@ -36,30 +34,26 @@ class LessonFragment : Fragment() {
     private var nrChapters: Int = 0
 
     private fun getChapters() {
-        GetChapters.getInstance().execute(selectedItemId, object: ICallback<List<Chapter>> {
-
-            override fun onCallback(value: List<Chapter>) {
-                chapters = value
-                nrChapters = chapters.size
-                lesson((progress.toInt()*nrChapters/100))
-            }
+        viewModel.getChapters(selectedItemId)
+        viewModel.chapters.observe(viewLifecycleOwner, {
+            chapters = it
+            nrChapters = chapters.size
+            lesson((progress.toInt()*nrChapters/100))
         })
     }
 
     private fun navigateToQuiz() {
-        HasQuestions.getInstance().execute(selectedItem, object : ICallback<Boolean>{
-            override fun onCallback(value: Boolean) {
-                if (value) {
-                    requireView().findNavController().navigate(
-                        LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem, selectedItemId)
-                    )
-                } else {
-                    Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()
-                }
+
+        viewModel.checkQuestions(selectedItem)
+        viewModel.hasQuestions.observe(viewLifecycleOwner, {
+            if (it) {
+                requireView().findNavController().navigate(
+                    LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem, selectedItemId)
+                )
+            } else {
+                Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()
             }
-
         })
-
     }
 
     private fun lesson(progress: Int) {
@@ -88,13 +82,13 @@ class LessonFragment : Fragment() {
                 root.next.text = "Open quiz"
                 root.next.setOnClickListener {
                     index += 1
-                    UpdateProgress.getInstance().execute(currentUser!!.uid, selectedItemId, index)
+                    viewModel.updateProgress(currentUser!!.uid, selectedItemId, selectedItem, index)
                     navigateToQuiz()
                 }
             } else {
                 root.next.setOnClickListener {
                     index += 1
-                    UpdateProgress.getInstance().execute(currentUser!!.uid, selectedItemId, index)
+                    viewModel.updateProgress(currentUser!!.uid, selectedItemId, selectedItem, index)
                     lesson(index)
 
                 }
@@ -109,6 +103,8 @@ class LessonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         root =  inflater.inflate(R.layout.lesson_fragment, container, false)
+        viewModel =
+            ViewModelProvider(this).get(LessonViewModel::class.java)
         val args = LessonFragmentArgs.fromBundle(requireArguments())
         selectedItem = args.selectedItem
         progress = args.progress

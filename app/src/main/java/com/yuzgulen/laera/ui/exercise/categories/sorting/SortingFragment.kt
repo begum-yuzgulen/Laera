@@ -13,7 +13,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 import com.yuzgulen.laera.R
-import com.yuzgulen.laera.algorithms.SortingAlgorithms
+import com.yuzgulen.laera.ui.exercise.categories.commons.algorithms.SortingAlgorithms
 import com.yuzgulen.laera.databinding.SortingFragmentBinding
 import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
 import com.yuzgulen.laera.utils.Strings
@@ -158,8 +158,9 @@ class SortingFragment : ExerciseCategory() {
                 selectedButtons[pressed - 1].visibility = View.VISIBLE
                 if (pressed == 5 && checkArray(binding, steps.get(iteration))) {
                     buttons(binding, steps, iteration+1)
+
                 }
-                pressed++
+                if (pressed < 5) pressed++
             }
         }
         binding.delete.setOnClickListener{

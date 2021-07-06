@@ -40,9 +40,12 @@ class ProgressService {
         })
     }
 
-    fun updateProgress(uid: String, topicId: String, progress: Int) {
-        Firebase.database.reference.child("progress").child(uid).child("progresses")
-            .child(topicId).child("progress").setValue(progress.toString())
+    fun updateProgress(uid: String, topicId: String, topicName: String, progress: Int) {
+        val ref = Firebase.database.reference.child("progress").child(uid).child("progresses")
+            .child(topicId)
+        ref.child("title").setValue(topicName)
+        ref.child("id").setValue(topicId)
+        ref.child("progress").setValue(progress.toString())
     }
 
     fun resetProgress(uid: String) {

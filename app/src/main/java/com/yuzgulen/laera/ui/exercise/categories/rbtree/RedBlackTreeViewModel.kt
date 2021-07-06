@@ -3,7 +3,7 @@ package com.yuzgulen.laera.ui.exercise.categories.rbtree
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yuzgulen.laera.algorithms.BinaryTree
+import com.yuzgulen.laera.ui.exercise.categories.commons.algorithms.BinaryTree
 import com.yuzgulen.laera.domain.usecases.UpdateScore
 import com.yuzgulen.laera.ui.exercise.categories.commons.BinaryTreeGeneration
 
