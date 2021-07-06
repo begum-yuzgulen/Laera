@@ -1,49 +1,26 @@
 package com.yuzgulen.laera.ui.exercise.categories.rbtree
 
-import android.graphics.Color
 import android.graphics.Color.BLACK
 import android.graphics.Color.RED
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
 import com.yuzgulen.laera.ui.exercise.categories.commons.BinaryTreeGeneration
 import com.yuzgulen.laera.utils.Colors
 import kotlinx.android.synthetic.main.binary_tree.*
 import kotlinx.android.synthetic.main.red_black_tree_fragment.*
-import kotlinx.android.synthetic.main.red_black_tree_fragment.edge1
-import kotlinx.android.synthetic.main.red_black_tree_fragment.edge2
-import kotlinx.android.synthetic.main.red_black_tree_fragment.edge3
-import kotlinx.android.synthetic.main.red_black_tree_fragment.edge4
-import kotlinx.android.synthetic.main.red_black_tree_fragment.edge5
-import kotlinx.android.synthetic.main.red_black_tree_fragment.edge6
-import kotlinx.android.synthetic.main.red_black_tree_fragment.needed_node1
-import kotlinx.android.synthetic.main.red_black_tree_fragment.needed_node2
-import kotlinx.android.synthetic.main.red_black_tree_fragment.needed_node3
-import kotlinx.android.synthetic.main.red_black_tree_fragment.needed_node4
-import kotlinx.android.synthetic.main.red_black_tree_fragment.refreshTree
-import kotlinx.android.synthetic.main.red_black_tree_fragment.submit
-import kotlinx.android.synthetic.main.red_black_tree_fragment.textButton1
-import kotlinx.android.synthetic.main.red_black_tree_fragment.textButton2
-import kotlinx.android.synthetic.main.red_black_tree_fragment.textButton3
-import kotlinx.android.synthetic.main.red_black_tree_fragment.textButton4
-import kotlinx.android.synthetic.main.red_black_tree_fragment.textButton5
-import kotlinx.android.synthetic.main.red_black_tree_fragment.textButton6
-import kotlinx.android.synthetic.main.red_black_tree_fragment.textButton7
-import kotlinx.android.synthetic.main.red_black_tree_fragment.timer
-import kotlinx.android.synthetic.main.tree_rotation_fragment.*
 
 class RedBlackTreeFragment : ExerciseCategory() {
 
@@ -73,6 +50,20 @@ class RedBlackTreeFragment : ExerciseCategory() {
         (activity as AppCompatActivity).supportActionBar?.title = "Red Black Tree - Insertion Cases"
         refreshTree.setOnClickListener {
             view.findNavController().navigate(RedBlackTreeFragmentDirections.actionNavRbTreeToRbTree())
+        }
+        info.setOnClickListener {
+            showInformation(R.string.redBlackTreeInst)
+                .setPositiveButton("Show more") { dialog, which ->
+                    val inflater = requireActivity().layoutInflater
+                        MaterialAlertDialogBuilder(requireContext()).setTitle("Instructions")
+                            .setView(inflater.inflate(R.layout.rbtree_tutorial, null)).
+                            setNegativeButton("Cancel"){_, _ -> }
+                            .setNeutralButton("Open lesson") {_, _ ->
+                                requireView().findNavController()
+                                    .navigate(RedBlackTreeFragmentDirections.actionRbTreeFragmentToLessonFragment("Red Black Tree",
+                                        0.toString(), "redBlackTrees", 2))
+                            }.show()
+            }.show()
         }
         startTimer(timer, retryDirection, exerciseDirection)
         viewModel = ViewModelProvider(this).get(RedBlackTreeViewModel::class.java)
@@ -108,7 +99,7 @@ class RedBlackTreeFragment : ExerciseCategory() {
                     val message = if(ok) "Congratulations." else "Your response is not correct, but don't give up! Try again!"
                     viewModel.updateScores(elapsedTime, ok)
                     buildDialog(title, message, retryDirection,exerciseDirection)
-                        .setNeutralButton("Show result") { dialog, which ->
+                        .setNeutralButton("Result") { dialog, which ->
 
                             val emptyButtons = if(case == InsertionCase.LL || case == InsertionCase.LR)
                                 listOf(textButton4, textButton6, textButton7)
@@ -140,95 +131,42 @@ class RedBlackTreeFragment : ExerciseCategory() {
     private fun drawRandomBinaryTree(case: InsertionCase) {
         viewModel.generateRandomTree()
         viewModel.rbTreeNodesMap.observe(viewLifecycleOwner, {
-            val root = it["root"].toString()
-            s_node1.text = root
-            s_node1.visibility = View.VISIBLE
-            s_node1.setBackgroundColor(BLACK)
-            needed_node1.text = root
-            needed_node1.tag = root
-            needed_node1.visibility = View.VISIBLE
-            needed_node1.setBackgroundColor(BLACK)
+            drawNode(s_node1, it["root"].toString(), needed_node1, BLACK)
 
             // root has left child => node2
-            val node2 = it["node2"].toString()
-            s_node2.text = node2
-            btGenerator.drawEdgeOnLeft(s_node1, s_node2, s_edge1, BLACK)
-            s_node2.visibility = View.VISIBLE
-            needed_node2.text = node2
-            needed_node2.tag = node2
-            needed_node2.visibility = View.VISIBLE
             if(case == InsertionCase.LL || case == InsertionCase.LR) {
-                s_node2.setBackgroundColor(RED)
-                needed_node2.setBackgroundColor(RED)
+                drawNode(s_node2, it["node2"].toString(), needed_node2, RED)
             }
             else if (case == InsertionCase.RL || case == InsertionCase.RR) {
-                s_node2.setBackgroundColor(BLACK)
-                needed_node2.setBackgroundColor(BLACK)
+                drawNode(s_node2, it["node2"].toString(), needed_node2, BLACK)
             }
+            btGenerator.drawEdgeOnLeft(s_node1, s_node2, s_edge1, BLACK)
 
             // right tree
-            val node3 = it["node3"].toString()
-            s_node3.text = node3
-            btGenerator.drawEdgeOnRight(s_node1, s_node3, s_edge2, BLACK)
-            s_node3.visibility = View.VISIBLE
-            needed_node3.text = node3
-            needed_node3.tag = node3
-            needed_node3.visibility = View.VISIBLE
-
-            if(case == InsertionCase.LL || case == InsertionCase.LR) {
-                s_node3.setBackgroundColor(BLACK)
-                needed_node3.setBackgroundColor(BLACK)
+            if (case == InsertionCase.LL || case == InsertionCase.LR) {
+                drawNode(s_node3, it["node3"].toString(), needed_node3, BLACK)
             }
             else if (case == InsertionCase.RL || case == InsertionCase.RR) {
-                s_node3.setBackgroundColor(RED)
-                needed_node3.setBackgroundColor(RED)
+                drawNode(s_node3, it["node3"].toString(), needed_node3, RED)
             }
+            btGenerator.drawEdgeOnRight(s_node1, s_node3, s_edge2, BLACK)
 
             when (case) {
                 InsertionCase.LL -> {
-                    val node4 = it["node4"].toString()
-                    s_node4.text = node4
+                    drawNode(s_node4, it["node4"].toString(), needed_node4, RED)
                     btGenerator.drawEdgeOnLeft(s_node2, s_node4, s_edge3, BLACK)
-                    s_node4.visibility = View.VISIBLE
-                    s_node4.setBackgroundColor(RED)
-                    needed_node4.text = node4
-                    needed_node4.tag = node4
-                    needed_node4.visibility = View.VISIBLE
-                    needed_node4.setBackgroundColor(RED)
-
                 }
                 InsertionCase.LR -> {
-                    val node5 = it["node5"].toString()
-                    s_node5.text = node5
+                    drawNode(s_node5, it["node5"].toString(), needed_node4, RED)
                     btGenerator.drawEdgeOnRight(s_node2, s_node5, s_edge4, BLACK)
-                    s_node5.visibility = View.VISIBLE
-                    s_node5.setBackgroundColor(RED)
-                    needed_node4.text = node5
-                    needed_node4.tag = node5
-                    needed_node4.visibility = View.VISIBLE
-                    needed_node4.setBackgroundColor(RED)
                 }
                 InsertionCase.RL -> {
-                    val node6 = it["node6"].toString()
-                    s_node6.text = node6
+                    drawNode(s_node6, it["node6"].toString(), needed_node4, RED)
                     btGenerator.drawEdgeOnLeft(s_node3, s_node6, s_edge5, BLACK)
-                    s_node6.visibility = View.VISIBLE
-                    s_node6.setBackgroundColor(RED)
-                    needed_node4.text = node6
-                    needed_node4.tag = node6
-                    needed_node4.visibility = View.VISIBLE
-                    needed_node4.setBackgroundColor(RED)
                 }
                 InsertionCase.RR -> {
-                    val node7 = it["node7"].toString()
-                    s_node7.text = node7
+                    drawNode(s_node7, it["node7"].toString(), needed_node4, RED)
                     btGenerator.drawEdgeOnRight(s_node3, s_node7, s_edge6, BLACK)
-                    s_node7.visibility = View.VISIBLE
-                    s_node7.setBackgroundColor(RED)
-                    needed_node4.text = node7
-                    needed_node4.tag = node7
-                    needed_node4.visibility = View.VISIBLE
-                    needed_node4.setBackgroundColor(RED)
                 }
             }
             getCorrectResult()
@@ -298,8 +236,6 @@ class RedBlackTreeFragment : ExerciseCategory() {
         nodes.forEach {
             currentOrder.add(Pair(it.text.toString(), getBackground(it)))
         }
-        Log.e("currentOrder", currentOrder.toString())
-        Log.e("correctResu;t", correctResult.toString())
         return currentOrder.toTypedArray() contentDeepEquals  correctResult.toTypedArray()
     }
 
@@ -310,7 +246,6 @@ class RedBlackTreeFragment : ExerciseCategory() {
         }
 
         for (i in correctResult.indices) {
-            Log.e("correcttext", correctResult[i].first + correctResult[i].second.toString())
             neededNodes[i].text = correctResult[i].first
             neededNodes[i].setBackgroundColor(correctResult[i].second)
         }

@@ -4,10 +4,10 @@ import com.yuzgulen.laera.services.ScoreService
 
 class UpdateScore {
     companion object {
-        private var INSTANCE: GetChapters? = null
-        fun getInstance(): GetChapters {
+        private var INSTANCE: UpdateScore? = null
+        fun getInstance(): UpdateScore {
             if (INSTANCE == null) {
-                INSTANCE = GetChapters()
+                INSTANCE = UpdateScore()
             }
             return INSTANCE!!
         }

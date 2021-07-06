@@ -1,6 +1,8 @@
 package com.yuzgulen.laera.ui.exercise.categories
 
 import android.os.CountDownTimer
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
@@ -33,7 +35,10 @@ open class ExerciseCategory : Fragment() {
             }
 
             override fun onFinish() {
-                buildDialog("Time", Strings.get(R.string.timeExpired), retryDirection, exerciseDirection).show()
+                if(context != null) {
+                    buildDialog("Time", Strings.get(R.string.timeExpired), retryDirection, exerciseDirection).show()
+                }
+
             }
         }.start()
     }
@@ -55,18 +60,31 @@ open class ExerciseCategory : Fragment() {
         return dialog
     }
 
-    fun showInformation(messageResourceId: Int) {
-        MaterialAlertDialogBuilder(requireContext())
+    fun showInformation(messageResourceId: Int) : MaterialAlertDialogBuilder {
+         return MaterialAlertDialogBuilder(requireContext())
             .setTitle("Instructions")
             .setMessage(Strings.get(messageResourceId))
             .setNegativeButton("Cancel") { dialog, which ->
                 // Respond to negative button press
             }
-            .show()
     }
 
     fun cancelTimer() {
         countdownTimer.cancel()
+    }
+
+    fun drawNode(node: Button, key: String, neededNode: Button, nodeColor: Int? = null) {
+        node.text = key
+        node.visibility = View.VISIBLE
+        if (nodeColor != null) {
+            node.setBackgroundColor(nodeColor)
+        }
+        neededNode.text = key
+        neededNode.tag = key
+        neededNode.visibility = View.VISIBLE
+        if (nodeColor != null) {
+            neededNode.setBackgroundColor(nodeColor)
+        }
     }
 
     override fun onDestroy() {

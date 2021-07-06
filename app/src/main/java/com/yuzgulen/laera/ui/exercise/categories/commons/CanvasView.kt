@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.PorterDuff
 import android.util.AttributeSet
 import android.view.View
 import com.yuzgulen.laera.R
@@ -28,7 +27,7 @@ class CanvasView(context: Context, attributeSet: AttributeSet)
         typedArray.recycle()
     }
 
-    override  fun onDraw(canvas: Canvas) {
+    override fun onDraw(canvas: Canvas) {
         val paint = Paint()
         paint.color = paintColor
         paint.style = Paint.Style.STROKE
@@ -42,12 +41,6 @@ class CanvasView(context: Context, attributeSet: AttributeSet)
         stopX = _stopX
         stopY = _stopY
         paintColor = color
-        invalidate()
-        requestLayout()
-    }
-
-    fun deleteEdge() {
-        paintColor = Color.WHITE
         invalidate()
         requestLayout()
     }

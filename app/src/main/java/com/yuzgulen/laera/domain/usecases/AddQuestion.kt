@@ -1,7 +1,6 @@
 package com.yuzgulen.laera.domain.usecases
 
 import com.yuzgulen.laera.domain.models.Question
-import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.services.TopicService
 
 class AddQuestion {

@@ -10,7 +10,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.yuzgulen.laera.domain.models.Chapter
 import com.yuzgulen.laera.domain.models.Feedback
 import com.yuzgulen.laera.utils.ICallback
 

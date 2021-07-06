@@ -1,12 +1,10 @@
 package com.yuzgulen.laera.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.yuzgulen.laera.R

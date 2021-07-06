@@ -26,7 +26,7 @@ class LeaderboardViewModel : ViewModel() {
     val lb : MutableMap<String, MutableList<Map<User, Float>>> = mutableMapOf()
 
     fun getLeaderboard() {
-        GetLeaderboard().execute(object : ICallback<Iterable<DataSnapshot>>{
+        GetLeaderboard.getInstance().execute(object : ICallback<Iterable<DataSnapshot>>{
             override fun onCallback(value: Iterable<DataSnapshot>) {
                 for (postSnapshot in value) {
                     val uid = postSnapshot.key!!

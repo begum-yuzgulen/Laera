@@ -28,7 +28,7 @@ class ChartFragment : Fragment() {
 
     private fun createChartData(exerciseTypeID: String) {
         var url = "https://quickchart.io/chart?c={type:'line',data:{labels:"
-        GetExerciseFinishTimes().execute(exerciseTypeID, object : ICallback<List<String>> {
+        GetExerciseFinishTimes.getInstance().execute(exerciseTypeID, object : ICallback<List<String>> {
             override fun onCallback(value: List<String>) {
                 val labels : MutableList<String> = mutableListOf()
                 val times : MutableList<Int> = mutableListOf()

@@ -16,6 +16,7 @@ import com.yuzgulen.laera.domain.models.ExerciseScores
 import com.yuzgulen.laera.domain.models.QuizScores
 import com.yuzgulen.laera.domain.usecases.GetExerciseScores
 import com.yuzgulen.laera.domain.usecases.GetQuizScores
+import com.yuzgulen.laera.domain.usecases.ResetProgress
 import com.yuzgulen.laera.utils.ICallback
 
 
@@ -43,7 +44,7 @@ class ProfileViewModel : ViewModel() {
                     _userProfile.value = dataSnapshot.getValue(User::class.java)
                 }
             })
-            GetQuizScores().execute(currentUser.uid, object : ICallback<List<QuizScores>> {
+            GetQuizScores.getInstance().execute(currentUser.uid, object : ICallback<List<QuizScores>> {
                 override fun onCallback(value: List<QuizScores>) {
                     _userQuizScores.value = value
                 }
@@ -55,7 +56,7 @@ class ProfileViewModel : ViewModel() {
 
     fun getExerciseScores() : LiveData<String> {
         var url = "https://quickchart.io/chart?c={type:'bar',data:{labels:"
-        GetExerciseScores().execute(auth.currentUser!!.uid, object : ICallback<List<ExerciseScores>> {
+        GetExerciseScores.getInstance().execute(auth.currentUser!!.uid, object : ICallback<List<ExerciseScores>> {
             override fun onCallback(value: List<ExerciseScores>) {
                 val labels : MutableList<String> = mutableListOf()
                 val successes : MutableList<Int> = mutableListOf()
@@ -71,12 +72,14 @@ class ProfileViewModel : ViewModel() {
                         successes.toString() + "}, {label:'Failures', backgroundColor:'red', data:"  +
                         failures.toString() + "}]}}"
 
-                Log.e("URLLLL", url)
-
                 _chartUrl.value = url
             }
         })
         return _chartUrl
+    }
+
+    fun resetProgress() {
+        ResetProgress.getInstance().execute(auth.uid!!)
     }
 
     fun signOut(googleSignInClient: GoogleSignInClient){

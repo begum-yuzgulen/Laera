@@ -42,9 +42,9 @@ class SendFeedbackDialog : DialogFragment() {
                 val stream = ByteArrayOutputStream()
                 bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream)
                 val image = stream.toByteArray()
-                SendFeedback().execute(feedback_text.text.toString(), isAnonymous.isChecked, image)
+                SendFeedback.getInstance().execute(feedback_text.text.toString(), isAnonymous.isChecked, image)
             } else {
-                SendFeedback().execute(feedback_text.text.toString(), isAnonymous.isChecked, null)
+                SendFeedback.getInstance().execute(feedback_text.text.toString(), isAnonymous.isChecked, null)
             }
             Toast.makeText(requireContext(), "Message sent! Thank you for your feedback!", Toast.LENGTH_LONG).show()
 

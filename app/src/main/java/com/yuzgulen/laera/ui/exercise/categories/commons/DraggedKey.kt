@@ -1,25 +1,16 @@
 package com.yuzgulen.laera.ui.exercise.categories.commons
 
-import android.R.attr.bottom
-import android.R.attr.right
-import android.R.attr.top
-import android.R.attr.left
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import androidx.databinding.adapters.TextViewBindingAdapter.setTextSize
-
-
-
 
 class DraggedKey(key: CharSequence, w: Int, h: Int) : Drawable() {
-    private val mPaint: Paint
+    private val mPaint: Paint = Paint()
     private val mRect: RectF
     private val keyValue: CharSequence = key
     private val width: Int = w
     private val height: Int = h
 
     init {
-        mPaint = Paint()
         mRect = RectF()
     }
 

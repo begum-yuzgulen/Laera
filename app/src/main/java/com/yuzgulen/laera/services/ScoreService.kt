@@ -8,6 +8,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.yuzgulen.laera.domain.models.ExerciseScores
+import com.yuzgulen.laera.domain.models.QuizScore
 import com.yuzgulen.laera.domain.models.QuizScores
 import com.yuzgulen.laera.utils.ICallback
 
@@ -95,6 +96,14 @@ class ScoreService {
         newTime.child("time").setValue(finishTime)
         newTime.child("success").setValue(success)
         if(!success) myRefFailures.setValue(ServerValue.increment(1))
+    }
+
+    fun addQuizScore(topicId: String, title: String, score: Float, date: String) {
+        val quiz = QuizScore(score, date, user.uid, null)
+        val ref = database.child("scores").child(user.uid).child("quizzes").child(topicId)
+        ref.child("title").setValue(title)
+        val newScore = ref.child("scores").push()
+        newScore.setValue(quiz)
     }
 
 }

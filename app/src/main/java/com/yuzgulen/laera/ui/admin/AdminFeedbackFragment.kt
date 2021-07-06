@@ -1,12 +1,10 @@
 package com.yuzgulen.laera.ui.admin
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import com.yuzgulen.laera.FeedbackAdapter
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.domain.models.Feedback

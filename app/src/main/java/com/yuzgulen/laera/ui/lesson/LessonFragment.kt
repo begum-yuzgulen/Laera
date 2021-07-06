@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
@@ -13,9 +14,10 @@ import com.google.firebase.storage.ktx.storage
 import com.squareup.picasso.Picasso
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.domain.models.Chapter
-import com.yuzgulen.laera.domain.models.QuizScores
 import com.yuzgulen.laera.domain.usecases.GetChapters
+import com.yuzgulen.laera.domain.usecases.HasQuestions
 import com.yuzgulen.laera.domain.usecases.UpdateProgress
+import com.yuzgulen.laera.utils.App
 import com.yuzgulen.laera.utils.ICallback
 import kotlinx.android.synthetic.main.lesson_fragment.view.*
 
@@ -34,7 +36,7 @@ class LessonFragment : Fragment() {
     private var nrChapters: Int = 0
 
     private fun getChapters() {
-        GetChapters().execute(selectedItemId, object: ICallback<List<Chapter>> {
+        GetChapters.getInstance().execute(selectedItemId, object: ICallback<List<Chapter>> {
 
             override fun onCallback(value: List<Chapter>) {
                 chapters = value
@@ -44,14 +46,25 @@ class LessonFragment : Fragment() {
         })
     }
 
-    fun navigateToQuiz() {
-        requireView().findNavController().navigate(
-            LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem)
-        )
+    private fun navigateToQuiz() {
+        HasQuestions.getInstance().execute(selectedItem, object : ICallback<Boolean>{
+            override fun onCallback(value: Boolean) {
+                if (value) {
+                    requireView().findNavController().navigate(
+                        LessonFragmentDirections.actionLessonFragmentToQuizzFragment(selectedItem, selectedItemId)
+                    )
+                } else {
+                    Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
+
     }
 
     private fun lesson(progress: Int) {
         var index = progress
+        root.image_layout1.visibility = View.GONE
         root.lesson_progress.progress = index*100/nrChapters
         if(index < nrChapters) {
             root.lesson_layout1.visibility = View.VISIBLE
@@ -65,6 +78,7 @@ class LessonFragment : Fragment() {
                 val storageRef = storage.reference
                 storageRef.child("lessons/" + selectedItemId + "/" + chapters[index].image).downloadUrl.addOnSuccessListener {
                     Picasso.get().load(it).into(root.image_layout1)
+                    root.image_layout1.visibility = View.VISIBLE
                 }.addOnFailureListener {
                     Log.e("storage error", it.message.toString())
                 }
@@ -74,13 +88,13 @@ class LessonFragment : Fragment() {
                 root.next.text = "Open quiz"
                 root.next.setOnClickListener {
                     index += 1
-                    UpdateProgress().execute(currentUser!!.uid, selectedItemId, index)
+                    UpdateProgress.getInstance().execute(currentUser!!.uid, selectedItemId, index)
                     navigateToQuiz()
                 }
             } else {
                 root.next.setOnClickListener {
                     index += 1
-                    UpdateProgress().execute(currentUser!!.uid, selectedItemId, index)
+                    UpdateProgress.getInstance().execute(currentUser!!.uid, selectedItemId, index)
                     lesson(index)
 
                 }
@@ -98,12 +112,10 @@ class LessonFragment : Fragment() {
         val args = LessonFragmentArgs.fromBundle(requireArguments())
         selectedItem = args.selectedItem
         progress = args.progress
-        root.title.text = args.topicId
         topic = args.topicId + "%d"
         selectedItemId = args.topicId
         nrChapters = args.nrChapters
         path = "progress" + selectedItemId.replaceFirstChar { c -> c.uppercaseChar() }
-        root.title.text = path
 
         return root
     }

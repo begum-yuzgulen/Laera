@@ -23,7 +23,7 @@ class HomeViewModel : ViewModel() {
 
     fun getAllTopics() {
         var topics: List<Topic>
-        GetTopics().execute(object: ICallback<List<Topic>> {
+        GetTopics.getInstance().execute(object: ICallback<List<Topic>> {
             override fun onCallback(value: List<Topic>) {
                 topics = value
                 getProgresses(topics)
@@ -37,7 +37,7 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun getProgresses(topics: List<Topic>) {
-        GetProgresses().execute(currentUser!!.uid, object: ICallback<List<Progress>> {
+        GetProgresses.getInstance().execute(currentUser!!.uid, object: ICallback<List<Progress>> {
             override fun onCallback(value: List<Progress>) {
                 if (created == 0) {
                     loadTopics(topics, value)

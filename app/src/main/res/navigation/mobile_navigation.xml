@@ -53,6 +53,7 @@
         <action
             android:id="@+id/action_nav_exercise_to_rightTreeRotation"
             app:destination="@id/rightTreeRotation">
+            <argument android:name="direction"  app:argType="string"/>
         </action>
         <action
             android:id="@+id/action_nav_exercise_to_redBlackTreeRecoloring"
@@ -112,6 +113,7 @@
         android:name="com.yuzgulen.laera.ui.quiz.QuizFragment"
         android:label="QuizFragment">
         <argument android:name="selectedItem"  app:argType="string"/>
+        <argument android:name="topicId"  app:argType="string"/>
         <action
             android:id="@+id/action_quizzFragment_to_HomeFragment"
             app:destination="@id/nav_home" />
@@ -139,6 +141,7 @@
         android:name="com.yuzgulen.laera.ui.exercise.categories.treerotations.right.RightTreeRotation"
         android:label="right_tree_rotation_fragment"
         tools:layout="@layout/tree_rotation_fragment">
+        <argument android:name="direction"  app:argType="string"/>
 
         <action
             android:id="@+id/action_nav_rightRotation_to_rightRotation"
@@ -146,6 +149,7 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/rightTreeRotation"
             app:popUpToInclusive="true">
+            <argument android:name="direction"  app:argType="string"/>
         </action>
         <action
             android:id="@+id/action_nav_rightRotation_to_exerciseCategory"
@@ -167,6 +171,17 @@
         <action
             android:id="@+id/action_nav_rbTree_to_exerciseCategory"
             app:destination="@id/nav_exercise">
+        </action>
+
+        <action
+            android:id="@+id/action_rbTreeFragment_to_lessonFragment"
+            app:destination="@id/nav_lesson"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_lesson"
+            app:popUpToInclusive="true">
+            <argument android:name="selectedItem" app:argType="string"/>
+            <argument android:name="progress" app:argType="string"/>
+            <argument android:name="topicId" app:argType="string"/>
         </action>
 
     </fragment>

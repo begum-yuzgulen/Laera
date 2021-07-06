@@ -2,7 +2,6 @@ package com.yuzgulen.laera.ui.exercise.categories.sorting
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +16,8 @@ import com.yuzgulen.laera.R
 import com.yuzgulen.laera.algorithms.SortingAlgorithms
 import com.yuzgulen.laera.databinding.SortingFragmentBinding
 import com.yuzgulen.laera.ui.exercise.categories.ExerciseCategory
-import com.yuzgulen.laera.ui.exercise.categories.treerotations.right.RightTreeRotationDirections
-import com.yuzgulen.laera.ui.home.HomeViewModel
 import com.yuzgulen.laera.utils.Strings
 import kotlinx.android.synthetic.main.sorting_fragment.*
-import kotlinx.android.synthetic.main.sorting_fragment.info
-import kotlinx.android.synthetic.main.sorting_fragment.timer
-import kotlinx.android.synthetic.main.tree_rotation_fragment.*
 import java.util.*
 
 class SortingFragment : ExerciseCategory() {

@@ -1,10 +1,12 @@
 package com.yuzgulen.laera
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +19,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -25,8 +30,11 @@ import com.yuzgulen.laera.domain.usecases.IsAdmin
 import com.yuzgulen.laera.ui.home.GeneratePDF
 import com.yuzgulen.laera.utils.App
 import com.yuzgulen.laera.utils.ICallback
+import com.yuzgulen.laera.utils.Strings
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -96,6 +104,25 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.action_rules -> {
+                showRules()
+                true
+            }
+            R.id.action_logout -> {
+                logout()
+                true
+            }
+            else -> {
+                if(topic_search != null) {
+                    topic_search.clearFocus()
+                }
+                super.onContextItemSelected(item)
+            }
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -142,6 +169,32 @@ class MainActivity : AppCompatActivity() {
         requestPermissionLauncher.launch(
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
+    }
+
+    private fun showRules() {
+        val rulesList = resources.getStringArray(R.array.rulesList)
+        var rules  = ""
+        rulesList.forEach { rules += it + "\n"}
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Rules")
+            .setMessage(rules).show()
+    }
+
+    private fun logout() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        val googleSignInClient =  GoogleSignIn.getClient(this, gso)
+        auth.signOut()
+        googleSignInClient.signOut()
+        moveToLoginActivity()
+    }
+
+    private fun moveToLoginActivity() {
+        val i = Intent(this, LoginActivity::class.java)
+        startActivity(i)
+        this.overridePendingTransition(0, 0)
     }
 
 }

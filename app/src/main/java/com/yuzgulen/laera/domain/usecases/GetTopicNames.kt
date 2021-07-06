@@ -1,7 +1,5 @@
 package com.yuzgulen.laera.domain.usecases
 
-import com.yuzgulen.laera.domain.models.QuizScores
-import com.yuzgulen.laera.services.ScoreService
 import com.yuzgulen.laera.services.TopicService
 import com.yuzgulen.laera.utils.ICallback
 

@@ -5,7 +5,6 @@ import android.content.ClipDescription
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.DragEvent
 import android.view.View
 import android.widget.Button
@@ -14,7 +13,6 @@ import com.yuzgulen.laera.R
 import com.yuzgulen.laera.algorithms.BinaryTree
 import com.yuzgulen.laera.algorithms.Node
 import com.yuzgulen.laera.utils.Colors
-import kotlinx.android.synthetic.main.tree_rotation_fragment.*
 
 
 class BinaryTreeGeneration {
@@ -40,7 +38,7 @@ class BinaryTreeGeneration {
         val startY = button1.top.toFloat()
         val stopX = button2.left.toFloat()
         val stopY = button2.bottom.toFloat()
-        canvas.setCoordinates(startX,startY, stopX,stopY, color)
+        canvas.setCoordinates(startX, startY, stopX, stopY, color)
     }
 
     fun drawEdgeOnRight(button1: TextView, button2: TextView, canvas: CanvasView, color: Int = Color.BLUE) {
@@ -50,8 +48,9 @@ class BinaryTreeGeneration {
         val stopY = button2.bottom.toFloat()
         canvas.setCoordinates(startX,startY, stopX,stopY, color)
     }
+
     private fun generateRandomNodeKey() : Int {
-        val key = (0..99).random()
+        val key = (1..99).random()
         if(!addedNodes.contains(key)) {
             addedNodes.add(key)
             return key
@@ -60,38 +59,41 @@ class BinaryTreeGeneration {
     }
 
     fun generateRandomTree() : Pair<MutableMap<String, Int>, BinaryTree> {
-        val root = generateRandomNodeKey()
+        val nodeKeys = mutableListOf<Int>()
+        for (i in 0 until 7) nodeKeys.add(generateRandomNodeKey())
+        nodeKeys.sort()
+        val root = nodeKeys[3]
         val nodeMap = mutableMapOf<String, Int>()
         nodeMap["root"] = root
         val bst = BinaryTree(Node(root))
         // left sub tree
         // root has left child => node2
-        val node2 = generateRandomNodeKey()
+        val node2 = nodeKeys[1]
         nodeMap["node2"] = node2
         bst.insertChildAtLeft(node2, root)
 
         // node2 has left child => node4
-        val node4 = generateRandomNodeKey()
+        val node4 = nodeKeys[0]
         nodeMap["node4"] = node4
         bst.insertChildAtLeft(node4, node2)
 
         // node2 has right child => node3
-        val node5 = generateRandomNodeKey()
+        val node5 = nodeKeys[2]
         nodeMap["node5"] = node5
         bst.insertChildAtRight(node5, node2)
 
         // right sub tree
         // root has right child => node3
-        val node3 = generateRandomNodeKey()
+        val node3 = nodeKeys[5]
         nodeMap["node3"] = node3
         bst.insertChildAtRight(node3, root)
         // node3 has left child => node6
-        val node6 = generateRandomNodeKey()
+        val node6 = nodeKeys[4]
         nodeMap["node6"] = node6
         bst.insertChildAtLeft(node6, node3)
 
         // node3 has right child => node7
-        val node7 = generateRandomNodeKey()
+        val node7 = nodeKeys[6]
         nodeMap["node7"] = node7
         bst.insertChildAtRight(node7, node3)
 
@@ -158,14 +160,13 @@ class BinaryTreeGeneration {
                 invalidate(v)
             }
 
-
             else -> {
                 false
             }
         }
     }
 
-    fun invalidate(v: View) : Boolean {
+    private fun invalidate(v: View) : Boolean {
         v.invalidate()
         return true
     }

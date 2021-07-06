@@ -1,9 +1,7 @@
 package com.yuzgulen.laera.domain.usecases
 
-import com.yuzgulen.laera.domain.models.ExerciseScores
 import com.yuzgulen.laera.domain.models.Feedback
 import com.yuzgulen.laera.services.FeedbackService
-import com.yuzgulen.laera.services.ScoreService
 import com.yuzgulen.laera.utils.ICallback
 
 class GetFeedback {

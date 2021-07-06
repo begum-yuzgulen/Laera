@@ -45,4 +45,8 @@ class ProgressService {
             .child(topicId).child("progress").setValue(progress.toString())
     }
 
+    fun resetProgress(uid: String) {
+        Firebase.database.reference.child("progress").child(uid).removeValue()
+    }
+
 }

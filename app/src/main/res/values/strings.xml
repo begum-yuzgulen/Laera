@@ -74,30 +74,21 @@
     <string name="answer3">Option 3</string>
     <string name="answer4">Option 4</string>
     <string name="submitLesson">Submit Lesson</string>
-    <string name="btTraversalInst">
-In order to correctly solve the exercise, you have to press on the nodes of the generated binary tree using the selected traversal order.
-By pressing on a node, it will appear under the binary tree, after the last pressed node. If you change your mind, you can press on the node from
-the area under the binary tree, which will result in deleting the node.
-    </string>
 
-    <string name="btRotationInst">
-In order to correctly solve the exercise, you have to drag the nodes into the drop areas and construct the rotated tree from the
-randomly generated binary tree on the top of the page.
-    </string>
-
-    <string name="redBlackTreeInst">
-In order to correctly solve the exercise, you have to identify the insertion case and perform the needed operation by dragging
-the nodes into the drop areas. Initially, the nodes that can be dragged are colored in the same color as in the generated binary tree. After dropping a node,
-you can click on it to change the node’s color.
-    </string>
-
-    <string name="arraySortingInst">
-In order to correctly solve the exercise, you have to press on the nodes of the generated binary tree using the selected traversal order.
-By pressing on a node, it will appear under the binary tree, after the last pressed node. If you change your mind, you can press on the node from
-the area under the binary tree, which will result in deleting the node.
-    </string>
 
     <string name="redBlackTreeInsertionCases">Insertion Cases</string>
     <string name="loginAbout">Learn practically about data structures!</string>
+    <string name="menu_logout">Logout</string>
+
+    <string name="about">
+"Developed by Begüm Yüzgülen
+\nLaera is an Android m-learning application, for data structures designed to be a tool of help for pupils and students.
+
+The application consists of two main parts:
+- the learning part, where the most popular data structures (e.g, linked lists, arrays, trees, graphs, etc.) are well explained;
+- the exercising part, giving the user the possibility to test their knowledge gathered in the learning part, by solving practical exercises, where they need to apply the properties for a particular data structure.
+
+Exercises, as well as quizzes, track the progress of the user, which can be seen in the Profile section in form of visual charts, showing the topics where the user is getting better score and the topics where the user is not performing as expected."
+    </string>
 
 </resources>

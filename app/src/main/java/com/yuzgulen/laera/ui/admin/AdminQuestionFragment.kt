@@ -16,10 +16,8 @@ import com.yuzgulen.laera.R
 import com.yuzgulen.laera.domain.models.Question
 import com.yuzgulen.laera.domain.models.Topic
 import com.yuzgulen.laera.domain.usecases.AddQuestion
-import com.yuzgulen.laera.domain.usecases.GetTopicNames
 import com.yuzgulen.laera.domain.usecases.GetTopics
 import com.yuzgulen.laera.utils.ICallback
-import com.yuzgulen.laera.utils.Strings
 import kotlinx.android.synthetic.main.fragment_admin_lesson.*
 import kotlinx.android.synthetic.main.fragment_admin_question.*
 

@@ -79,9 +79,14 @@ internal class CategoryAdapter(context: Context, private var categoryList: Array
                         )
                     )
                 }
+                Strings.get(R.string.leftRotation) -> {
+                    categoryView.findNavController().navigate(
+                        ExerciseFragmentDirections.actionNavExerciseToRightTreeRotation("left")
+                    )
+                }
                 Strings.get(R.string.rightRotation) -> {
                     categoryView.findNavController().navigate(
-                        ExerciseFragmentDirections.actionNavExerciseToRightTreeRotation()
+                        ExerciseFragmentDirections.actionNavExerciseToRightTreeRotation("right")
                     )
                 }
                 Strings.get(R.string.redBlackTreeInsertionCases) -> {

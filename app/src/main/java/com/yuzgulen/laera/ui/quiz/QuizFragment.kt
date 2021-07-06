@@ -1,9 +1,7 @@
 package com.yuzgulen.laera.ui.quiz
 
-import android.content.ContentValues.TAG
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.database.*
-import com.yuzgulen.laera.domain.models.Question
 
 import com.yuzgulen.laera.R
 import com.yuzgulen.laera.databinding.QuizFragmentBinding
@@ -26,62 +22,49 @@ import java.util.*
 class QuizFragment : Fragment() {
 
     private lateinit var viewModel: QuizViewModel
-    private lateinit var topic:String
-    val database = FirebaseDatabase.getInstance().reference
+    private lateinit var topic: String
+    private lateinit var topicId: String
     var scor : Int = 0
     val rng = Random()
     var generated = ArrayList<Int>()
-    fun loadQuestion(myRef: DatabaseReference, i : Int, binding:QuizFragmentBinding, inflater: LayoutInflater ){
+    fun loadQuestion(i : Int, binding:QuizFragmentBinding, inflater: LayoutInflater ){
         binding.textView3.text = "%d/10".format(i+1)
-        myRef.child(generated[i].toString()).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val q = dataSnapshot.getValue(Question::class.java)
-                if(i<9) {
-                    binding.question.text = q?.question
-                    binding.ans1.text = q?.ans1
-                    binding.ans2.text = q?.ans2
-                    binding.ans3.text = q?.ans3
-                    binding.ans4.text = q?.ans4
-                    binding.ans1.setOnClickListener {
-                        if (q?.ans1 == q?.correct)
-                            scor++
-                        loadQuestion(myRef, i + 1, binding, inflater)
-                    }
-                    binding.ans2.setOnClickListener {
-                        if (q?.ans2 == q?.correct) {
-                            scor++
-                        }
-                        loadQuestion(myRef, i + 1, binding, inflater)
-                    }
-                    binding.ans3.setOnClickListener {
-                        if (q?.ans3 == q?.correct)
-                            scor++
-                        loadQuestion(myRef, i + 1, binding, inflater)
-                    }
-                    binding.ans4.setOnClickListener {
-                        if (q?.ans4 == q?.correct)
-                            scor++
-                        loadQuestion(myRef, i + 1, binding, inflater)
-                    }
-                    binding.skipButton.setOnClickListener {
-                        loadQuestion(myRef, i + 1, binding, inflater)
-                    }
+        viewModel.getQuestion(topic, generated[i])
+        viewModel.question.observe(viewLifecycleOwner, { q ->
+            if(i<9) {
+                binding.question.text = q?.question
+                binding.ans1.text = q?.ans1
+                binding.ans2.text = q?.ans2
+                binding.ans3.text = q?.ans3
+                binding.ans4.text = q?.ans4
+                binding.ans1.setOnClickListener {
+                    if (q?.ans1 == q?.correct)
+                        scor++
+                    loadQuestion(i + 1, binding, inflater)
                 }
-                else{
-                    MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Quiz Finished")
-                    .setMessage("You have finished $topic quiz with a score of $scor/10.")
-                    .setPositiveButton("Go to lessons") { _, _ ->
-                        view?.findNavController()?.navigate(QuizFragmentDirections.actionQuizzFragmentToHomeFragment())
+                binding.ans2.setOnClickListener {
+                    if (q?.ans2 == q?.correct) {
+                        scor++
                     }
-                    .setNegativeButton("Try again") { _, _ ->
-                        view?.findNavController()?.navigate(QuizFragmentDirections.actionQuizzFragmentToQuizFragment(topic))
-                    }.show()
-                    return
+                    loadQuestion(i + 1, binding, inflater)
+                }
+                binding.ans3.setOnClickListener {
+                    if (q?.ans3 == q?.correct)
+                        scor++
+                    loadQuestion(i + 1, binding, inflater)
+                }
+                binding.ans4.setOnClickListener {
+                    if (q?.ans4 == q?.correct)
+                        scor++
+                    loadQuestion(i + 1, binding, inflater)
+                }
+                binding.skipButton.setOnClickListener {
+                    loadQuestion(i + 1, binding, inflater)
                 }
             }
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(TAG, "loadQuestion:onCancelled", error.toException())
+            else {
+                viewModel.addQuizScore(topicId, topic, scor)
+                quizFinishedDialog()
             }
         })
     }
@@ -93,6 +76,7 @@ class QuizFragment : Fragment() {
         val args = QuizFragmentArgs.fromBundle(requireArguments())
         binding.qCategory.text = args.selectedItem
         topic = args.selectedItem
+        topicId = args.topicId
         while (generated.size < 10) {
             val next = rng.nextInt(14)
             if(!generated.contains(next))
@@ -101,12 +85,11 @@ class QuizFragment : Fragment() {
         binding.loading.visibility = View.GONE
         binding.quizLayout.visibility = View.VISIBLE
         (activity as AppCompatActivity).supportActionBar?.title = "$topic Quiz"
-        val myRef = database.child("questions").child(topic)
         HasQuestions.getInstance().execute(topic, object :
             ICallback<Boolean> {
             override fun onCallback(value: Boolean) {
                 if (value) {
-                    loadQuestion(myRef, 0,binding, inflater)
+                    loadQuestion(0,binding, inflater)
                 } else {
                     Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()
                 }
@@ -120,6 +103,21 @@ class QuizFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(QuizViewModel::class.java)
 
+    }
+
+    private fun quizFinishedDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Quiz Finished")
+            .setMessage("You have finished $topic quiz with a score of $scor/10.")
+            .setPositiveButton("Go to lessons") { dialog, _ ->
+                dialog.dismiss()
+                view?.findNavController()?.navigate(QuizFragmentDirections.actionQuizzFragmentToHomeFragment())
+
+            }
+            .setNegativeButton("Try again") { dialog, _ ->
+                dialog.dismiss()
+                view?.findNavController()?.navigate(QuizFragmentDirections.actionQuizzFragmentToQuizFragment(topic, topicId))
+            }.show()
     }
 
 }

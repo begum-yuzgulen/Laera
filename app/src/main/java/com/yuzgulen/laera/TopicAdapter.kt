@@ -15,7 +15,7 @@ import com.yuzgulen.laera.ui.home.HomeFragmentDirections
 import com.yuzgulen.laera.utils.Colors
 import kotlinx.android.synthetic.main.topics_entry.view.*
 import com.yuzgulen.laera.domain.models.Topic
-import com.yuzgulen.laera.domain.usecases.HasQuestions
+import com.yuzgulen.laera.domain.usecases.HasChapters
 import com.yuzgulen.laera.utils.App
 import com.yuzgulen.laera.utils.ICallback
 import kotlin.collections.ArrayList
@@ -40,7 +40,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
         val quizButton: Button = view.quizButton
         val progressButton: Button = view.progressButton
     }
-    private var itemsCopy = ArrayList(dataSet)
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.topics_entry, viewGroup, false)
@@ -79,7 +79,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
         viewHolder.itemView.setOnClickListener {
             searchView.clearFocus()
             searchView.removeAllViews()
-            HasQuestions.getInstance().execute(filteredDataSet[position].title!!, object : ICallback<Boolean>{
+            HasChapters.getInstance().execute(filteredDataSet[position].id!!, object : ICallback<Boolean>{
                 override fun onCallback(value: Boolean) {
                     if (value) {
                         navController.navigate(
@@ -87,7 +87,7 @@ class TopicAdapter(private val dataSet: ArrayList<Topic>,
                                 filteredDataSet[position].nrChapters!!)
                         )
                     } else {
-                        Toast.makeText(App.instance.applicationContext, "This topic has no questions available!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(App.instance.applicationContext, "This topic's lessons are not currently available!", Toast.LENGTH_LONG).show()
                     }
                 }
 

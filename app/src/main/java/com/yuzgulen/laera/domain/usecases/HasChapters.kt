@@ -3,18 +3,18 @@ package com.yuzgulen.laera.domain.usecases
 import com.yuzgulen.laera.services.TopicService
 import com.yuzgulen.laera.utils.ICallback
 
-class HasQuestions {
+class HasChapters {
     companion object {
-        private var INSTANCE: HasQuestions? = null
-        fun getInstance(): HasQuestions {
+        private var INSTANCE: HasChapters? = null
+        fun getInstance(): HasChapters {
             if (INSTANCE == null) {
-                INSTANCE = HasQuestions()
+                INSTANCE = HasChapters()
             }
             return INSTANCE!!
         }
     }
 
     fun execute(topicId: String, callback: ICallback<Boolean>) : Any {
-        return TopicService.getInstance().hasQuestions(topicId, callback)
+        return TopicService.getInstance().hasChapters(topicId, callback)
     }
 }

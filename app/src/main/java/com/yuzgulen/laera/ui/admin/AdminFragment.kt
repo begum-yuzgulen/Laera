@@ -13,10 +13,6 @@ import kotlinx.android.synthetic.main.fragment_exercise.*
 
 class AdminFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AdminFragment()
-    }
-
     private lateinit var viewModel: AdminViewModel
 
     override fun onCreateView(

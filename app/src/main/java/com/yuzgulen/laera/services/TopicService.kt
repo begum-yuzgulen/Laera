@@ -82,7 +82,7 @@ class TopicService {
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.w(TAG, "getTopicChapters:onCancelled", databaseError.toException())
+                Log.w(TAG, "hasQuestions:onCancelled", databaseError.toException())
             }
         })
     }
@@ -107,5 +107,18 @@ class TopicService {
 
     fun addQuestion(topicId: String, question: Question) {
         Firebase.database.reference.child("questions").child(topicId).push().setValue(question)
+    }
+
+    fun hasChapters(topicId: String, callback: ICallback<Boolean>) {
+        Firebase.database.reference.child("chapters").child(topicId).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                callback.onCallback(dataSnapshot.children.count() > 0)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.w(TAG, "hasChapters:onCancelled", databaseError.toException())
+            }
+        })
     }
 }

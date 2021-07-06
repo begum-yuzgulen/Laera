@@ -20,8 +20,8 @@ data class QuizScore (
     }
 
     override fun toString(): String {
-        if (uid == null)
-            return "Score: " + score.toString() + " | " +"Date: " + date
+        if (date != null)
+            return "Score: " + score.toString() + " | " +" Date: " + date
         return uid + " - " + score.toString()
     }
 }

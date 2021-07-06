@@ -20,6 +20,6 @@ class RedBlackTreeViewModel : ViewModel() {
     }
 
     fun updateScores(finishTime: String, success: Boolean = true) {
-        UpdateScore().execute("rb-tree-recolor", "Red Black Tree Recoloring", finishTime, success)
+        UpdateScore.getInstance().execute("rb-tree-recolor", "Red Black Tree Recoloring", finishTime, success)
     }
 }

@@ -1,2 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="rulesList">
+        <item>
+    "For learning section:
+    1.	Choose a lesson you want to learn
+    2.	Read a chapter and then click on Next to load the following chapter
+    3.	After completing all 5 chapters, take the quiz by pressing on `Take quiz` button"
+        </item>
+        <item>
+    "Quiz:
+ &#8226; The quiz consists of 10 questions, each questions having one correct answer out of 4. If the user doesn’t know the answer, he can choose to skip it.
+ &#8226; Questions are random and the user can play the quiz multiple times.
+ &#8226; At the top right corner you can see the question number.
+ &#8226; If you press Skip, you don’t gain any points."
+        </item>
+        <item>
+    "Binary Tree Traversal:
+In order to correctly solve the exercise, the you have to press on the nodes of the generated binary tree using the selected traversal order.
+By pressing on a node, it will appear under the binary tree, after the last pressed node. If the user changes his mind, he can press on the node from the area under the binary tree, which will
+result in deleting the node. After pressing on each node and completing the traversal, the user can check if the order is correct, by pressing ’Submit’. If the order is
+not correct, the first wrong selected node will be highlighted in red."
+        </item>
+        <item>
+    "Binary Tree Rotation:
+In order to correctly solve the exercise, the user has to identify the insertion case and perform the needed operation by dragging
+the nodes into the drop areas. After dropping a node, the edge between adjacent dropped nodes will be drawn automatically.
+After performing all the steps, the user can check if the constructed binary tree is the desired one, by pressing ’Submit’."
+        </item>
+        <item>
+    "Red Black Trees:
+In order to correctly solve the exercise, the user has to identify the insertion case and perform the needed operation by dragging
+the nodes into the drop areas. Initially, the nodes that can be dragged are colored in the same color as in the generated
+binary tree. After dropping a node, the user can click on it to change the node’s color. After performing all the steps, the user
+can check if the constructed red-black tree is the desired one, by pressing ’Submit’. Pressing ’Submit’ will update the success
+rate for the exercise and add the finish time in user’s profile."
+        </item>
+        <item>
+        "Array Sorting:
+ &#8226; After pressing on the wanted sorting algorithm, you have to press on the ‘Next’ button from the bottom right corner in order to start the exercise.
+ &#8226; An array of length 5 is generated. The user has to sort this array step-by-step using the sorting algorithm you have chosen.
+ &#8226; The box labeled with “1” is empty. When the user presses on a number from the second box, that box appears in the first box. After filling the first box with 5 numbers, an array with pressed values is created and evaluated to the expected output. If the array entered by the user is the same with the next step of the algorithm, the next iteration starts, if not, the first wrong number is colored in red.
+ &#8226; The button from the top-left corner generates a new array and the button from middle bottom deletes an entry."
+        </item>
+    </string-array>
+</resources>

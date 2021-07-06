@@ -38,7 +38,7 @@ class SortingViewModel : ViewModel() {
     }
 
     fun updateScores(finishTime: String, success: Boolean = true) {
-        UpdateScore().execute("sorting", "Array Sorting", finishTime, success)
+        UpdateScore.getInstance().execute("sorting", "Array Sorting", finishTime, success)
     }
 
 }
